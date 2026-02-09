@@ -50,6 +50,9 @@ export default function Login() {
                 <p style={{ marginTop: '2rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                     Versió: {new Date().toLocaleString()} (Verificació Desplegament)
                 </p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--danger)' }}>
+                    Auth Domain detectat: {import.meta.env.VITE_AUTH_DOMAIN || "NO DETECTAT"}
+                </p>
 
             </div>
         </div>
