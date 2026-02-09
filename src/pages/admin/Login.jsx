@@ -46,6 +46,11 @@ export default function Login() {
                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style={{ width: '20px' }} />
                     Entrar amb Google
                 </button>
+
+                <p style={{ marginTop: '2rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Versió: {new Date().toLocaleString()} (Verificació Desplegament)
+                </p>
+
             </div>
         </div>
     );
