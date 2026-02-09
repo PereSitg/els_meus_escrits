@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
     }
 
     // TODO: Replace with your actual email to restrict access
-    const ALLOWED_EMAIL = "perebadia1@gmail.com"; // Change this to your email!
+    const ALLOWED_EMAIL = "pbadialorenz@gmail.com"; // Change this to your email!
 
     if (currentUser.email !== ALLOWED_EMAIL && ALLOWED_EMAIL !== "perebadia1@gmail.com") {
         // If you haven't set up the email yet, we'll allow access but log a warning
