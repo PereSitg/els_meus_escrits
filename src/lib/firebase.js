@@ -3,11 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+const authDomain = import.meta.env.VITE_AUTH_DOMAIN;
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY,
-    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    authDomain: (authDomain && authDomain.includes('.')) ? authDomain : "elsmeusescrits-714b8.firebaseapp.com",
+    projectId: import.meta.env.VITE_PROJECT_ID || "elsmeusescrits-714b8",
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET || "elsmeusescrits-714b8.firebasestorage.app",
     messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
     appId: import.meta.env.VITE_APP_ID
 };

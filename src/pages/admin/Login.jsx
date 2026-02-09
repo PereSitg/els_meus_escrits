@@ -47,6 +47,11 @@ export default function Login() {
                     Entrar amb Google
                 </button>
 
+                <p style={{ marginTop: '2rem', fontSize: '0.7rem', color: 'var(--text-secondary)', opacity: 0.5 }}>
+                    ID: V2-FIX-DOMAIN
+                </p>
+
+
             </div>
         </div>
     );
