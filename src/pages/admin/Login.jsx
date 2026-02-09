@@ -47,19 +47,6 @@ export default function Login() {
                     Entrar amb Google
                 </button>
 
-                <div style={{ marginTop: '2rem', textAlign: 'left', fontSize: '0.7rem', background: '#333', padding: '0.5rem', borderRadius: '0.5rem', color: '#ccc' }}>
-                    <p><strong>Configuració detectada:</strong></p>
-                    <pre style={{ overflowX: 'auto' }}>
-                        {JSON.stringify(
-                            Object.fromEntries(
-                                Object.entries(import.meta.env).filter(([key]) => key.startsWith('VITE_'))
-                            ),
-                            null,
-                            2
-                        )}
-                    </pre>
-                </div>
-
             </div>
         </div>
     );
