@@ -48,11 +48,11 @@ export default function Login() {
                 </button>
 
                 <p style={{ marginTop: '2rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                    Versió: {new Date().toLocaleString()} (Verificació Desplegament)
+                    Sistema actiu: {new Date().toLocaleDateString()}
                 </p>
-                <p style={{ fontSize: '0.8rem', color: 'var(--danger)' }}>
-                    Auth Domain detectat: {import.meta.env.VITE_AUTH_DOMAIN || "NO DETECTAT"}
-                </p>
+                <div style={{ fontSize: '0.7rem', opacity: 0.5 }}>
+                    ID: {import.meta.env.VITE_AUTH_DOMAIN ? "Configurat" : "Pendent"}
+                </div>
 
             </div>
         </div>
