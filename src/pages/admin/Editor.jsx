@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,6 +24,7 @@ export default function PostEditor() {
     const [image, setImage] = useState('');
     const [content, setContent] = useState('');
     const [socialSummary, setSocialSummary] = useState('');
+    const [customDate, setCustomDate] = useState(new Date().toISOString().split('T')[0]);
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
@@ -54,6 +55,9 @@ export default function PostEditor() {
                         setImage(data.image || '');
                         setContent(data.content || '');
                         setSocialSummary(data.socialSummary || '');
+                        if (data.createdAt?.toDate) {
+                            setCustomDate(data.createdAt.toDate().toISOString().split('T')[0]);
+                        }
                     }
                 } catch (error) {
                     console.error("Error fetching post:", error);
@@ -71,6 +75,7 @@ export default function PostEditor() {
         setImage('');
         setContent('');
         setSocialSummary('');
+        setCustomDate(new Date().toISOString().split('T')[0]);
         setPublishProgress(0);
         setPublishFinished(false);
         setShowModal(false);
@@ -202,9 +207,12 @@ export default function PostEditor() {
             };
 
             if (isEditing) {
+                // Si editem, mantenim o actualitzem la data
+                postData.createdAt = Timestamp.fromDate(new Date(customDate));
                 await updateDoc(doc(db, 'posts', id), postData);
             } else {
-                postData.createdAt = serverTimestamp();
+                // Si és nou, usem la data triada
+                postData.createdAt = Timestamp.fromDate(new Date(customDate));
                 await addDoc(collection(db, 'posts'), postData);
             }
 
@@ -281,14 +289,26 @@ export default function PostEditor() {
                     </div>
 
                     <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Categoria</label>
-                        <select
-                            value={category}
-                            onChange={e => setCategory(e.target.value)}
-                            style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem', height: 'fit-content' }}
-                        >
-                            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                        </select>
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Categoria</label>
+                            <select
+                                value={category}
+                                onChange={e => setCategory(e.target.value)}
+                                style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
+                            >
+                                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Data de l'Escrit</label>
+                            <input
+                                type="date"
+                                value={customDate}
+                                onChange={e => setCustomDate(e.target.value)}
+                                style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
+                            />
+                        </div>
                     </div>
                 </div>
 
