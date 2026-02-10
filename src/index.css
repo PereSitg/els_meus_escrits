@@ -102,6 +102,22 @@ a {
   color: white;
 }
 
+/* Glassmorphism */
+.glass {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Separator */
+.nav-separator {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 1rem;
+}
+
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
@@ -109,5 +125,55 @@ a {
 
   .mobile-menu-btn {
     display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
+
+  .nav-separator {
+    width: 100%;
+    height: 1px;
+    margin: 1rem 0;
+  }
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.lang-switcher button,
+.mobile-lang-switcher button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lang-switcher button:hover,
+.mobile-lang-switcher button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.lang-switcher button.active,
+.mobile-lang-switcher button.active {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+}
+
+.mobile-lang-switcher {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.5rem;
 }

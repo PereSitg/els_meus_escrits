@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         async function fetchPosts() {
@@ -43,24 +45,24 @@ export default function Home() {
                     transition={{ duration: 0.8 }}
                     className="container"
                 >
-                    <h1 style={{ fontSize: '4rem', marginBottom: '1rem' }}>Els meus escrits</h1>
-                    <p style={{ fontSize: '1.25rem', opacity: 0.9, maxWidth: '600px', margin: '0 auto' }}>
-                        Un espai per compartir reflexions, històries i l'actualitat de Sitges.
+                    <h1 style={{ fontSize: '4.5rem', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>{t('hero.title')}</h1>
+                    <p style={{ fontSize: '1.4rem', opacity: 0.9, maxWidth: '700px', margin: '0 auto', lineHeight: '1.6' }}>
+                        {t('hero.subtitle')}
                     </p>
                 </motion.div>
             </section>
 
             <div className="container" style={{ paddingBottom: '4rem' }}>
                 <h2 style={{ fontSize: '2rem', marginBottom: '2rem', borderLeft: '4px solid var(--accent-primary)', paddingLeft: '1rem' }}>
-                    Darreres publicacions
+                    {t('home.latest_posts')}
                 </h2>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                     {loading ? (
-                        <div style={{ colSpan: '3', textAlign: 'center', color: 'var(--text-secondary)' }}>Carregant publicacions...</div>
+                        <div style={{ colSpan: '3', textAlign: 'center', color: 'var(--text-secondary)' }}>{t('home.loading')}</div>
                     ) : posts.length === 0 ? (
                         <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '2rem', background: 'var(--bg-secondary)', borderRadius: '1rem' }}>
-                            <p>Encara no hi ha publicacions. Accedeix al panell d'administració per crear-ne una.</p>
+                            <p>{t('home.no_posts')}</p>
                         </div>
                     ) : (
                         posts.map((post, index) => (
@@ -102,7 +104,7 @@ export default function Home() {
                                         alignItems: 'center',
                                         gap: '0.5rem'
                                     }}>
-                                        Llegir més &rarr;
+                                        {t('home.read_more')} &rarr;
                                     </Link>
                                 </div>
                             </motion.article>

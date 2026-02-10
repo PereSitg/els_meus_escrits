@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Pages
 import Home from './pages/Home';
 import Category from './pages/Category';
+import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
@@ -19,6 +20,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="projects" element={<Projects />} />
             <Route path="category/:slug" element={<Category />} />
             <Route path="contact" element={<Contact />} />
           </Route>

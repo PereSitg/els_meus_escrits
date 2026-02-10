@@ -1,7 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
+import { useTranslation } from 'react-i18next';
 
 export default function Layout() {
+    const { t } = useTranslation();
     return (
         <div className="app-container">
             <Header />
@@ -15,7 +17,7 @@ export default function Layout() {
                 borderTop: '1px solid var(--bg-secondary)',
                 marginTop: '4rem'
             }}>
-                <p>&copy; {new Date().getFullYear()} Els meus escrits. Fet amb ❤️ des de Sitges.</p>
+                <p>&copy; {new Date().getFullYear()} Pere Badia i Lorenz. {t('footer.made_with')}</p>
             </footer>
         </div>
     );
