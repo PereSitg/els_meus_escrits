@@ -40,9 +40,11 @@ export default function PostDetail() {
     // Processar el contingut en paràgrafs
     const paragraphs = useMemo(() => {
         if (!post?.content) return [];
+        // Detectem paràgrafs tant si hi ha un com dos salts de línia per donar aire
         return post.content
-            .split(/\n\s*\n/) // Divideix per doble salt de línia o espaiat
-            .filter(p => p.trim().length > 0);
+            .split(/\n+/)
+            .map(p => p.trim())
+            .filter(p => p.length > 0);
     }, [post?.content]);
 
     if (loading) {
@@ -63,7 +65,7 @@ export default function PostDetail() {
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite'
                 }}></div>
-                <p style={{ color: 'var(--text-secondary)' }}>Preparant l'article per a tu...</p>
+                <p style={{ color: 'var(--text-secondary)' }}>Preparant la teva lectura...</p>
             </div>
         );
     }
@@ -156,7 +158,7 @@ export default function PostDetail() {
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                                 <Clock size={20} className="text-accent" />
-                                {readingTime} minuts de lectura
+                                {readingTime} {readingTime === 1 ? 'minut' : 'minuts'} de lectura
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                                 <Tag size={20} className="text-accent" />
@@ -173,7 +175,7 @@ export default function PostDetail() {
                 paddingBottom: '10rem',
                 position: 'relative'
             }}>
-                <div style={{ maxWidth: '780px', margin: '0 auto' }}>
+                <div style={{ maxWidth: '650px', margin: '0 auto' }}>
                     <motion.div
                         initial={{ y: 30, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
@@ -181,18 +183,18 @@ export default function PostDetail() {
                         viewport={{ once: true }}
                         className="article-body"
                         style={{
-                            fontSize: '1.35rem',
-                            lineHeight: '1.9',
-                            color: 'rgba(255,255,255,0.9)',
+                            fontSize: '1.45rem',
+                            lineHeight: '2.2',
+                            color: 'rgba(255,255,255,0.95)',
                             fontFamily: '"Outfit", sans-serif',
-                            fontWeight: '300'
+                            fontWeight: '400',
+                            letterSpacing: '0.02em'
                         }}
                     >
                         {paragraphs.map((para, i) => (
                             <p key={i} style={{
-                                marginBottom: '2.5rem',
-                                display: 'block',
-                                letterSpacing: '0.01em'
+                                marginBottom: '3.5rem',
+                                display: 'block'
                             }}>
                                 {para}
                             </p>
