@@ -69,8 +69,9 @@ export default function Dashboard() {
         <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
+                    <div style={{ background: 'red', color: 'white', padding: '5px', fontSize: '10px', marginBottom: '10px' }}>DEBUG: Dashboard Component Rendered</div>
                     <h1>Tauler d'Administració</h1>
-                    <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser.email}</p>
+                    <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser?.email || 'Usuari'}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <Link to="/admin/new" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -103,7 +104,7 @@ export default function Dashboard() {
                             <tbody>
                                 {posts.map(post => (
                                     <tr key={post.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }}>
-                                        <td style={{ padding: '1rem 1.5rem', fontWeight: '500' }}>{post.title}</td>
+                                        <td style={{ padding: '1rem 1.5rem', fontWeight: '500' }}>{post.title || 'Sense títol'}</td>
                                         <td style={{ padding: '1rem 1.5rem' }}>
                                             <span style={{
                                                 padding: '0.25rem 0.75rem',
@@ -112,11 +113,11 @@ export default function Dashboard() {
                                                 borderRadius: '1rem',
                                                 fontSize: '0.8rem'
                                             }}>
-                                                {post.category}
+                                                {post.category || 'Altres'}
                                             </span>
                                         </td>
                                         <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                            {post.createdAt?.toDate().toLocaleDateString('ca-ES')}
+                                            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('ca-ES') : 'Sense data'}
                                         </td>
                                         <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
                                             <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
