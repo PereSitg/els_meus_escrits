@@ -69,7 +69,6 @@ export default function Dashboard() {
         <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <div style={{ background: 'red', color: 'white', padding: '5px', fontSize: '10px', marginBottom: '10px' }}>DEBUG: Dashboard Component Rendered</div>
                     <h1>Tauler d'Administració</h1>
                     <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser?.email || 'Usuari'}</p>
                 </div>
