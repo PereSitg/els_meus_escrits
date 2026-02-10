@@ -43,6 +43,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/edit/:id"
+            element={
+              <ProtectedRoute>
+                <Editor />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </AuthProvider>

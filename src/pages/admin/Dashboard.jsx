@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
+import { Edit2, Trash2, Plus, LogOut, ChevronRight } from 'lucide-react';
 
 export default function Dashboard() {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -15,9 +17,23 @@ export default function Dashboard() {
             return;
         }
 
-        // Fetch posts (placeholder logic until we have real data)
-        // const fetchPosts = async () => { ... }
-        // setPosts([...]); 
+        const fetchPosts = async () => {
+            setLoading(true);
+            try {
+                const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                const postsData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setPosts(postsData);
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+            setLoading(false);
+        };
+
+        fetchPosts();
     }, [currentUser, navigate]);
 
     async function handleLogout() {
@@ -29,23 +45,95 @@ export default function Dashboard() {
         }
     }
 
+    async function handleDelete(id) {
+        if (window.confirm('Estàs segur que vols eliminar aquesta publicació?')) {
+            try {
+                await deleteDoc(doc(db, 'posts', id));
+                setPosts(posts.filter(post => post.id !== id));
+            } catch (error) {
+                console.error("Error deleting post:", error);
+                alert('Error al eliminar la publicació');
+            }
+        }
+    }
+
     return (
-        <div className="container" style={{ paddingTop: '2rem' }}>
+        <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h1>Dashboard</h1>
+                <div>
+                    <h1>Tauler d'Administració</h1>
+                    <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser.email}</p>
+                </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <Link to="/admin/new" className="btn btn-primary">Nova Publicació</Link>
-                    <button onClick={handleLogout} className="btn" style={{ border: '1px solid var(--danger)', color: 'var(--danger)' }}>
-                        Sortir
+                    <Link to="/admin/new" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Plus size={18} /> Nova Publicació
+                    </Link>
+                    <button onClick={handleLogout} className="btn" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--danger)', color: 'var(--danger)' }}>
+                        <LogOut size={18} /> Sortir
                     </button>
                 </div>
             </div>
 
-            <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', padding: '1rem' }}>
-                <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '2rem' }}>
-                    Encara no hi ha publicacions.
-                </p>
-                {/* List of posts will go here */}
+            <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
+                {loading ? (
+                    <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '4rem' }}>Carregant publicacions...</p>
+                ) : posts.length === 0 ? (
+                    <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '4rem' }}>
+                        Encara no hi ha publicacions.
+                    </p>
+                ) : (
+                    <div style={{ width: '100%', overflowX: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}>
+                                    <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Títol</th>
+                                    <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Categoria</th>
+                                    <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Data</th>
+                                    <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'right' }}>Accions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {posts.map(post => (
+                                    <tr key={post.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }}>
+                                        <td style={{ padding: '1rem 1.5rem', fontWeight: '500' }}>{post.title}</td>
+                                        <td style={{ padding: '1rem 1.5rem' }}>
+                                            <span style={{
+                                                padding: '0.25rem 0.75rem',
+                                                background: 'rgba(59, 130, 246, 0.1)',
+                                                color: 'var(--accent-primary)',
+                                                borderRadius: '1rem',
+                                                fontSize: '0.8rem'
+                                            }}>
+                                                {post.category}
+                                            </span>
+                                        </td>
+                                        <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                                            {post.createdAt?.toDate().toLocaleDateString('ca-ES')}
+                                        </td>
+                                        <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
+                                            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                                <button
+                                                    onClick={() => navigate(`/admin/edit/${post.id}`)}
+                                                    style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', borderRadius: '0.5rem', cursor: 'pointer' }}
+                                                    title="Editar"
+                                                >
+                                                    <Edit2 size={18} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(post.id)}
+                                                    style={{ padding: '0.5rem', background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: '#ef4444', borderRadius: '0.5rem', cursor: 'pointer' }}
+                                                    title="Eliminar"
+                                                >
+                                                    <Trash2 size={18} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     );

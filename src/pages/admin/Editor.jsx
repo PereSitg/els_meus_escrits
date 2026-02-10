@@ -1,16 +1,23 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../../lib/firebase';
-import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
+
+// Cloudinary Config (From .env)
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 // Configure PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 export default function PostEditor() {
+    const { id } = useParams();
+    const isEditing = !!id;
+
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
     const [category, setCategory] = useState('Sitges');
@@ -21,11 +28,58 @@ export default function PostEditor() {
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
 
+    // Success Modal States
+    const [showModal, setShowModal] = useState(false);
+    const [publishProgress, setPublishProgress] = useState(0);
+    const [publishFinished, setPublishFinished] = useState(false);
+
     const fileInputRef = useRef(null);
     const imageInputRef = useRef(null);
     const navigate = useNavigate();
 
     const categories = ['Projectes', 'Sitges', 'Ecos de Sociedad', 'Altres'];
+
+    // --- Fetch Data for Editing ---
+    useEffect(() => {
+        if (isEditing) {
+            const fetchPost = async () => {
+                setLoading(true);
+                try {
+                    const docSnap = await getDoc(doc(db, 'posts', id));
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        setTitle(data.title || '');
+                        setSubtitle(data.subtitle || '');
+                        setCategory(data.category || 'Sitges');
+                        setImage(data.image || '');
+                        setContent(data.content || '');
+                        setSocialSummary(data.socialSummary || '');
+                    }
+                } catch (error) {
+                    console.error("Error fetching post:", error);
+                }
+                setLoading(false);
+            };
+            fetchPost();
+        }
+    }, [id, isEditing]);
+
+    const resetForm = () => {
+        setTitle('');
+        setSubtitle('');
+        setCategory('Sitges');
+        setImage('');
+        setContent('');
+        setSocialSummary('');
+        setPublishProgress(0);
+        setPublishFinished(false);
+        setShowModal(false);
+        if (!isEditing) {
+            navigate('/admin/new');
+        } else {
+            navigate('/admin/dashboard');
+        }
+    };
 
     // --- Document Parsing ---
     const handleDocUpload = async (e) => {
@@ -70,22 +124,41 @@ export default function PostEditor() {
         }
     };
 
-    // --- Image Upload ---
+    // --- Image Upload (CLOUDINARY) ---
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        setUploadProgress('Pujant imatge...');
+        if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+            alert("Falta configurar les claus de Cloudinary al fitxer .env (VITE_CLOUDINARY_CLOUD_NAME i VITE_CLOUDINARY_UPLOAD_PRESET)");
+            return;
+        }
+
+        setUploadProgress('Pujant imatge a Cloudinary...');
         try {
-            const storageRef = ref(storage, `images/posts/${Date.now()}_${file.name}`);
-            await uploadBytes(storageRef, file);
-            const url = await getDownloadURL(storageRef);
-            setImage(url);
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Error en la pujada a Cloudinary');
+            }
+
+            const data = await response.json();
+            setImage(data.secure_url);
             setUploadProgress('Imatge pujada correctament!');
             setTimeout(() => setUploadProgress(null), 3000);
         } catch (error) {
             console.error("Error uploading image:", error);
-            alert('Error al pujar la imatge');
+            alert(`Error al pujar la imatge: ${error.message}`);
             setUploadProgress(null);
         }
     };
@@ -94,8 +167,6 @@ export default function PostEditor() {
     const handleAICorrect = async () => {
         if (!content) return;
         setIsCorrecting(true);
-        // En una implementació real, fariem un crida a OpenAI/Gemini aquí
-        // Per ara, simulem una "neteja" d'espais i una petita espera
         setTimeout(() => {
             const cleaned = content.replace(/\s+/g, ' ').trim();
             setContent(cleaned);
@@ -107,21 +178,47 @@ export default function PostEditor() {
     async function handleSubmit(e) {
         e.preventDefault();
         setLoading(true);
+        setShowModal(true);
+        setPublishProgress(0);
+        setPublishFinished(false);
+
+        // Progress simulation
+        const interval = setInterval(() => {
+            setPublishProgress(prev => {
+                if (prev >= 90) {
+                    clearInterval(interval);
+                    return 90;
+                }
+                return prev + 10;
+            });
+        }, 100);
 
         try {
-            await addDoc(collection(db, 'posts'), {
+            const postData = {
                 title,
-                subtitle,
+                subtitle: subtitle || '',
                 category,
                 image,
                 content,
                 socialSummary: socialSummary || content.substring(0, 160),
-                createdAt: serverTimestamp()
-            });
-            navigate('/admin/dashboard');
+                updatedAt: serverTimestamp()
+            };
+
+            if (isEditing) {
+                await updateDoc(doc(db, 'posts', id), postData);
+            } else {
+                postData.createdAt = serverTimestamp();
+                await addDoc(collection(db, 'posts'), postData);
+            }
+
+            clearInterval(interval);
+            setPublishProgress(100);
+            setTimeout(() => setPublishFinished(true), 500);
         } catch (error) {
-            console.error("Error adding document: ", error);
-            alert('Error al guardar el post');
+            clearInterval(interval);
+            setShowModal(false);
+            console.error("Error saving document: ", error);
+            alert(`Error al guardar: ${error.message}`);
         }
 
         setLoading(false);
@@ -130,7 +227,7 @@ export default function PostEditor() {
     return (
         <div className="container" style={{ paddingTop: '2rem', maxWidth: '900px', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h1>Nova Publicació</h1>
+                <h1>{isEditing ? 'Editar Publicació' : 'Nova Publicació'}</h1>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <input
                         type="file"
@@ -163,7 +260,6 @@ export default function PostEditor() {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem' }}>
-                    {/* Main Fields */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <div>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Títol</label>
@@ -187,7 +283,6 @@ export default function PostEditor() {
                         </div>
                     </div>
 
-                    {/* Category Selector */}
                     <div>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Categoria</label>
                         <select
@@ -200,9 +295,8 @@ export default function PostEditor() {
                     </div>
                 </div>
 
-                {/* Hero Image Section */}
                 <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '0.75rem', border: '1px dashed rgba(255,255,255,0.1)' }}>
-                    <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 'bold' }}>Imatge de Portada (Recomanat: 1600x900px)</label>
+                    <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 'bold' }}>Imatge de Portada (Via Cloudinary)</label>
                     <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
                         <div
                             onClick={() => imageInputRef.current.click()}
@@ -238,7 +332,7 @@ export default function PostEditor() {
                                 onChange={handleImageUpload}
                             />
                             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                                Aquesta imatge es farà servir com a capçalera de l'article i també a les xarxes socials.
+                                La imatge es pujarà a Cloudinary i s'estalviarà a la base de dades.
                             </p>
                             {uploadProgress && (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-primary)', fontSize: '0.9rem' }}>
@@ -249,7 +343,6 @@ export default function PostEditor() {
                     </div>
                 </div>
 
-                {/* Content Area */}
                 <div>
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Contingut de l'Article</label>
                     <textarea
@@ -262,7 +355,6 @@ export default function PostEditor() {
                     ></textarea>
                 </div>
 
-                {/* XXSS Section */}
                 <div style={{ padding: '1.5rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
                         <Share2 size={20} />
@@ -292,10 +384,86 @@ export default function PostEditor() {
                         Cancel·lar
                     </button>
                     <button type="submit" disabled={loading} className="btn btn-primary" style={{ padding: '0.75rem 2.5rem' }}>
-                        {loading ? 'Publicant...' : 'Publicar Article'}
+                        {loading ? 'Processant...' : (isEditing ? 'Desar Canvis' : 'Publicar Article')}
                     </button>
                 </div>
             </form>
+
+            <AnimatePresence>
+                {showModal && (
+                    <div style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'rgba(0,0,0,0.8)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 2000,
+                        backdropFilter: 'blur(5px)'
+                    }}>
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            style={{
+                                background: 'var(--bg-secondary)',
+                                padding: '3rem',
+                                borderRadius: '1.5rem',
+                                maxWidth: '500px',
+                                width: '90%',
+                                textAlign: 'center',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                            }}
+                        >
+                            {!publishFinished ? (
+                                <>
+                                    <h2 style={{ marginBottom: '1.5rem' }}>{isEditing ? 'Actualitzant...' : 'Publicant article...'}</h2>
+                                    <div style={{
+                                        width: '100%',
+                                        height: '10px',
+                                        background: 'rgba(255,255,255,0.1)',
+                                        borderRadius: '5px',
+                                        overflow: 'hidden',
+                                        marginBottom: '1rem'
+                                    }}>
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${publishProgress}%` }}
+                                            style={{
+                                                height: '100%',
+                                                background: 'var(--accent-primary)',
+                                                boxShadow: '0 0 15px var(--accent-glow)'
+                                            }}
+                                        />
+                                    </div>
+                                    <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>
+                                        {publishProgress}%
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <CheckCircle2 size={64} color="#10b981" style={{ marginBottom: '1.5rem' }} />
+                                    <h2 style={{ marginBottom: '1rem' }}>{isEditing ? 'Actualitzat!' : 'Entrada publicada!'}</h2>
+                                    <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+                                        L'article s'ha guardat correctament a la base de dades.
+                                    </p>
+                                    <button
+                                        onClick={resetForm}
+                                        className="btn btn-primary"
+                                        style={{ padding: '0.75rem 3rem', width: '100%' }}
+                                    >
+                                        Tancar i {isEditing ? 'Tornar' : 'Netejar'}
+                                    </button>
+                                </>
+                            )}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
