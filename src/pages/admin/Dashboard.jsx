@@ -20,13 +20,21 @@ export default function Dashboard() {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
-                const querySnapshot = await getDocs(q);
+                // Simplifiquem la consulta per assegurar que veiem dades
+                const querySnapshot = await getDocs(collection(db, 'posts'));
                 const postsData = querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 }));
-                setPosts(postsData);
+
+                // Ordenem manualment per seguretat (si falla l'index de Firebase)
+                const sortedPosts = postsData.sort((a, b) => {
+                    const dateA = a.createdAt?.toDate?.() || 0;
+                    const dateB = b.createdAt?.toDate?.() || 0;
+                    return dateB - dateA;
+                });
+
+                setPosts(sortedPosts);
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }

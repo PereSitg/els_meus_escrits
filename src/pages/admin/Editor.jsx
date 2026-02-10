@@ -74,11 +74,8 @@ export default function PostEditor() {
         setPublishProgress(0);
         setPublishFinished(false);
         setShowModal(false);
-        if (!isEditing) {
-            navigate('/admin/new');
-        } else {
-            navigate('/admin/dashboard');
-        }
+        // Després de publicar, anem sempre al tauler per veure el llistat
+        navigate('/admin/dashboard');
     };
 
     // --- Document Parsing ---

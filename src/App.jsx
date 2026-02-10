@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Editor from './pages/admin/Editor';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="projects" element={<Projects />} />
             <Route path="category/:slug" element={<Category />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="post/:id" element={<PostDetail />} />
           </Route>
 
           {/* Admin Routes */}
