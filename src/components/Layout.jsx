@@ -17,7 +17,7 @@ export default function Layout() {
                 borderTop: '1px solid var(--bg-secondary)',
                 marginTop: '4rem'
             }}>
-                <p>&copy; {new Date().getFullYear()} Pere Badia i Lorenz. {t('footer.made_with')}</p>
+                <p>&copy; {new Date().getFullYear()} Pere Badia i Lorenz. {t('footer.made_with')} <small style={{ opacity: 0.5 }}>(v1.1)</small></p>
             </footer>
         </div>
     );

@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const { t, i18n } = useTranslation();
     const location = useLocation();
 
@@ -22,6 +23,7 @@ export default function Header() {
     ];
 
     const isActive = (path) => location.pathname === path;
+    const isWritingsActive = writingItems.some(item => isActive(item.path));
 
     const LangSwitcher = ({ mobile = false }) => (
         <div className={mobile ? "mobile-lang-switcher" : "lang-switcher"}>
@@ -49,23 +51,30 @@ export default function Header() {
                     <Link
                         to={professionalItem.path}
                         className={`nav-link ${isActive(professionalItem.path) ? 'active' : ''}`}
-                        style={{ marginLeft: '1.5rem' }}
+                        style={{ marginLeft: '1.5rem', marginRight: '0.75rem' }}
                     >
                         {professionalItem.name}
                     </Link>
 
                     <div className="nav-separator"></div>
 
-                    {writingItems.map((item) => (
-                        <Link
-                            key={item.path}
-                            to={item.path}
-                            className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-                            style={{ margin: '0 0.75rem' }}
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
+                    {/* Dropdown for "Els meus escrits" */}
+                    <div className="nav-item-dropdown" style={{ margin: '0 0.75rem' }}>
+                        <span className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}>
+                            {t('nav.writings')} <ChevronDown size={16} />
+                        </span>
+                        <div className="dropdown-content">
+                            {writingItems.map((item) => (
+                                <Link
+                                    key={item.path}
+                                    to={item.path}
+                                    className="dropdown-link"
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
 
                     <div className="nav-separator"></div>
 
@@ -118,20 +127,33 @@ export default function Header() {
 
                             <div className="nav-separator"></div>
 
-                            {writingItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    to={item.path}
-                                    style={{
-                                        padding: '0.75rem 0',
-                                        fontSize: '1.1rem',
-                                        color: isActive(item.path) ? 'var(--accent-primary)' : 'var(--text-secondary)'
-                                    }}
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
+                            {/* Mobile Dropdown for "Els meus escrits" */}
+                            <div
+                                className={`nav-item-dropdown ${dropdownOpen ? 'open' : ''}`}
+                                style={{ padding: '0.5rem 0' }}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                            >
+                                <div className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`} style={{ fontSize: '1.2rem', color: isWritingsActive ? 'var(--accent-primary)' : 'var(--text-secondary)' }}>
+                                    {t('nav.writings')} <ChevronDown size={20} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+                                </div>
+                                <div className="dropdown-content">
+                                    {writingItems.map((item) => (
+                                        <Link
+                                            key={item.path}
+                                            to={item.path}
+                                            style={{
+                                                display: 'block',
+                                                padding: '0.75rem 0',
+                                                fontSize: '1.1rem',
+                                                color: isActive(item.path) ? 'var(--accent-primary)' : 'var(--text-secondary)'
+                                            }}
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
 
                             <div className="nav-separator"></div>
 
