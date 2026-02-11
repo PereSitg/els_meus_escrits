@@ -59,7 +59,7 @@ export default function PostEditor() {
         setIsCorrecting(true);
         try {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
             const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 
@@ -221,12 +221,16 @@ export default function PostEditor() {
     const processExtractedText = (text) => {
         const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
         if (lines.length > 0) {
+            // La primera línia sempre és el títol
             setTitle(lines[0]);
+            // No intentem endevinar el subtítol, el deixem buit per si l'usuari el vol posar manualment
+            setSubtitle('');
+
             if (lines.length > 1) {
-                setSubtitle(lines[1]);
-                setContent(lines.slice(2).join('\n\n'));
+                // Tota la resta va directament al contingut
+                setContent(lines.slice(1).join('\n\n'));
             } else {
-                setContent(text);
+                setContent('');
             }
         }
     };
