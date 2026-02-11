@@ -46,6 +46,7 @@ export default function PostEditor() {
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
+    const [isDraggingDoc, setIsDraggingDoc] = useState(false);
 
     // --- AI Correction (Gemini) ---
     const handleAICorrect = async () => {
@@ -139,10 +140,8 @@ export default function PostEditor() {
     };
 
     // --- Document Parsing ---
-    const handleDocUpload = async (e) => {
-        const file = e.target.files[0];
+    const processFile = async (file) => {
         if (!file) return;
-
         setLoading(true);
         try {
             if (file.name.endsWith('.docx')) {
@@ -160,12 +159,43 @@ export default function PostEditor() {
                     fullText += pageText + '\n';
                 }
                 processExtractedText(fullText);
+            } else {
+                alert('Només s’accepten fitxers .docx o .pdf');
             }
         } catch (error) {
             console.error("Error parsing document:", error);
             alert('Error al processar el document');
         }
         setLoading(false);
+    };
+
+    const handleDocUpload = (e) => {
+        const file = e.target.files[0];
+        processFile(file);
+    };
+
+    // --- Drag & Drop Handlers ---
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingDoc(true);
+    };
+
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingDoc(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDraggingDoc(false);
+
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            processFile(file);
+        }
     };
 
     const processExtractedText = (text) => {
@@ -276,7 +306,50 @@ export default function PostEditor() {
     }
 
     return (
-        <div className="container" style={{ paddingTop: '2rem', maxWidth: '900px', paddingBottom: '4rem' }}>
+        <div
+            className="container"
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            style={{
+                paddingTop: '2rem',
+                maxWidth: '900px',
+                paddingBottom: '4rem',
+                position: 'relative'
+            }}
+        >
+            <AnimatePresence>
+                {isDraggingDoc && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            background: 'rgba(59, 130, 246, 0.1)',
+                            backdropFilter: 'blur(8px)',
+                            zIndex: 3000,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            pointerEvents: 'none', // Allow dropping through the overlay
+                            border: '4px dashed var(--accent-primary)',
+                            margin: '1rem',
+                            borderRadius: '2rem'
+                        }}
+                    >
+                        <div style={{ textAlign: 'center', color: 'white' }}>
+                            <Upload size={64} style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }} />
+                            <h2 style={{ fontSize: '2rem' }}>Amolla el fitxer aquí</h2>
+                            <p style={{ opacity: 0.8 }}>Formats acceptats: .docx i .pdf</p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <Link to="/admin/dashboard" style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', hover: { color: 'white' } }}>
