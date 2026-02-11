@@ -73,10 +73,10 @@ export default function Dashboard() {
                     <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser?.email || 'Usuari'}</p>
                 </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <Link to="/admin/new" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Link to="/admin/new" className="btn btn-primary">
                         <Plus size={18} /> Nova Publicació
                     </Link>
-                    <button onClick={handleLogout} className="btn" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1px solid var(--danger)', color: 'var(--danger)' }}>
+                    <button onClick={handleLogout} className="btn" style={{ border: '1px solid #ef4444', color: '#ef4444', background: 'transparent' }}>
                         <LogOut size={18} /> Sortir
                     </button>
                 </div>

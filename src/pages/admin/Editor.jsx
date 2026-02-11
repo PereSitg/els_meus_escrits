@@ -7,10 +7,12 @@ import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X,
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Cloudinary Config (From .env)
 const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 // Configure PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -36,6 +38,7 @@ export default function PostEditor() {
     const [subtitle, setSubtitle] = useState('');
     const [category, setCategory] = useState('Sitges');
     const [image, setImage] = useState('');
+    const [imageAlt, setImageAlt] = useState('');
     const [content, setContent] = useState('');
     const [socialSummary, setSocialSummary] = useState('');
     const [customDate, setCustomDate] = useState(new Date().toISOString().split('T')[0]);
@@ -43,6 +46,40 @@ export default function PostEditor() {
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
+
+    // --- AI Correction (Gemini) ---
+    const handleAICorrect = async () => {
+        if (!content) return;
+        if (!GEMINI_API_KEY) {
+            alert("Falta configurar la clau de Gemini (VITE_GEMINI_API_KEY) al fitxer .env");
+            return;
+        }
+
+        setIsCorrecting(true);
+        try {
+            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
+
+            Text a corregir:
+            ${content}`;
+
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            const correctedText = response.text();
+
+            if (correctedText) {
+                setContent(correctedText.trim());
+                alert('IA: Text revisat i corregit correctament.');
+            }
+        } catch (error) {
+            console.error("Error correcting text with Gemini:", error);
+            alert('Error al connectar amb la IA. Revisa la consola o la configuració.');
+        } finally {
+            setIsCorrecting(false);
+        }
+    };
 
     // Success Modal States
     const [showModal, setShowModal] = useState(false);
@@ -67,6 +104,7 @@ export default function PostEditor() {
                         setSubtitle(data.subtitle || '');
                         setCategory(data.category || 'Sitges');
                         setImage(data.image || '');
+                        setImageAlt(data.imageAlt || '');
                         setContent(data.content || '');
                         setSocialSummary(data.socialSummary || '');
                         setIsPublishedInEco(data.publishedInEco || false);
@@ -88,6 +126,7 @@ export default function PostEditor() {
         setSubtitle('');
         setCategory('Sitges');
         setImage('');
+        setImageAlt('');
         setContent('');
         setSocialSummary('');
         setCustomDate(new Date().toISOString().split('T')[0]);
@@ -181,17 +220,6 @@ export default function PostEditor() {
         }
     };
 
-    // --- AI Correction (Simulated/Hook) ---
-    const handleAICorrect = async () => {
-        if (!content) return;
-        setIsCorrecting(true);
-        setTimeout(() => {
-            const cleaned = content.replace(/\s+/g, ' ').trim();
-            setContent(cleaned);
-            setIsCorrecting(false);
-            alert('IA: Ortografia revisada correctament.');
-        }, 1500);
-    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -217,6 +245,7 @@ export default function PostEditor() {
                 subtitle: subtitle || '',
                 category,
                 image,
+                imageAlt: imageAlt || '',
                 content,
                 socialSummary: socialSummary || content.substring(0, 160),
                 publishedInEco: isPublishedInEco,
@@ -406,6 +435,16 @@ export default function PostEditor() {
                             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
                                 La imatge es pujarà a Cloudinary i s'estalviarà a la base de dades.
                             </p>
+                            <div style={{ marginBottom: '1rem' }}>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Text Alternatiu (SEO)</label>
+                                <input
+                                    type="text"
+                                    placeholder="Descripció de la imatge per a Google..."
+                                    value={imageAlt}
+                                    onChange={e => setImageAlt(e.target.value)}
+                                    style={{ width: '100%', padding: '0.6rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.4rem', fontSize: '0.9rem' }}
+                                />
+                            </div>
                             {uploadProgress && (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-primary)', fontSize: '0.9rem' }}>
                                     <AlertCircle size={16} /> {uploadProgress}

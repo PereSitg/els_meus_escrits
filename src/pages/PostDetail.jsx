@@ -17,7 +17,20 @@ export default function PostDetail() {
             try {
                 const docSnap = await getDoc(doc(db, "posts", id));
                 if (docSnap.exists()) {
-                    setPost({ id: docSnap.id, ...docSnap.data() });
+                    const data = docSnap.id ? { id: docSnap.id, ...docSnap.data() } : docSnap.data();
+                    setPost(data);
+
+                    // SEO: Update Title and Meta Description
+                    document.title = `${data.title} | Pere Badia i Lorenz`;
+
+                    const description = data.subtitle || data.content?.substring(0, 160).replace(/\n/g, ' ') || '';
+                    let metaDescription = document.querySelector('meta[name="description"]');
+                    if (!metaDescription) {
+                        metaDescription = document.createElement('meta');
+                        metaDescription.name = 'description';
+                        document.head.appendChild(metaDescription);
+                    }
+                    metaDescription.content = description;
                 }
             } catch (error) {
                 console.error("Error fetching post:", error);
@@ -26,6 +39,11 @@ export default function PostDetail() {
             }
         }
         fetchPost();
+
+        // Cleanup: Reset title when leaving page
+        return () => {
+            document.title = 'Pere Badia i Lorenz';
+        };
     }, [id]);
 
     // Calcular temps de lectura estimat
@@ -86,13 +104,23 @@ export default function PostDetail() {
             className="post-detail"
         >
             {/* Hero Image / Header Section */}
-            <div style={{
-                height: '75vh',
-                width: '100%',
-                position: 'relative',
-                overflow: 'hidden',
-                background: `linear-gradient(to bottom, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.95)), url(${post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600'}) center/cover`
-            }}>
+            <div
+                role="img"
+                aria-label={post.imageAlt || post.title}
+                style={{
+                    height: '75vh',
+                    width: '100%',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    background: `linear-gradient(to bottom, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.95)), url(${post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600'}) center/cover`
+                }}
+            >
+                {/* Hidden img for SEO crawlers */}
+                <img
+                    src={post.image}
+                    alt={post.imageAlt || post.title}
+                    style={{ display: 'none' }}
+                />
                 <div className="container" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: '5rem' }}>
                     <Link to="/" style={{
                         color: 'white',
