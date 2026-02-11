@@ -105,23 +105,66 @@ export default function PostDetail() {
         >
             {/* Hero Image / Header Section */}
             <div
-                role="img"
-                aria-label={post.imageAlt || post.title}
                 style={{
                     height: '75vh',
                     width: '100%',
                     position: 'relative',
                     overflow: 'hidden',
-                    background: `linear-gradient(to bottom, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.95)), url(${post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600'}) center/cover`
+                    background: '#0f172a' // Dark background while loading
                 }}
             >
+                {post.video ? (
+                    <video
+                        src={post.video}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        poster={post.image}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            zIndex: 1
+                        }}
+                    />
+                ) : (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            background: `url(${post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600'}) center/cover`,
+                            zIndex: 1
+                        }}
+                    />
+                )}
+
+                {/* Overlay gradient */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.95))',
+                    zIndex: 2
+                }} />
+
                 {/* Hidden img for SEO crawlers */}
-                <img
-                    src={post.image}
-                    alt={post.imageAlt || post.title}
-                    style={{ display: 'none' }}
-                />
-                <div className="container" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: '5rem' }}>
+                {post.image && (
+                    <img
+                        src={post.image}
+                        alt={post.imageAlt || post.title}
+                        style={{ display: 'none' }}
+                    />
+                )}
+                <div className="container" style={{ position: 'relative', zIndex: 10, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', paddingBottom: '5rem' }}>
                     <Link to="/" style={{
                         color: 'white',
                         display: 'inline-flex',
@@ -203,7 +246,7 @@ export default function PostDetail() {
                 paddingBottom: '10rem',
                 position: 'relative'
             }}>
-                <div style={{ maxWidth: '650px', margin: '0 auto' }}>
+                <div style={{ maxWidth: '750px', margin: '0 auto' }}>
                     <motion.div
                         initial={{ y: 30, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
@@ -221,7 +264,7 @@ export default function PostDetail() {
                     >
                         {paragraphs.map((para, i) => (
                             <p key={i} style={{
-                                marginBottom: '3.5rem',
+                                marginBottom: '1.2rem',
                                 display: 'block'
                             }}>
                                 {para}

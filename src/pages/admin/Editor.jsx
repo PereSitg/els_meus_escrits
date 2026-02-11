@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
-import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft } from 'lucide-react';
+import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
@@ -40,6 +40,7 @@ export default function PostEditor() {
     const [category, setCategory] = useState('Sitges');
     const [image, setImage] = useState('');
     const [imageAlt, setImageAlt] = useState('');
+    const [video, setVideo] = useState('');
     const [content, setContent] = useState('');
     const [socialSummary, setSocialSummary] = useState('');
     const [customDate, setCustomDate] = useState(new Date().toISOString().split('T')[0]);
@@ -79,7 +80,10 @@ export default function PostEditor() {
         } catch (error) {
             console.error("Error correcting text with Gemini:", error);
             const errorMsg = error.message || 'Error desconegut';
-            alert(`Error al connectar amb la IA: ${errorMsg}\n\nRevisa si la clau de la API és correcta i si tens connexió a internet.`);
+            // Afegim detalls extra per saber exactament què falla
+            const modelUsed = "gemini-1.5-flash";
+            const fullError = JSON.stringify(error, null, 2);
+            alert(`Error al connectar amb la IA (${modelUsed}): ${errorMsg}\n\nSi et plau, passa'm aquest codi si l'error persisteix:\n${fullError?.substring(0, 100)}...`);
         } finally {
             setIsCorrecting(false);
         }
@@ -109,6 +113,7 @@ export default function PostEditor() {
                         setCategory(data.category || 'Sitges');
                         setImage(data.image || '');
                         setImageAlt(data.imageAlt || '');
+                        setVideo(data.video || '');
                         setContent(data.content || '');
                         setSocialSummary(data.socialSummary || '');
                         setIsPublishedInEco(data.publishedInEco || false);
@@ -131,6 +136,7 @@ export default function PostEditor() {
         setCategory('Sitges');
         setImage('');
         setImageAlt('');
+        setVideo('');
         setContent('');
         setSocialSummary('');
         setCustomDate(new Date().toISOString().split('T')[0]);
@@ -176,10 +182,19 @@ export default function PostEditor() {
                     let pageText = '';
 
                     for (const item of items) {
-                        if (lastY !== -1 && Math.abs(item.transform[5] - lastY) > 5) {
-                            pageText += '\n';
+                        if (lastY !== -1) {
+                            const gap = Math.abs(item.transform[5] - lastY);
+                            const isLineEnd = /[.!:;?]$/.test(pageText.trim());
+                            // Ultra-agressiu per PDF:
+                            // Només trencem paràgraf si el salt és massiu (>100) 
+                            // o si hi ha un salt gran (>45) i la frase sembla acabar.
+                            if (gap > 100 || (gap > 45 && isLineEnd)) {
+                                pageText += '\n\n';
+                            } else if (gap > 3) {
+                                pageText += ' ';
+                            }
                         }
-                        pageText += item.str + ' ';
+                        pageText += item.str;
                         lastY = item.transform[5];
                     }
                     fullText += pageText + '\n\n';
@@ -242,16 +257,18 @@ export default function PostEditor() {
     }, []);
 
     const processExtractedText = (text) => {
-        const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-        if (lines.length > 0) {
-            // La primera línia sempre és el títol
-            setTitle(lines[0]);
-            // No intentem endevinar el subtítol, el deixem buit per si l'usuari el vol posar manualment
+        // Separem per paràgrafs reals (\n\n) en lloc de per línies soltes
+        const paragraphs = text.split('\n\n').map(p => p.trim()).filter(p => p.length > 0);
+
+        if (paragraphs.length > 0) {
+            // El primer paràgraf és el títol
+            setTitle(paragraphs[0]);
             setSubtitle('');
 
-            if (lines.length > 1) {
-                // Tota la resta va directament al contingut
-                setContent(lines.slice(1).join('\n\n'));
+            if (paragraphs.length > 1) {
+                // Tota la resta es junta mantenint els salts de línia dobles (\n\n)
+                // per tal que PostDetail.jsx els pugui renderitzar com a paràgrafs separats.
+                setContent(paragraphs.slice(1).join('\n\n'));
             } else {
                 setContent('');
             }
@@ -268,14 +285,18 @@ export default function PostEditor() {
             return;
         }
 
-        setUploadProgress('Pujant imatge a Cloudinary...');
+        setUploadProgress('Pujant fitxer a Cloudinary...');
         try {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
 
+            // Determinar si és un vídeo o una imatge
+            const isVideo = file.type.startsWith('video/');
+            const resourceType = isVideo ? 'video' : 'image';
+
             const response = await fetch(
-                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
                 {
                     method: 'POST',
                     body: formData,
@@ -283,16 +304,24 @@ export default function PostEditor() {
             );
 
             if (!response.ok) {
-                throw new Error('Error en la pujada a Cloudinary');
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Error en la pujada');
             }
 
             const data = await response.json();
-            setImage(data.secure_url);
-            setUploadProgress('Imatge pujada correctament!');
+
+            if (isVideo) {
+                setVideo(data.secure_url);
+                setUploadProgress('Vídeo pujat correctament!');
+            } else {
+                setImage(data.secure_url);
+                setUploadProgress('Imatge pujada correctament!');
+            }
+
             setTimeout(() => setUploadProgress(null), 3000);
         } catch (error) {
-            console.error("Error uploading image:", error);
-            alert(`Error al pujar la imatge: ${error.message}`);
+            console.error("Error uploading media:", error);
+            alert(`Error al pujar el fitxer: ${error.message}`);
             setUploadProgress(null);
         }
     };
@@ -323,6 +352,7 @@ export default function PostEditor() {
                 category,
                 image,
                 imageAlt: imageAlt || '',
+                video: video || '',
                 content,
                 socialSummary: socialSummary || content.substring(0, 160),
                 publishedInEco: isPublishedInEco,
@@ -513,7 +543,7 @@ export default function PostEditor() {
                 </div>
 
                 <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '0.75rem', border: '1px dashed rgba(255,255,255,0.1)' }}>
-                    <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 'bold' }}>Imatge de Portada (Via Cloudinary)</label>
+                    <label style={{ display: 'block', marginBottom: '1rem', fontWeight: 'bold' }}>Multimèdia de Portada (Foto o Vídeo)</label>
                     <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
                         <div
                             onClick={() => imageInputRef.current.click()}
@@ -528,16 +558,34 @@ export default function PostEditor() {
                                 justifyContent: 'center',
                                 cursor: 'pointer',
                                 border: '2px dashed rgba(255,255,255,0.1)',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                position: 'relative'
                             }}
                         >
-                            {image ? (
+                            {video ? (
+                                <video src={video} style={{ width: '100%', height: '100%', objectFit: 'cover' }} muted />
+                            ) : image ? (
                                 <img src={image} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             ) : (
                                 <>
                                     <ImageIcon size={32} style={{ marginBottom: '0.5rem', opacity: 0.5 }} />
-                                    <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>Tria una imatge</span>
+                                    <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>Tria foto o vídeo</span>
                                 </>
+                            )}
+                            {(image || video) && (
+                                <div style={{ position: 'absolute', top: '5px', right: '5px', zIndex: 10 }}>
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setImage('');
+                                            setVideo('');
+                                        }}
+                                        style={{ background: 'rgba(239, 68, 68, 0.9)', border: 'none', color: 'white', padding: '4px', borderRadius: '4px', cursor: 'pointer', display: 'flex' }}
+                                    >
+                                        <Trash2 size={14} />
+                                    </button>
+                                </div>
                             )}
                         </div>
                         <div style={{ flex: 1 }}>
@@ -545,17 +593,17 @@ export default function PostEditor() {
                                 type="file"
                                 ref={imageInputRef}
                                 style={{ display: 'none' }}
-                                accept="image/*"
+                                accept="image/*,video/*"
                                 onChange={handleImageUpload}
                             />
                             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                                La imatge es pujarà a Cloudinary i s'estalviarà a la base de dades.
+                                Pots pujar una imatge (estàtica) o un vídeo (motiu en bucle) per a la capçalera de l'article.
                             </p>
                             <div style={{ marginBottom: '1rem' }}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Text Alternatiu (SEO)</label>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Text Alternatiu (SEO / Accessibilitat)</label>
                                 <input
                                     type="text"
-                                    placeholder="Descripció de la imatge per a Google..."
+                                    placeholder="Descripció per a Google..."
                                     value={imageAlt}
                                     onChange={e => setImageAlt(e.target.value)}
                                     style={{ width: '100%', padding: '0.6rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.4rem', fontSize: '0.9rem' }}
