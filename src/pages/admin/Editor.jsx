@@ -185,10 +185,13 @@ export default function PostEditor() {
                         if (lastY !== -1) {
                             const gap = Math.abs(item.transform[5] - lastY);
                             const isLineEnd = /[.!:;?]$/.test(pageText.trim());
-                            // Ultra-agressiu per PDF:
-                            // Només trencem paràgraf si el salt és massiu (>100) 
-                            // o si hi ha un salt gran (>45) i la frase sembla acabar.
-                            if (gap > 100 || (gap > 45 && isLineEnd)) {
+                            // Més equilibrat:
+                            // Un salt de >60 sempre és paràgraf.
+                            // Un salt de >25 ho és si la línia anterior sembla acabar.
+                            // Forcem el primer salt del document per separar el títol.
+                            const isFirstGap = (i === 1 && !pageText.includes('\n'));
+
+                            if (isFirstGap || gap > 60 || (gap > 25 && isLineEnd)) {
                                 pageText += '\n\n';
                             } else if (gap > 3) {
                                 pageText += ' ';
