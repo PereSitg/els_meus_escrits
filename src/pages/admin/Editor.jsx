@@ -60,9 +60,8 @@ export default function PostEditor() {
 
         setIsCorrecting(true);
         try {
-            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            // Provant 'gemini-1.5-flash' que és el més estàndard. Si falla, el missatge d'error ens ajudarà.
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY, { apiVersion: "v1" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
             const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 
@@ -81,7 +80,7 @@ export default function PostEditor() {
             console.error("Error correcting text with Gemini:", error);
             const errorMsg = error.message || 'Error desconegut';
             // Afegim detalls extra per saber exactament què falla
-            const modelUsed = "gemini-1.5-flash-latest";
+            const modelUsed = "gemini-1.5-flash (v1)";
             const isApiKeyIssue = errorMsg.toLowerCase().includes('api key') || errorMsg.toLowerCase().includes('unauthorized');
 
             let finalMsg = `Error al connectar amb la IA (${modelUsed}): ${errorMsg}`;
