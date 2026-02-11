@@ -8,7 +8,7 @@ export default function Home() {
 
     const navigationCards = [
         {
-            title: t('nav.sitges'),
+            title: t('nav.writings') || 'Els meus escrits',
             description: t('home.sitges_desc') || 'Explora els meus escrits i històries sobre Sitges.',
             path: '/category/sitges',
             icon: <Palmtree size={48} />,

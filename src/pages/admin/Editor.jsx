@@ -39,6 +39,7 @@ export default function PostEditor() {
     const [content, setContent] = useState('');
     const [socialSummary, setSocialSummary] = useState('');
     const [customDate, setCustomDate] = useState(new Date().toISOString().split('T')[0]);
+    const [isPublishedInEco, setIsPublishedInEco] = useState(false);
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
@@ -68,6 +69,7 @@ export default function PostEditor() {
                         setImage(data.image || '');
                         setContent(data.content || '');
                         setSocialSummary(data.socialSummary || '');
+                        setIsPublishedInEco(data.publishedInEco || false);
                         if (data.createdAt?.toDate) {
                             setCustomDate(data.createdAt.toDate().toISOString().split('T')[0]);
                         }
@@ -89,6 +91,7 @@ export default function PostEditor() {
         setContent('');
         setSocialSummary('');
         setCustomDate(new Date().toISOString().split('T')[0]);
+        setIsPublishedInEco(false);
         setPublishProgress(0);
         setPublishFinished(false);
         setShowModal(false);
@@ -216,6 +219,7 @@ export default function PostEditor() {
                 image,
                 content,
                 socialSummary: socialSummary || content.substring(0, 160),
+                publishedInEco: isPublishedInEco,
                 updatedAt: serverTimestamp()
             };
 
@@ -348,6 +352,19 @@ export default function PostEditor() {
                             />
                         </div>
                     </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
+                    <input
+                        type="checkbox"
+                        id="publishedInEco"
+                        checked={isPublishedInEco}
+                        onChange={e => setIsPublishedInEco(e.target.checked)}
+                        style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                    />
+                    <label htmlFor="publishedInEco" style={{ color: 'white', fontWeight: '600', cursor: 'pointer' }}>
+                        Publicat a L'Eco de Sitges
+                    </label>
                 </div>
 
                 <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '0.75rem', border: '1px dashed rgba(255,255,255,0.1)' }}>

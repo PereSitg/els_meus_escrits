@@ -199,6 +199,19 @@ export default function PostDetail() {
                                 {para}
                             </p>
                         ))}
+
+                        {post.publishedInEco && (
+                            <p style={{
+                                marginTop: '4rem',
+                                fontStyle: 'italic',
+                                opacity: 0.8,
+                                borderLeft: '2px solid var(--accent-primary)',
+                                paddingLeft: '1rem',
+                                fontSize: '1.2rem'
+                            }}>
+                                Publicat a L'Eco de Sitges,
+                            </p>
+                        )}
                     </motion.div>
 
                     {/* Footer of article */}

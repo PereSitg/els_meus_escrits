@@ -22,18 +22,23 @@ export default function Category() {
         async function fetchCategoryPosts() {
             setLoading(true);
             try {
-                // Query posts by category
-                const q = query(
-                    collection(db, "posts"),
-                    where("category", "==", categoryName),
-                    orderBy("createdAt", "desc")
-                );
-                const querySnapshot = await getDocs(q);
-                const postsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setPosts(postsData);
+                // Fetch all and filter manually to avoid index issues with orderBy
+                const querySnapshot = await getDocs(collection(db, "posts"));
+                const allPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                // Filter by category
+                const filteredPosts = allPosts.filter(post => post.category === categoryName);
+
+                // Sort by date manually
+                const sortedPosts = filteredPosts.sort((a, b) => {
+                    const dateA = a.createdAt?.toDate?.() || 0;
+                    const dateB = b.createdAt?.toDate?.() || 0;
+                    return dateB - dateA;
+                });
+
+                setPosts(sortedPosts);
             } catch (error) {
                 console.error("Error fetching category posts:", error);
-                // Fallback for when index is missing or error occurs
                 setPosts([]);
             } finally {
                 setLoading(false);
