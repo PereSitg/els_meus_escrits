@@ -1,14 +1,28 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { t, i18n } = useTranslation();
     const location = useLocation();
+    const navigate = useNavigate();
+    const { currentUser, logout } = useAuth();
+
+    const isAdminPage = location.pathname.startsWith('/admin');
+
+    async function handleLogout() {
+        try {
+            await logout();
+            navigate('/admin/login');
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
+    }
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
@@ -87,6 +101,26 @@ export default function Header() {
                     </Link>
 
                     <LangSwitcher />
+
+                    {currentUser && (
+                        <button
+                            onClick={handleLogout}
+                            className="nav-link logout-btn"
+                            style={{
+                                marginLeft: '1rem',
+                                color: 'var(--danger)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                border: 'none',
+                                background: 'transparent',
+                                cursor: 'pointer',
+                                fontWeight: '600'
+                            }}
+                        >
+                            <LogOut size={18} /> {t('nav.logout') || 'Sortir'}
+                        </button>
+                    )}
                 </nav>
 
                 {/* Mobile Menu Button */}
@@ -168,6 +202,34 @@ export default function Header() {
                             >
                                 {t('nav.contact')}
                             </Link>
+
+                            {currentUser && (
+                                <>
+                                    <div className="nav-separator"></div>
+                                    <button
+                                        onClick={() => {
+                                            handleLogout();
+                                            setIsOpen(false);
+                                        }}
+                                        style={{
+                                            padding: '1rem 0',
+                                            fontSize: '1.2rem',
+                                            color: '#ef4444',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            cursor: 'pointer',
+                                            fontWeight: 'bold',
+                                            width: '100%',
+                                            textAlign: 'left'
+                                        }}
+                                    >
+                                        <LogOut size={20} /> {t('nav.logout') || 'Sortir'}
+                                    </button>
+                                </>
+                            )}
                         </div>
                     </motion.div>
                 )}

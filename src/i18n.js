@@ -20,7 +20,8 @@ i18n
                         sitges: 'Sitges',
                         ecos: 'Ecos de Sociedad',
                         altres: 'Altres',
-                        contact: 'Contacte'
+                        contact: 'Contacte',
+                        logout: 'Tancar sessió'
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
@@ -29,8 +30,9 @@ i18n
                     home: {
                         latest_posts: 'Darreres publicacions',
                         read_more: 'Llegir més',
-                        no_posts: 'Encara no hi ha publicacions.',
-                        loading: 'Carregant publicacions...'
+                        loading: 'Carregant publicacions...',
+                        sitges_desc: 'Explora els meus escrits, reflexions i històries sobre la Blanca Subur.',
+                        projects_desc: 'Descobreix els projectes professionals i creatius en els quals he participat.'
                     },
                     projects: {
                         title: 'Projectes',
@@ -52,7 +54,8 @@ i18n
                         sitges: 'Sitges',
                         ecos: 'Ecos de Sociedad',
                         altres: 'Otros',
-                        contact: 'Contacto'
+                        contact: 'Contacto',
+                        logout: 'Cerrar sesión'
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
@@ -61,8 +64,9 @@ i18n
                     home: {
                         latest_posts: 'Últimas publicaciones',
                         read_more: 'Leer más',
-                        no_posts: 'Aún no hay publicaciones.',
-                        loading: 'Cargando publicaciones...'
+                        loading: 'Cargando publicaciones...',
+                        sitges_desc: 'Explora mis escritos, reflexiones e historias sobre la Blanca Subur.',
+                        projects_desc: 'Descubre los proyectos profesionales y creativos en los que he participado.'
                     },
                     projects: {
                         title: 'Proyectos',
@@ -84,7 +88,8 @@ i18n
                         sitges: 'Sitges',
                         ecos: 'Society News',
                         altres: 'Others',
-                        contact: 'Contact'
+                        contact: 'Contact',
+                        logout: 'Log out'
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
@@ -93,8 +98,9 @@ i18n
                     home: {
                         latest_posts: 'Latest Posts',
                         read_more: 'Read more',
-                        no_posts: 'No posts yet.',
-                        loading: 'Loading posts...'
+                        loading: 'Loading posts...',
+                        sitges_desc: 'Explore my writings, reflections and stories about the Blanca Subur.',
+                        projects_desc: 'Discover the professional and creative projects I have been involved in.'
                     },
                     projects: {
                         title: 'Projects',

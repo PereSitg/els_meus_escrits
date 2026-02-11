@@ -10,7 +10,8 @@ export default function Category() {
     const categoryMap = {
         'politica': 'Política',
         'ecos': 'Ecos de Sociedad',
-        'sitges': 'Sitges'
+        'sitges': 'Sitges',
+        'altres': 'Altres'
     };
 
     const categoryName = categoryMap[slug] || slug;

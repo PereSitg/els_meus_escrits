@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
@@ -17,6 +18,19 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs
 export default function PostEditor() {
     const { id } = useParams();
     const isEditing = !!id;
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    async function handleLogout() {
+        if (window.confirm('Vols tancar la sessió?')) {
+            try {
+                await logout();
+                navigate('/admin/login');
+            } catch (error) {
+                console.error("Error logging out", error);
+            }
+        }
+    }
 
     const [title, setTitle] = useState('');
     const [subtitle, setSubtitle] = useState('');
@@ -36,7 +50,6 @@ export default function PostEditor() {
 
     const fileInputRef = useRef(null);
     const imageInputRef = useRef(null);
-    const navigate = useNavigate();
 
     const categories = ['Projectes', 'Sitges', 'Ecos de Sociedad', 'Altres'];
 
@@ -232,8 +245,33 @@ export default function PostEditor() {
     return (
         <div className="container" style={{ paddingTop: '2rem', maxWidth: '900px', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h1>{isEditing ? 'Editar Publicació' : 'Nova Publicació'}</h1>
-                <div style={{ display: 'flex', gap: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <Link to="/admin/dashboard" style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', hover: { color: 'white' } }}>
+                        <ArrowLeft size={24} />
+                    </Link>
+                    <h1>{isEditing ? 'Editar Publicació' : 'Nova Publicació'}</h1>
+                </div>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        style={{
+                            background: 'transparent',
+                            border: '1px solid #ef4444',
+                            color: '#ef4444',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '600'
+                        }}
+                    >
+                        <LogOut size={16} /> Sortir
+                    </button>
+                    <div style={{ width: '1px', height: '24px', background: 'rgba(255,255,255,0.1)', margin: '0 0.5rem' }}></div>
                     <input
                         type="file"
                         ref={fileInputRef}
