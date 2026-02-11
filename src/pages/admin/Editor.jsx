@@ -7,6 +7,7 @@ import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X,
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Cloudinary Config (From .env)
@@ -15,7 +16,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default function PostEditor() {
     const { id } = useParams();
@@ -167,7 +168,7 @@ export default function PostEditor() {
             }
         } catch (error) {
             console.error("Error parsing document:", error);
-            alert('Error al processar el document');
+            alert(`Error al processar el document: ${error.message || 'Error desconegut'}. Revisa la consola per a més detalls.`);
         }
         setLoading(false);
     };
