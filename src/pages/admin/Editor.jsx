@@ -16,7 +16,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 export default function PostEditor() {
     const { id } = useParams();
@@ -60,7 +60,8 @@ export default function PostEditor() {
         setIsCorrecting(true);
         try {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+            // Provant 'gemini-1.5-flash' que és el més estàndard. Si falla, el missatge d'error ens ajudarà.
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
             const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 
@@ -156,13 +157,34 @@ export default function PostEditor() {
                 const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
                 const pdf = await loadingTask.promise;
                 let fullText = '';
+
                 for (let i = 1; i <= pdf.numPages; i++) {
                     const page = await pdf.getPage(i);
                     const textContent = await page.getTextContent();
-                    const pageText = textContent.items.map(item => item.str).join(' ');
-                    fullText += pageText + '\n';
+
+                    // Ordenem els elements per la seva posició vertical (y) de dalt a baix, 
+                    // i després per la seva posició horitzontal (x).
+                    // textContent.items[i].transform: [scaleX, skewY, skewX, scaleY, x, y]
+                    const items = textContent.items.sort((a, b) => {
+                        if (Math.abs(b.transform[5] - a.transform[5]) > 5) {
+                            return b.transform[5] - a.transform[5];
+                        }
+                        return a.transform[4] - b.transform[4];
+                    });
+
+                    let lastY = -1;
+                    let pageText = '';
+
+                    for (const item of items) {
+                        if (lastY !== -1 && Math.abs(item.transform[5] - lastY) > 5) {
+                            pageText += '\n';
+                        }
+                        pageText += item.str + ' ';
+                        lastY = item.transform[5];
+                    }
+                    fullText += pageText + '\n\n';
                 }
-                processExtractedText(fullText);
+                processExtractedText(fullText.trim());
             } else {
                 alert('Només s’accepten fitxers .docx o .pdf');
             }
