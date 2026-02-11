@@ -15,7 +15,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
 
 export default function PostEditor() {
     const { id } = useParams();
@@ -76,7 +76,8 @@ export default function PostEditor() {
             }
         } catch (error) {
             console.error("Error correcting text with Gemini:", error);
-            alert('Error al connectar amb la IA. Revisa la consola o la configuració.');
+            const errorMsg = error.message || 'Error desconegut';
+            alert(`Error al connectar amb la IA: ${errorMsg}\n\nRevisa si la clau de la API és correcta i si tens connexió a internet.`);
         } finally {
             setIsCorrecting(false);
         }
@@ -144,13 +145,15 @@ export default function PostEditor() {
         if (!file) return;
         setLoading(true);
         try {
-            if (file.name.endsWith('.docx')) {
+            const fileName = file.name.toLowerCase();
+            if (fileName.endsWith('.docx')) {
                 const arrayBuffer = await file.arrayBuffer();
                 const result = await mammoth.extractRawText({ arrayBuffer });
                 processExtractedText(result.value);
-            } else if (file.name.endsWith('.pdf')) {
+            } else if (fileName.endsWith('.pdf')) {
                 const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+                const pdf = await loadingTask.promise;
                 let fullText = '';
                 for (let i = 1; i <= pdf.numPages; i++) {
                     const page = await pdf.getPage(i);
@@ -174,29 +177,46 @@ export default function PostEditor() {
         processFile(file);
     };
 
-    // --- Drag & Drop Handlers ---
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDraggingDoc(true);
-    };
+    // --- Drag & Drop Handlers (Global) ---
+    useEffect(() => {
+        const onDragOver = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.dataTransfer.types.includes('Files')) {
+                setIsDraggingDoc(true);
+            }
+        };
 
-    const handleDragLeave = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDraggingDoc(false);
-    };
+        const onDragLeave = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Només treure si sortim de la finestra o d'un element "pare"
+            if (e.relatedTarget === null || e.clientY <= 0 || e.clientX <= 0 || e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+                setIsDraggingDoc(false);
+            }
+        };
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setIsDraggingDoc(false);
+        const onDrop = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDraggingDoc(false);
 
-        const file = e.dataTransfer.files[0];
-        if (file) {
-            processFile(file);
-        }
-    };
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                processFile(file);
+            }
+        };
+
+        window.addEventListener('dragover', onDragOver);
+        window.addEventListener('dragleave', onDragLeave);
+        window.addEventListener('drop', onDrop);
+
+        return () => {
+            window.removeEventListener('dragover', onDragOver);
+            window.removeEventListener('dragleave', onDragLeave);
+            window.removeEventListener('drop', onDrop);
+        };
+    }, []);
 
     const processExtractedText = (text) => {
         const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
@@ -301,16 +321,12 @@ export default function PostEditor() {
             console.error("Error saving document: ", error);
             alert(`Error al guardar: ${error.message}`);
         }
-
         setLoading(false);
     }
 
     return (
         <div
             className="container"
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
             style={{
                 paddingTop: '2rem',
                 maxWidth: '900px',
