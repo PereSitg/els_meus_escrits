@@ -62,7 +62,7 @@ export default function PostEditor() {
         try {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
             // Provant 'gemini-1.5-flash' que és el més estàndard. Si falla, el missatge d'error ens ajudarà.
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
             const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 
@@ -81,9 +81,17 @@ export default function PostEditor() {
             console.error("Error correcting text with Gemini:", error);
             const errorMsg = error.message || 'Error desconegut';
             // Afegim detalls extra per saber exactament què falla
-            const modelUsed = "gemini-1.5-flash";
-            const fullError = JSON.stringify(error, null, 2);
-            alert(`Error al connectar amb la IA (${modelUsed}): ${errorMsg}\n\nSi et plau, passa'm aquest codi si l'error persisteix:\n${fullError?.substring(0, 100)}...`);
+            const modelUsed = "gemini-1.5-flash-latest";
+            const isApiKeyIssue = errorMsg.toLowerCase().includes('api key') || errorMsg.toLowerCase().includes('unauthorized');
+
+            let finalMsg = `Error al connectar amb la IA (${modelUsed}): ${errorMsg}`;
+            if (isApiKeyIssue) {
+                finalMsg += "\n\n⚠️ Sembla un problema amb la clau de la API. Revisa que estigui ben posada a Vercel.";
+            } else if (errorMsg.includes('404')) {
+                finalMsg += "\n\n⚠️ Error 404: El model no s'ha trobat o la regió no està suportada.";
+            }
+
+            alert(finalMsg);
         } finally {
             setIsCorrecting(false);
         }
