@@ -230,12 +230,12 @@ a {
     box-shadow: none;
     border: none;
     background: transparent;
-    padding-left: 2rem;
-    margin-left: 1.5rem;
+    padding-left: 1rem;
+    margin-left: 3.5rem;
     border-left: 2px solid var(--accent-primary);
     background: rgba(0, 0, 0, 0.2);
     display: none;
-    width: calc(100% - 1.5rem);
+    width: auto;
     border-radius: 0 0.5rem 0.5rem 0;
   }
 
