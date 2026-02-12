@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export default function Projects() {
     const { t } = useTranslation();
@@ -21,48 +22,51 @@ export default function Projects() {
                     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
                     gap: '2.5rem'
                 }}>
-                    <motion.div
-                        whileHover={{ y: -10 }}
-                        style={{
-                            background: 'var(--bg-secondary)',
-                            borderRadius: '1.5rem',
-                            overflow: 'hidden',
-                            border: '1px solid rgba(255,255,255,0.05)',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        <div style={{
-                            width: '100%',
-                            aspectRatio: '16/9',
-                            overflow: 'hidden'
-                        }}>
-                            <img
-                                src="/sommelier_digital.png"
-                                alt="Sommelier Digital"
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                            />
-                        </div>
-                        <div style={{ padding: '2rem' }}>
-                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                                {['IA', 'Python', 'Gemini API', 'LangChain'].map(tag => (
-                                    <span key={tag} style={{
-                                        fontSize: '0.75rem',
-                                        padding: '0.2rem 0.6rem',
-                                        background: 'rgba(59, 130, 246, 0.1)',
-                                        color: 'var(--accent-primary)',
-                                        borderRadius: '2rem',
-                                        fontWeight: '600'
-                                    }}>
-                                        {tag}
-                                    </span>
-                                ))}
+                    <Link to="/projects/sommelier" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <motion.div
+                            whileHover={{ y: -10 }}
+                            style={{
+                                background: 'var(--bg-secondary)',
+                                borderRadius: '1.5rem',
+                                overflow: 'hidden',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                cursor: 'pointer',
+                                height: '100%'
+                            }}
+                        >
+                            <div style={{
+                                width: '100%',
+                                aspectRatio: '16/9',
+                                overflow: 'hidden'
+                            }}>
+                                <img
+                                    src="/sommelier_digital.png"
+                                    alt="Sommelier Digital"
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('projects.sommelier.title')}</h3>
-                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                                {t('projects.sommelier.desc')}
-                            </p>
-                        </div>
-                    </motion.div>
+                            <div style={{ padding: '2rem' }}>
+                                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                                    {['IA', 'Python', 'Gemini API', 'LangChain'].map(tag => (
+                                        <span key={tag} style={{
+                                            fontSize: '0.75rem',
+                                            padding: '0.2rem 0.6rem',
+                                            background: 'rgba(59, 130, 246, 0.1)',
+                                            color: 'var(--accent-primary)',
+                                            borderRadius: '2rem',
+                                            fontWeight: '600'
+                                        }}>
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('projects.sommelier.title')}</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                    {t('projects.sommelier.desc')}
+                                </p>
+                            </div>
+                        </motion.div>
+                    </Link>
                 </div>
             </motion.div>
         </div>

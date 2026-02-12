@@ -12,6 +12,7 @@ import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Editor from './pages/admin/Editor';
 import PostDetail from './pages/PostDetail';
+import SommelierDigital from './pages/SommelierDigital';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="category/:slug" element={<Category />} />
             <Route path="contact" element={<Contact />} />
             <Route path="post/:id" element={<PostDetail />} />
+            <Route path="projects/sommelier" element={<SommelierDigital />} />
           </Route>
 
           {/* Admin Routes */}
