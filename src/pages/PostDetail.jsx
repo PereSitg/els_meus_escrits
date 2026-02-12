@@ -3,14 +3,19 @@ import { useParams, Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, ChevronLeft, Share2, Clock, BookOpen } from 'lucide-react';
+import { Calendar, Tag, ChevronLeft, Share2, Clock, BookOpen, Languages, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { translateText } from '../lib/translateService';
 
 export default function PostDetail() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { t } = useTranslation();
+    const [translatedContent, setTranslatedContent] = useState(null);
+    const [isTranslating, setIsTranslating] = useState(false);
+    const [showTranslation, setShowTranslation] = useState(false);
+    const [translationError, setTranslationError] = useState(null);
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         async function fetchPost() {
@@ -55,11 +60,47 @@ export default function PostDetail() {
         return Math.ceil(minutes);
     }, [post?.content]);
 
+    // Funció per gestionar la traducció
+    const handleTranslate = async () => {
+        if (showTranslation) {
+            // Si ja estem mostrant la traducció, tornem a l'original
+            setShowTranslation(false);
+            return;
+        }
+
+        if (translatedContent) {
+            // Si ja tenim la traducció, només la mostrem
+            setShowTranslation(true);
+            return;
+        }
+
+        // Traduïm el contingut
+        setIsTranslating(true);
+        setTranslationError(null);
+        try {
+            const targetLang = i18n.language === 'en' ? 'en' : 'es';
+            const translated = await translateText(post.content, targetLang);
+            setTranslatedContent(translated);
+            setShowTranslation(true);
+        } catch (error) {
+            console.error('Translation error:', error);
+            setTranslationError(t('translation.translation_error'));
+        } finally {
+            setIsTranslating(false);
+        }
+    };
+
+    // Determinar si hem de mostrar l'avís de traducció
+    const shouldShowTranslationWarning = post &&
+        post.category !== 'Ecos de Sociedad' &&
+        i18n.language !== 'ca';
+
     // Processar el contingut en paràgrafs
     const paragraphs = useMemo(() => {
-        if (!post?.content) return [];
+        const content = showTranslation ? translatedContent : post?.content;
+        if (!content) return [];
         // Detectem paràgrafs tant si hi ha un com dos salts de línia per donar aire
-        return post.content
+        return content
             .split(/\n+/)
             .map(p => p.trim())
             .filter(p => p.length > 0);
@@ -247,6 +288,75 @@ export default function PostDetail() {
                 position: 'relative'
             }}>
                 <div style={{ maxWidth: '750px', margin: '0 auto' }}>
+                    {/* Translation Warning */}
+                    {shouldShowTranslationWarning && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            style={{
+                                background: 'rgba(59, 130, 246, 0.1)',
+                                border: '1px solid rgba(59, 130, 246, 0.3)',
+                                borderRadius: '0.75rem',
+                                padding: '1.5rem',
+                                marginBottom: '3rem',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1rem'
+                            }}
+                        >
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                                <AlertCircle size={24} style={{ color: 'var(--accent-primary)', flexShrink: 0, marginTop: '0.125rem' }} />
+                                <p style={{
+                                    color: 'rgba(255,255,255,0.9)',
+                                    fontSize: '1rem',
+                                    lineHeight: '1.6',
+                                    margin: 0
+                                }}>
+                                    {i18n.language === 'en' ? t('translation.warning_en') : t('translation.warning_es')}
+                                </p>
+                            </div>
+
+                            <button
+                                onClick={handleTranslate}
+                                disabled={isTranslating}
+                                className="btn"
+                                style={{
+                                    background: showTranslation ? 'rgba(255,255,255,0.1)' : 'var(--accent-primary)',
+                                    border: showTranslation ? '1px solid rgba(255,255,255,0.2)' : '1px solid var(--accent-primary)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    alignSelf: 'flex-start',
+                                    padding: '0.75rem 1.5rem',
+                                    opacity: isTranslating ? 0.6 : 1,
+                                    cursor: isTranslating ? 'wait' : 'pointer'
+                                }}
+                            >
+                                <Languages size={18} />
+                                {isTranslating
+                                    ? t('translation.translating')
+                                    : showTranslation
+                                        ? t('translation.show_original')
+                                        : t('translation.translate_button')
+                                }
+                            </button>
+
+                            {translationError && (
+                                <p style={{
+                                    color: '#ef4444',
+                                    fontSize: '0.9rem',
+                                    margin: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem'
+                                }}>
+                                    <AlertCircle size={16} />
+                                    {translationError}
+                                </p>
+                            )}
+                        </motion.div>
+                    )}
+
                     <motion.div
                         initial={{ y: 30, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}

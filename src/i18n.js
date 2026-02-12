@@ -43,6 +43,14 @@ i18n
                     },
                     footer: {
                         made_with: 'Fet amb ❤️ des de Sitges.'
+                    },
+                    translation: {
+                        warning_es: 'Aquest text està escrit en català. Si es tradueix al castellà pot perdre part del sentit i de la ironia.',
+                        warning_en: 'Aquest text està escrit en català. Si es tradueix a l\'anglès pot perdre part del sentit i de la ironia.',
+                        translate_button: 'Traduir amb IA',
+                        translating: 'Traduint...',
+                        show_original: 'Mostrar original',
+                        translation_error: 'Error en traduir. Torna-ho a intentar.'
                     }
                 }
             },
@@ -77,6 +85,14 @@ i18n
                     },
                     footer: {
                         made_with: 'Hecho con ❤️ desde Sitges.'
+                    },
+                    translation: {
+                        warning_es: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
+                        warning_en: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
+                        translate_button: 'Traducir con IA',
+                        translating: 'Traduciendo...',
+                        show_original: 'Mostrar original',
+                        translation_error: 'Error al traducir. Inténtalo de nuevo.'
                     }
                 }
             },
@@ -111,6 +127,14 @@ i18n
                     },
                     footer: {
                         made_with: 'Made with ❤️ from Sitges.'
+                    },
+                    translation: {
+                        warning_es: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
+                        warning_en: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
+                        translate_button: 'Translate with AI',
+                        translating: 'Translating...',
+                        show_original: 'Show original',
+                        translation_error: 'Translation error. Please try again.'
                     }
                 }
             }

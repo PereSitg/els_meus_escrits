@@ -100,6 +100,9 @@ a {
 .mobile-menu-btn {
   display: none;
   color: white;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 /* Glassmorphism */
