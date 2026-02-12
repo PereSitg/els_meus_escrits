@@ -105,6 +105,10 @@ a {
   line-height: 1;
 }
 
+.mobile-menu-container {
+  display: none;
+}
+
 /* Glassmorphism */
 .glass {
   background: rgba(15, 23, 42, 0.8);
@@ -185,6 +189,11 @@ a {
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;
+  }
+
+  .mobile-menu-container {
+    display: flex;
+    align-items: center;
   }
 
   .mobile-menu-btn {

@@ -124,7 +124,7 @@ export default function Header() {
                 </nav>
 
                 {/* Mobile Menu Button */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <div className="mobile-menu-container">
                     <button
                         className="mobile-menu-btn"
                         onClick={() => setIsOpen(!isOpen)}
