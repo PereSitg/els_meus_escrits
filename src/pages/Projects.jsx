@@ -37,7 +37,7 @@ export default function Projects() {
                             overflow: 'hidden'
                         }}>
                             <img
-                                src="/sommelier_digital.jpg"
+                                src="/sommelier_digital.png"
                                 alt="Sommelier Digital"
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />
