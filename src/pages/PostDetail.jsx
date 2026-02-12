@@ -51,6 +51,12 @@ export default function PostDetail() {
         };
     }, [id]);
 
+    // Reset translation when language changes
+    useEffect(() => {
+        setShowTranslation(false);
+        setTranslatedContent(null);
+    }, [i18n.language]);
+
     // Calcular temps de lectura estimat
     const readingTime = useMemo(() => {
         if (!post?.content) return 0;
