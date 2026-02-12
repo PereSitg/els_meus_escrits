@@ -30,7 +30,7 @@ export default function SommelierDigital() {
                     {t('projects.sommelier.back_button')}
                 </Link>
 
-                <div style={{
+                <div className="project-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 0.8fr)',
                     gap: '4rem',
@@ -40,25 +40,80 @@ export default function SommelierDigital() {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
+                        className="project-info"
                     >
-                        <h1 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
+                        <h1 className="project-title" style={{ fontSize: '3.5rem', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
                             {t('projects.sommelier.title')}
                         </h1>
 
-                        <div style={{ display: 'flex', gap: '0.8rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+                        <div className="project-tags" style={{ display: 'flex', gap: '0.8rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
                             {tags.map(tag => (
-                                <span key={tag} style={{
-                                    fontSize: '0.9rem',
-                                    padding: '0.4rem 1rem',
-                                    background: 'rgba(59, 130, 246, 0.1)',
-                                    color: 'var(--accent-primary)',
-                                    borderRadius: '2rem',
-                                    fontWeight: '600',
-                                    border: '1px solid rgba(59, 130, 246, 0.2)'
-                                }}>
+                                <Link
+                                    key={tag}
+                                    to={`/projects?tag=${encodeURIComponent(tag)}`}
+                                    style={{
+                                        fontSize: '0.9rem',
+                                        padding: '0.4rem 1rem',
+                                        background: 'rgba(59, 130, 246, 0.1)',
+                                        color: 'var(--accent-primary)',
+                                        borderRadius: '2rem',
+                                        fontWeight: '600',
+                                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                                        textDecoration: 'none',
+                                        transition: 'all 0.2s ease'
+                                    }}
+                                    onMouseOver={e => {
+                                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)';
+                                        e.currentTarget.style.transform = 'translateY(-2px)';
+                                    }}
+                                    onMouseOut={e => {
+                                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                    }}
+                                >
                                     {tag}
-                                </span>
+                                </Link>
                             ))}
+                        </div>
+
+                        {/* Mobile Preview Card - Only visible on small screens via CSS/MediaQuery logic, but placed here for flow */}
+                        <div className="mobile-preview" style={{ marginBottom: '3rem', display: 'none' }}>
+                            <div style={{
+                                background: 'var(--bg-secondary)',
+                                borderRadius: '2rem',
+                                overflow: 'hidden',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                            }}>
+                                <img
+                                    src="/sommelier_digital.png"
+                                    alt="Sommelier Digital"
+                                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                                />
+                                <div style={{ padding: '2rem', textAlign: 'center' }}>
+                                    <a
+                                        href="https://cercavins.vercel.app/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn-primary"
+                                        style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '0.8rem',
+                                            padding: '0.8rem 1.5rem',
+                                            borderRadius: '3rem',
+                                            fontSize: '1.1rem',
+                                            fontWeight: 'bold',
+                                            textDecoration: 'none',
+                                            width: '100%',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        {t('projects.sommelier.try_button')}
+                                        <ExternalLink size={20} />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                         <div style={{ marginBottom: '3rem' }}>
@@ -127,6 +182,7 @@ export default function SommelierDigital() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
+                        className="desktop-preview"
                         style={{ position: 'sticky', top: '2rem' }}
                     >
                         <div style={{

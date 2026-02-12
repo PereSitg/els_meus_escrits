@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { projectsData, allTags } from '../data/projects';
 
 export default function Projects() {
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('All');
+
+    useEffect(() => {
+        const tag = searchParams.get('tag');
+        if (tag && allTags.includes(tag)) {
+            setActiveFilter(tag);
+        } else {
+            setActiveFilter('All');
+        }
+    }, [searchParams]);
 
     const filteredProjects = activeFilter === 'All'
         ? projectsData
