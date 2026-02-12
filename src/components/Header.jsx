@@ -45,7 +45,7 @@ export default function Header() {
                 <button
                     key={lng}
                     onClick={() => changeLanguage(lng)}
-                    className={i18n.language === lng ? 'active' : ''}
+                    className={i18n.language.startsWith(lng) ? 'active' : ''}
                 >
                     {lng.toUpperCase()}
                 </button>
@@ -73,7 +73,7 @@ export default function Header() {
                     <div className="nav-separator"></div>
 
                     {/* Dropdown for "Els meus escrits" */}
-                    <div className="nav-item-dropdown" style={{ margin: '0 0.75rem' }}>
+                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.75rem' }}>
                         <span className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}>
                             {t('nav.writings')} <ChevronDown size={16} />
                         </span>
@@ -143,7 +143,7 @@ export default function Header() {
                         exit={{ opacity: 0, height: 0 }}
                         style={{ overflow: 'hidden', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--bg-primary)' }}
                     >
-                        <div className="container" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 0' }}>
+                        <div className="container" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 1.5rem' }}>
                             <LangSwitcher mobile />
 
                             <Link
@@ -163,11 +163,18 @@ export default function Header() {
 
                             {/* Mobile Dropdown for "Els meus escrits" */}
                             <div
-                                className={`nav-item-dropdown ${dropdownOpen ? 'open' : ''}`}
+                                className={`nav-item-dropdown mobile ${dropdownOpen ? 'open' : ''}`}
                                 style={{ padding: '0.5rem 0' }}
-                                onClick={() => setDropdownOpen(!dropdownOpen)}
                             >
-                                <div className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`} style={{ fontSize: '1.2rem', color: isWritingsActive ? 'var(--accent-primary)' : 'var(--text-secondary)' }}>
+                                <div
+                                    className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}
+                                    style={{ fontSize: '1.2rem', color: isWritingsActive ? 'var(--accent-primary)' : 'var(--text-secondary)', width: '100%', justifyContent: 'space-between' }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        setDropdownOpen(!dropdownOpen);
+                                    }}
+                                >
                                     {t('nav.writings')} <ChevronDown size={20} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
                                 </div>
                                 <div className="dropdown-content">
