@@ -186,6 +186,11 @@ a {
   margin: 0 1rem;
 }
 
+.desktop-nav {
+  display: flex;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
   .desktop-nav {
     display: none;

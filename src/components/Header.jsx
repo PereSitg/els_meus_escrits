@@ -61,7 +61,7 @@ export default function Header() {
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="desktop-nav" style={{ display: 'flex', alignItems: 'center' }}>
+                <nav className="desktop-nav">
                     <Link
                         to={professionalItem.path}
                         className={`nav-link ${isActive(professionalItem.path) ? 'active' : ''}`}
