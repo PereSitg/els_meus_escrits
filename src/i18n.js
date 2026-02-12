@@ -39,7 +39,11 @@ i18n
                         description: 'Aquesta és una selecció dels projectes més destacats en els quals he treballat. Des de desenvolupament web fins a iniciatives culturals i socials.',
                         coming_soon: 'Proximament',
                         placeholder_title: 'Nou Projecte',
-                        placeholder_desc: 'Estic preparant la documentació dels meus projectes recents per mostrar-los aquí.'
+                        placeholder_desc: 'Estic preparant la documentació dels meus projectes recents per mostrar-los aquí.',
+                        sommelier: {
+                            title: 'Sommelier Digital',
+                            desc: 'Aplicació intel·ligent de recomanació de vins basada en IA Generativa. La fusió perfecta entre tecnologia moderna i coneixement enològic.'
+                        }
                     },
                     footer: {
                         made_with: 'Fet amb ❤️ des de Sitges.'
@@ -81,7 +85,11 @@ i18n
                         description: 'Esta es una selección de los proyectos más destacados en los que he trabajado. Desde desarrollo web hasta iniciativas culturales y sociales.',
                         coming_soon: 'Próximamente',
                         placeholder_title: 'Nuevo Proyecto',
-                        placeholder_desc: 'Estoy preparando la documentación de mis proyectos recientes para mostrarlos aquí.'
+                        placeholder_desc: 'Estoy preparando la documentación de mis proyectos recientes para mostrarlos aquí.',
+                        sommelier: {
+                            title: 'Sommelier Digital',
+                            desc: 'Aplicación inteligente de recomendación de vinos basada en IA Generativa. La fusión perfecta entre tecnología moderna y conocimiento enológico.'
+                        }
                     },
                     footer: {
                         made_with: 'Hecho con ❤️ desde Sitges.'
@@ -123,7 +131,11 @@ i18n
                         description: 'This is a selection of the most relevant projects I have worked on. From web development to cultural and social initiatives.',
                         coming_soon: 'Coming Soon',
                         placeholder_title: 'New Project',
-                        placeholder_desc: 'I am preparing the documentation for my recent projects to showcase them here.'
+                        placeholder_desc: 'I am preparing the documentation for my recent projects to showcase them here.',
+                        sommelier: {
+                            title: 'Digital Sommelier',
+                            desc: 'Intelligent wine recommendation application based on Generative AI. The perfect fusion between modern technology and enological knowledge.'
+                        }
                     },
                     footer: {
                         made_with: 'Made with ❤️ from Sitges.'

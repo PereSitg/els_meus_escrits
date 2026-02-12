@@ -21,30 +21,48 @@ export default function Projects() {
                     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
                     gap: '2.5rem'
                 }}>
-                    {/* Placeholder for projects */}
-                    <div style={{
-                        background: 'var(--bg-secondary)',
-                        padding: '2rem',
-                        borderRadius: '1.5rem',
-                        border: '1px solid rgba(255,255,255,0.05)'
-                    }}>
+                    <motion.div
+                        whileHover={{ y: -10 }}
+                        style={{
+                            background: 'var(--bg-secondary)',
+                            borderRadius: '1.5rem',
+                            overflow: 'hidden',
+                            border: '1px solid rgba(255,255,255,0.05)',
+                            cursor: 'pointer'
+                        }}
+                    >
                         <div style={{
                             width: '100%',
                             aspectRatio: '16/9',
-                            background: 'rgba(59, 130, 246, 0.1)',
-                            borderRadius: '1rem',
-                            marginBottom: '1.5rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
+                            overflow: 'hidden'
                         }}>
-                            <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>{t('projects.coming_soon')}</span>
+                            <img
+                                src="/sommelier_digital.jpg"
+                                alt="Sommelier Digital"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
                         </div>
-                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('projects.placeholder_title')}</h3>
-                        <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
-                            {t('projects.placeholder_desc')}
-                        </p>
-                    </div>
+                        <div style={{ padding: '2rem' }}>
+                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                                {['IA', 'Python', 'Gemini API', 'LangChain'].map(tag => (
+                                    <span key={tag} style={{
+                                        fontSize: '0.75rem',
+                                        padding: '0.2rem 0.6rem',
+                                        background: 'rgba(59, 130, 246, 0.1)',
+                                        color: 'var(--accent-primary)',
+                                        borderRadius: '2rem',
+                                        fontWeight: '600'
+                                    }}>
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('projects.sommelier.title')}</h3>
+                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                {t('projects.sommelier.desc')}
+                            </p>
+                        </div>
+                    </motion.div>
                 </div>
             </motion.div>
         </div>
