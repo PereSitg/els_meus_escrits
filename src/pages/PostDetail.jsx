@@ -104,7 +104,7 @@ export default function PostDetail() {
             .split(/\n+/)
             .map(p => p.trim())
             .filter(p => p.length > 0);
-    }, [post?.content]);
+    }, [post?.content, showTranslation, translatedContent]);
 
     if (loading) {
         return (
