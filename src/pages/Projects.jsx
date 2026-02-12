@@ -1,72 +1,151 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { projectsData, allTags } from '../data/projects';
 
 export default function Projects() {
     const { t } = useTranslation();
+    const [activeFilter, setActiveFilter] = useState('All');
+
+    const filteredProjects = activeFilter === 'All'
+        ? projectsData
+        : projectsData.filter(project => project.tags.includes(activeFilter));
 
     return (
-        <div className="container" style={{ paddingTop: '4rem' }}>
+        <div className="container" style={{ paddingTop: '4rem', paddingBottom: '6rem' }}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
             >
                 <h1 style={{ fontSize: '3rem', marginBottom: '2rem' }}>{t('projects.title')}</h1>
-                <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '800px', marginBottom: '4rem' }}>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '800px', marginBottom: '3rem' }}>
                     {t('projects.description')}
                 </p>
+
+                {/* Filter Bar */}
+                <div style={{
+                    display: 'flex',
+                    gap: '1rem',
+                    marginBottom: '4rem',
+                    flexWrap: 'wrap',
+                    padding: '0.5rem',
+                    background: 'rgba(255,255,255,0.02)',
+                    borderRadius: '3rem',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    width: 'fit-content'
+                }}>
+                    <button
+                        onClick={() => setActiveFilter('All')}
+                        style={{
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '2rem',
+                            border: 'none',
+                            background: activeFilter === 'All' ? 'var(--accent-primary)' : 'transparent',
+                            color: activeFilter === 'All' ? 'white' : 'var(--text-secondary)',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        {t('projects.filter_all', 'Tots')}
+                    </button>
+                    {allTags.map(tag => (
+                        <button
+                            key={tag}
+                            onClick={() => setActiveFilter(tag)}
+                            style={{
+                                padding: '0.6rem 1.5rem',
+                                borderRadius: '2rem',
+                                border: 'none',
+                                background: activeFilter === tag ? 'var(--accent-primary)' : 'transparent',
+                                color: activeFilter === tag ? 'white' : 'var(--text-secondary)',
+                                fontWeight: '600',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease'
+                            }}
+                        >
+                            {tag}
+                        </button>
+                    ))}
+                </div>
 
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
                     gap: '2.5rem'
                 }}>
-                    <Link to="/projects/sommelier" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <motion.div
-                            whileHover={{ y: -10 }}
-                            style={{
-                                background: 'var(--bg-secondary)',
-                                borderRadius: '1.5rem',
-                                overflow: 'hidden',
-                                border: '1px solid rgba(255,255,255,0.05)',
-                                cursor: 'pointer',
-                                height: '100%'
-                            }}
-                        >
-                            <div style={{
-                                width: '100%',
-                                aspectRatio: '16/9',
-                                overflow: 'hidden'
-                            }}>
-                                <img
-                                    src="/sommelier_digital.png"
-                                    alt="Sommelier Digital"
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
-                            </div>
-                            <div style={{ padding: '2rem' }}>
-                                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                                    {['IA', 'Python', 'Gemini API', 'LangChain'].map(tag => (
-                                        <span key={tag} style={{
-                                            fontSize: '0.75rem',
-                                            padding: '0.2rem 0.6rem',
-                                            background: 'rgba(59, 130, 246, 0.1)',
-                                            color: 'var(--accent-primary)',
-                                            borderRadius: '2rem',
-                                            fontWeight: '600'
+                    <AnimatePresence mode='popLayout'>
+                        {filteredProjects.map(project => (
+                            <motion.div
+                                key={project.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <Link to={`/projects/${project.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <motion.div
+                                        whileHover={{ y: -10 }}
+                                        style={{
+                                            background: 'var(--bg-secondary)',
+                                            borderRadius: '1.5rem',
+                                            overflow: 'hidden',
+                                            border: '1px solid rgba(255,255,255,0.05)',
+                                            cursor: 'pointer',
+                                            height: '100%'
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: '100%',
+                                            aspectRatio: '16/9',
+                                            overflow: 'hidden'
                                         }}>
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{t('projects.sommelier.title')}</h3>
-                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                                    {t('projects.sommelier.desc')}
-                                </p>
-                            </div>
-                        </motion.div>
-                    </Link>
+                                            <img
+                                                src={project.image}
+                                                alt={t(`projects.${project.translationKey}.title`)}
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                            />
+                                        </div>
+                                        <div style={{ padding: '2rem' }}>
+                                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                                                {project.tags.map(tag => (
+                                                    <span
+                                                        key={tag}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            setActiveFilter(tag);
+                                                        }}
+                                                        style={{
+                                                            fontSize: '0.75rem',
+                                                            padding: '0.2rem 0.6rem',
+                                                            background: activeFilter === tag ? 'var(--accent-primary)' : 'rgba(59, 130, 246, 0.1)',
+                                                            color: activeFilter === tag ? 'white' : 'var(--accent-primary)',
+                                                            borderRadius: '2rem',
+                                                            fontWeight: '600',
+                                                            transition: 'all 0.2s ease',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                                                {t(`projects.${project.translationKey}.title`)}
+                                            </h3>
+                                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                                {t(`projects.${project.translationKey}.desc`)}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             </motion.div>
         </div>

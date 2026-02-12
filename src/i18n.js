@@ -37,6 +37,7 @@ i18n
                     projects: {
                         title: 'Projectes',
                         description: 'Aquesta és una selecció dels projectes més destacats en els quals he treballat. Des de desenvolupament web fins a iniciatives culturals i socials.',
+                        filter_all: 'Tots',
                         coming_soon: 'Proximament',
                         placeholder_title: 'Nou Projecte',
                         placeholder_desc: 'Estic preparant la documentació dels meus projectes recents per mostrar-los aquí.',
@@ -91,6 +92,7 @@ i18n
                     projects: {
                         title: 'Proyectos',
                         description: 'Esta es una selección de los proyectos más destacados en los que he trabajado. Desde desarrollo web hasta iniciativas culturales y sociales.',
+                        filter_all: 'Todos',
                         coming_soon: 'Próximamente',
                         placeholder_title: 'Nuevo Proyecto',
                         placeholder_desc: 'Estoy preparando la documentación de mis proyectos recientes para mostrarlos aquí.',
@@ -145,6 +147,7 @@ i18n
                     projects: {
                         title: 'Projects',
                         description: 'This is a selection of the most relevant projects I have worked on. From web development to cultural and social initiatives.',
+                        filter_all: 'All',
                         coming_soon: 'Coming Soon',
                         placeholder_title: 'New Project',
                         placeholder_desc: 'I am preparing the documentation for my recent projects to showcase them here.',
