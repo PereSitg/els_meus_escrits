@@ -55,7 +55,7 @@ export default function Home() {
                         zIndex: -1
                     }}
                 >
-                    <source src="/video_portada.mp4" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/dhumbpbts/video/upload/v1770907056/videoPortada_lssfio.mp4" type="video/mp4" />
                 </video>
 
                 {/* Dark Overlay for readability */}
