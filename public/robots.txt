@@ -4,3 +4,4 @@ Disallow: /admin/
 Disallow: /login/
 
 Sitemap: https://els-meus-escrits.vercel.app/sitemap.xml
+
