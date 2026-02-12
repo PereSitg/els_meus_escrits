@@ -29,20 +29,52 @@ export default function Home() {
         <div className="home-page">
             <section className="hero" style={{
                 height: '50vh',
-                background: 'linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), url(https://images.unsplash.com/photo-1505567745926-ba89000d255a?w=1600&q=80) center/cover',
+                position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
                 textAlign: 'center',
                 marginBottom: '4rem',
-                borderRadius: '0 0 2rem 2rem'
+                borderRadius: '0 0 2rem 2rem',
+                overflow: 'hidden'
             }}>
+                {/* Video Background */}
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        zIndex: -1
+                    }}
+                >
+                    <source src="/video_portada.mp4" type="video/mp4" />
+                </video>
+
+                {/* Dark Overlay for readability */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    zIndex: 0
+                }}></div>
+
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     className="container"
+                    style={{ position: 'relative', zIndex: 1 }}
                 >
                     <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem', letterSpacing: '-0.02em' }}>{t('hero.title')}</h1>
                     <p style={{ fontSize: '1.2rem', opacity: 0.9, maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
