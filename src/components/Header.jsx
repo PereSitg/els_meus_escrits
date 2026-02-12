@@ -74,9 +74,12 @@ export default function Header() {
 
                     {/* Dropdown for "Els meus escrits" */}
                     <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.75rem' }}>
-                        <span className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}>
+                        <Link
+                            to="/category/sitges"
+                            className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}
+                        >
                             {t('nav.writings')} <ChevronDown size={16} />
-                        </span>
+                        </Link>
                         <div className="dropdown-content">
                             {writingItems.map((item) => (
                                 <Link
@@ -166,16 +169,30 @@ export default function Header() {
                                 className={`nav-item-dropdown mobile ${dropdownOpen ? 'open' : ''}`}
                                 style={{ padding: '0.5rem 0' }}
                             >
-                                <div
-                                    className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}
-                                    style={{ fontSize: '1.2rem', color: isWritingsActive ? 'var(--accent-primary)' : 'var(--text-secondary)', width: '100%', justifyContent: 'space-between' }}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        setDropdownOpen(!dropdownOpen);
-                                    }}
-                                >
-                                    {t('nav.writings')} <ChevronDown size={20} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                                    <Link
+                                        to="/category/sitges"
+                                        className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}
+                                        style={{
+                                            fontSize: '1.2rem',
+                                            color: isWritingsActive ? 'var(--accent-primary)' : 'var(--text-secondary)',
+                                            flex: 1,
+                                            padding: '1rem 0'
+                                        }}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {t('nav.writings')}
+                                    </Link>
+                                    <div
+                                        style={{ padding: '1rem', cursor: 'pointer' }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setDropdownOpen(!dropdownOpen);
+                                        }}
+                                    >
+                                        <ChevronDown size={20} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+                                    </div>
                                 </div>
                                 <div className="dropdown-content">
                                     {writingItems.map((item) => (
