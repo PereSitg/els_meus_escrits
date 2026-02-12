@@ -1,10 +1,15 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Database, Code2 } from 'lucide-react';
 
 export default function SommelierDigital() {
     const { t } = useTranslation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const tags = ['IA', 'Python', 'Gemini API', 'LangChain'];
 
@@ -70,6 +75,32 @@ export default function SommelierDigital() {
                             </p>
                         </div>
 
+                        <div style={{ marginBottom: '3rem' }}>
+                            <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', color: 'var(--accent-primary)' }}>
+                                {t('projects.sommelier.architecture_title')}
+                            </h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                    <Cpu size={24} style={{ color: 'var(--accent-primary)', marginTop: '0.2rem', flexShrink: 0 }} />
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', margin: 0 }}>
+                                        {t('projects.sommelier.architecture_ai')}
+                                    </p>
+                                </div>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                    <Database size={24} style={{ color: 'var(--accent-primary)', marginTop: '0.2rem', flexShrink: 0 }} />
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', margin: 0 }}>
+                                        {t('projects.sommelier.architecture_data')}
+                                    </p>
+                                </div>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                                    <Code2 size={24} style={{ color: 'var(--accent-primary)', marginTop: '0.2rem', flexShrink: 0 }} />
+                                    <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', margin: 0 }}>
+                                        {t('projects.sommelier.architecture_dev')}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
                             <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', color: 'var(--accent-primary)' }}>
                                 {t('projects.sommelier.features_title')}
@@ -112,7 +143,7 @@ export default function SommelierDigital() {
                             />
                             <div style={{ padding: '2.5rem', textAlign: 'center' }}>
                                 <a
-                                    href="https://sommelier-digital.vercel.app/"
+                                    href="https://cercavins.vercel.app/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
