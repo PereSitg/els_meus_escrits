@@ -19,8 +19,9 @@ i18n
                         projects: 'Projectes',
                         writings: 'Els meus escrits',
                         sitges: 'Sitges',
-                        ecos: 'Ecos de Sociedad',
-                        altres: 'Altres',
+                        ecos: 'Ecos de l\'ànima',
+                        altres: 'Altres històries',
+                        stack: 'El meu Stack',
                         contact: 'Contacte',
                         logout: 'Tancar sessió'
                     },
@@ -116,6 +117,7 @@ i18n
                         sitges: 'Sitges',
                         ecos: 'Ecos de Sociedad',
                         altres: 'Otros',
+                        stack: 'Mi Stack',
                         contact: 'Contacto',
                         logout: 'Cerrar sesión'
                     },
@@ -211,6 +213,7 @@ i18n
                         sitges: 'Sitges',
                         ecos: 'Society News',
                         altres: 'Others',
+                        stack: 'My Stack',
                         contact: 'Contact',
                         logout: 'Log out'
                     },

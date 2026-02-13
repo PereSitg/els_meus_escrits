@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+// v1.1.2 - Premium Tech Logos
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PenLine, Monitor, ChevronRight } from 'lucide-react';

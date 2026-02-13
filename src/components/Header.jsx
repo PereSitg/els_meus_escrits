@@ -105,6 +105,16 @@ export default function Header() {
                     <div className="nav-separator"></div>
 
                     <Link
+                        to="/stack"
+                        className={`nav-link ${isActive('/stack') ? 'active' : ''}`}
+                        style={{ marginLeft: '1.5rem', marginRight: '0.75rem' }}
+                    >
+                        {t('nav.stack')}
+                    </Link>
+
+                    <div className="nav-separator"></div>
+
+                    <Link
                         to="/contact"
                         className={`nav-link ${isActive('/contact') ? 'active' : ''}`}
                         style={{ margin: '0 1rem 0 0.75rem' }}
