@@ -163,7 +163,12 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        style={{ overflow: 'hidden', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--bg-primary)' }}
+                        style={{
+                            overflowY: 'auto',
+                            maxHeight: 'calc(100vh - 80px)',
+                            background: 'var(--bg-secondary)',
+                            borderBottom: '1px solid var(--bg-primary)'
+                        }}
                     >
                         <div className="container mobile-nav-content" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 1.5rem' }}>
                             <LangSwitcher mobile />
@@ -246,6 +251,21 @@ export default function Header() {
                                     ))}
                                 </div>
                             </div>
+
+                            <div className="nav-separator"></div>
+
+                            <Link
+                                to="/stack"
+                                style={{
+                                    padding: '1rem 0',
+                                    fontSize: '1.2rem',
+                                    fontWeight: 'bold',
+                                    color: isActive('/stack') ? 'var(--accent-primary)' : 'var(--text-secondary)'
+                                }}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t('nav.stack')}
+                            </Link>
 
                             <div className="nav-separator"></div>
 

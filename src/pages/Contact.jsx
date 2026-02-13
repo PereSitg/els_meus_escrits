@@ -41,12 +41,11 @@ export default function Contact() {
     return (
         <div className="contact-page" style={{ paddingTop: '6rem', paddingBottom: '8rem' }}>
             <div className="container" style={{ maxWidth: '900px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '5rem' }}>
-
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
                     {/* BIOGRAFIA / INTRO */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                     >
                         <h1 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '2rem', letterSpacing: '-0.02em' }}>
                             {t('contact.bio_title')}
@@ -81,10 +80,18 @@ export default function Contact() {
 
                     {/* FORMULARI */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
                         className="glass"
-                        style={{ padding: '2.5rem', borderRadius: '2rem', border: '1px solid rgba(255,255,255,0.05)', height: 'fit-content' }}
+                        style={{
+                            padding: '2.5rem',
+                            borderRadius: '2rem',
+                            border: '1px solid rgba(255,255,255,0.05)',
+                            maxWidth: '600px',
+                            margin: '0 auto',
+                            width: '100%'
+                        }}
                     >
                         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#ffffff' }}>{t('contact.title')}</h2>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '0.9rem' }}>{t('contact.subtitle')}</p>

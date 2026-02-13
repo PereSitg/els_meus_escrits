@@ -19,7 +19,7 @@ i18n
                         projects: 'Projectes',
                         writings: 'Els meus escrits',
                         sitges: 'Sitges',
-                        ecos: 'Ecos de l\'ànima',
+                        ecos: 'Ecos de Sociedad',
                         altres: 'Altres històries',
                         stack: 'El meu Stack',
                         contact: 'Contacte',
@@ -35,7 +35,7 @@ i18n
                         bio_f1_title: 'Programació & IA:',
                         bio_f1_desc: 'Desenvolupo solucions on el codi (React, Python) i la IA (Gemini, OpenAI) treballen al servei d\'una estratègia.',
                         bio_f2_title: 'Narrativa Digital:',
-                        bio_f2_desc: 'Domino les Xarxes Socials i la creació de contingut visual amb DaVinci Resolve, entenent que cada projecte necessita una veu pròpia per arribar a la gent.',
+                        bio_f2_desc: 'Domino les Xarxes Socials i la creació de contingut visual amb DaVinci Resolve, entenent que cada projecte necessita una voç pròpia per arribar a la gent.',
                         bio_f3_title: 'Visió de Negoci:',
                         bio_f3_desc: 'Gràcies al meu passat comercial, no construeixo només eines; construeixo solucions que aporten valor real i són entenedores per a l\'usuari final.',
                         bio_footer: 'No sóc només un programador. Sóc un tècnic que comunica i un comunicador que entén la tecnologia.',
@@ -138,9 +138,9 @@ i18n
                         learning_title: '"Always Learning"',
                         learning_desc: 'Aquest stack no és estàtic. Cada setmana testo noves eines de l\'ecosistema IA per mantenir-me a l\'avantguarda de l\'eficiència digital.',
                         sections: {
-                            ia: "IA & Core Tech",
-                            web: "Web Architecture",
-                            creative: "Creative & Workflow"
+                            ia: "IA i Core Tech",
+                            web: "Arquitectura Web",
+                            creative: "Disseny i Flux Creatiu"
                         },
                         items: {
                             gemini: "El motor de raonament principal. La seva gran finestra de context em permet processar volums massius de dades amb una precisió quirúrgica.",
@@ -266,7 +266,7 @@ i18n
                             architecture_data: 'Gestión de Datos: Base de datos optimizada para rutas y puntos de interés.',
                             architecture_dev: 'Desarrollo: Enfoque de Progressive Web App (PWA) con React para una experiencia nativa en el móvil.',
                             features_title: 'Características Clave',
-                            feature_1: 'Mapas interactivos de rutas culturales',
+                            feature_1: 'Mapes interactivos de rutas culturales',
                             feature_2: 'Información histórica geolocalizada',
                             feature_3: 'Interfaz optimizada para el uso al exterior',
                             try_button: 'Ver la web',
@@ -293,9 +293,9 @@ i18n
                         learning_title: '"Always Learning"',
                         learning_desc: 'Este stack no es estático. Cada semana testo nuevas herramientas del ecosistema IA para mantenerme a la vanguardia de la eficiencia digital.',
                         sections: {
-                            ia: "IA & Core Tech",
-                            web: "Web Architecture",
-                            creative: "Creative & Workflow"
+                            ia: "IA y Core Tech",
+                            web: "Arquitectura Web",
+                            creative: "Diseño y Flujo Creativo"
                         },
                         items: {
                             gemini: "El motor de razonamiento principal. Su gran ventana de contexto me permite procesar volúmenes masivos de datos con una precisión quirúrgica.",
