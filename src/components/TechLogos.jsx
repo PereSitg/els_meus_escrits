@@ -39,15 +39,17 @@ export default function TechLogos() {
                             className="tech-logo-item"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
+                            whileHover="hover"
                             transition={{ delay: index * 0.05 }}
                             viewport={{ once: true }}
                             style={{
-                                width: '40px',
-                                height: '40px',
+                                width: '45px',
+                                height: '45px',
                                 color: '#ffffff',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center'
+                                justifyContent: 'center',
+                                position: 'relative'
                             }}
                         >
                             <svg
@@ -58,6 +60,24 @@ export default function TechLogos() {
                             >
                                 {logo.content}
                             </svg>
+                            <motion.span
+                                variants={{
+                                    hover: { opacity: 1, y: 35 }
+                                }}
+                                initial={{ opacity: 0, y: 25 }}
+                                transition={{ duration: 0.2 }}
+                                style={{
+                                    position: 'absolute',
+                                    fontSize: '0.7rem',
+                                    fontWeight: '600',
+                                    whiteSpace: 'nowrap',
+                                    color: '#ffffff',
+                                    pointerEvents: 'none',
+                                    textAlign: 'center'
+                                }}
+                            >
+                                {logo.name}
+                            </motion.span>
                         </motion.div>
                     ))}
                 </div>
