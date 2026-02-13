@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Database, Layout } from 'lucide-react';
+import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Code2, Database, Layout } from 'lucide-react';
 import RelatedProjects from '../components/RelatedProjects';
 
 export default function SommelierDigital() {

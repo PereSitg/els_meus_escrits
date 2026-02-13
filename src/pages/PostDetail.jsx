@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, ChevronLeft, Share2, Clock, BookOpen, Languages, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Calendar, Tag, ChevronLeft, ChevronRight, Share2, Clock, BookOpen, Languages, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { collection, query, limit, getDocs } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import { translateText } from '../lib/translateService';
@@ -416,7 +416,7 @@ export default function PostDetail() {
                                 paddingLeft: '1rem',
                                 fontSize: '1.2rem'
                             }}>
-                                Publicat a L'Eco de Sitges,
+                                Publicat a L'Eco de Sitges
                             </p>
                         )}
                     </motion.div>

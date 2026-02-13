@@ -238,11 +238,12 @@ a {
     visibility: visible;
     box-shadow: none;
     border: none;
-    background: transparent;
-    padding-left: 4rem;
-    margin-left: 0;
-    border-left: 4px solid var(--accent-primary);
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(15, 23, 42, 0.4);
+    padding-left: 2.5rem;
+    /* Indent from parent */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-left: 2px solid var(--accent-primary);
     display: none;
     width: 100%;
     border-radius: 0 0.5rem 0.5rem 0;
