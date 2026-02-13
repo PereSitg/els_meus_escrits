@@ -105,6 +105,36 @@ i18n
                         translating: 'Traduint...',
                         show_original: 'Mostrar original',
                         translation_error: 'Error en traduir. Torna-ho a intentar.'
+                    },
+                    stack: {
+                        title: 'El meu Stack:',
+                        subtitle: 'On l\'Estratègia troba l\'Execució.',
+                        intro_p1: 'Aquest stack tecnològic és el meu camp de joc. Mitjançant l\'ús expert de la IA Generativa, transformo conceptes complexos en productes reals, demostrant que la visió estratègica i el bon ús de la tecnologia són més potents que el coneixement tècnic aïllat.',
+                        quote: '"No sóc un programador convencional; sóc un AI-Powered Builder. El meu valor no resideix en la memorització de sintaxi, sinó en la capacitat de dialogar amb la Intel·ligència Artificial per extreure\'n el màxim potencial tècnic. Això em permet ser extremadament àgil: el que abans requeria un equip sencer, ara ho executo amb precisió i criteri propi."',
+                        learning_title: '"Always Learning"',
+                        learning_desc: 'Aquest stack no és estàtic. Cada setmana testo noves eines de l\'ecosistema IA per mantenir-me a l\'avantguarda de l\'eficiència digital.',
+                        sections: {
+                            brain: "El Cervell (IA & Data Science)",
+                            web: "Arquitectura i Gestió de Continguts (Web & Media)",
+                            creative: "Creació Creativa & Postproducció (Disseny & Vídeo)",
+                            workspace: "Entorn de Treball"
+                        },
+                        items: {
+                            gemini: "El motor de raonament principal. La seva gran finestra de context em permet processar volums massius de dades amb una precisió quirúrgica.",
+                            openai: "Estàndard de la indústria per a la generació de text i orquestració de lògica complexa en els meus fluxos de treball.",
+                            python: "El llenguatge fonamental que em permet connectar la IA amb l'execució de codi i l'automatització.",
+                            cloudinary: "La meva solució per a la gestió intel·ligent de mitjans. L'utilitzo per optimitzar, emmagatzemar i servir imatges i vídeos de forma ultra-ràpida, assegurant que la web sigui lleugera sense perdre qualitat visual.",
+                            firebase: "La infraestructura per a dades en temps real, emmagatzematge i autenticació segura d'usuaris.",
+                            react: "La llibreria per construir interfícies d'usuari dinàmiques i escalables mitjançant components.",
+                            tailwind: "Motor d'estil per dissenyar interfícies netes i minimalistes directament des del codi.",
+                            vercel: "Plataforma de deployment que garanteix la màxima velocitat de càrrega i un rendiment òptim de la web.",
+                            github: "Centre de control de versions on col·laboro amb la IA per mantenir un codi segur i organitzat.",
+                            davinci: "Eina definitiva per a la postproducció de vídeo, utilitzada pel seu control cinematogràfic del color i potència en el muntatge professional.",
+                            ae: "Creació de motion graphics per explicar conceptes abstractes d'IA de manera visual i senzilla.",
+                            ps: "Pilar del disseny gràfic per a la creació de portades i elements visuals de marca personal.",
+                            antigravity: "L'esquelet de disseny que dóna coherència visual i una experiència d'usuari futurista.",
+                            vscode: "El meu centre d'operacions configurat per al desenvolupament assistit per IA, on el prompt engineering i el codi convergeixen."
+                        }
                     }
                 }
             },
@@ -201,6 +231,36 @@ i18n
                         translating: 'Traduciendo...',
                         show_original: 'Mostrar original',
                         translation_error: 'Error al traducir. Inténtalo de nuevo.'
+                    },
+                    stack: {
+                        title: 'Mi Stack:',
+                        subtitle: 'Donde la Estrategia encuentra la Ejecución.',
+                        intro_p1: 'Este stack tecnológico es mi campo de juego. Mediante el uso experto de la IA Generativa, transformo concepto complejos en productos reales, demostrando que la visión estratégica y el buen uso de la tecnología son más potentes que el conocimiento técnico aislado.',
+                        quote: '"No soy un programador convencional; soy un AI-Powered Builder. Mi valor no reside en la memorización de sintaxis, sino en la capacidad de dialogar con la Inteligencia Artificial para extraer su máximo potencial técnico. Esto me permite ser extremadamente ágil: lo que antes requería un equipo entero, ahora lo ejecuto con precisión y criterio propio."',
+                        learning_title: '"Always Learning"',
+                        learning_desc: 'Este stack no es estático. Cada semana testo nuevas herramientas del ecosistema IA para mantenerme a la vanguardia de la eficiencia digital.',
+                        sections: {
+                            brain: "El Cerebro (IA & Data Science)",
+                            web: "Arquitectura y Gestión de Contenidos (Web & Media)",
+                            creative: "Creación Creativa & Postproducción (Diseño & Vídeo)",
+                            workspace: "Entorno de Trabajo"
+                        },
+                        items: {
+                            gemini: "El motor de razonamiento principal. Su gran ventana de contexto me permite procesar volúmenes masivos de datos con una precisión quirúrgica.",
+                            openai: "Estándar de la industria para la generación de texto y orquestación de lógica compleja en mis flujos de trabajo.",
+                            python: "El lenguaje fundamental que me permite conectar la IA con la ejecución de código y la automatización.",
+                            cloudinary: "Mi solución para la gestión inteligente de medios. Lo utilizo para optimizar, almacenar y servir imágenes y vídeos de forma ultra-rápida, asegurando que la web sea ligera sin perder calidad visual.",
+                            firebase: "La infraestructura para datos en tiempo real, almacenamiento y autenticación segura de usuarios.",
+                            react: "La librería para construir interfaces de usuario dinámicas y escalables mediante componentes.",
+                            tailwind: "Motor de estilo para diseñar interfaces limpias y minimalistas directamente desde el código.",
+                            vercel: "Plataforma de deployment que garantiza la máxima velocidad de carga y un rendimiento óptimo de la web.",
+                            github: "Centro de control de versiones donde colaboro con la IA para mantener un código seguro y organizado.",
+                            davinci: "Herramienta definitiva para la postproducción de vídeo, utilizada por su control cinematográfico del color y potencia en el montaje profesional.",
+                            ae: "Creación de motion graphics para explicar conceptos abstractos de IA de manera visual y sencilla.",
+                            ps: "Pilar del diseño gráfico para la creación de portadas y elementos visuals de marca personal.",
+                            antigravity: "El esqueleto de diseño que da coherencia visual y una experiencia de usuario futurista.",
+                            vscode: "Mi centro de operaciones configurado para el desarrollo asistido por IA, donde el prompt engineering y el código convergen."
+                        }
                     }
                 }
             },
@@ -297,6 +357,36 @@ i18n
                         translating: 'Translating...',
                         show_original: 'Show original',
                         translation_error: 'Translation error. Please try again.'
+                    },
+                    stack: {
+                        title: 'My Stack:',
+                        subtitle: 'Where Strategy meets Execution.',
+                        intro_p1: 'This tech stack is my playground. Through the expert use of Generative AI, I transform complex concepts into real products, demonstrating that strategic vision and the effective use of technology are more powerful than isolated technical knowledge.',
+                        quote: '"I am not a conventional programmer; I am an AI-Powered Builder. My value does not lie in memorizing syntax, but in the ability to dialogue with Artificial Intelligence to extract its full technical potential. This allows me to be extremely agile: what used to require a whole team, I now execute with precision and my own judgment."',
+                        learning_title: '"Always Learning"',
+                        learning_desc: 'This stack is not static. Every week I test new tools from the AI ecosystem to stay at the forefront of digital efficiency.',
+                        sections: {
+                            brain: "The Brain (IA & Data Science)",
+                            web: "Architecture & Content Management (Web & Media)",
+                            creative: "Creative Creation & Post-production (Design & Video)",
+                            workspace: "Work Environment"
+                        },
+                        items: {
+                            gemini: "The primary reasoning engine. Its large context window allows me to process massive volumes of data with surgical precision.",
+                            openai: "Industry standard for text generation and complex logic orchestration in my workflows.",
+                            python: "The fundamental language that allows me to connect AI with code execution and automation.",
+                            cloudinary: "My solution for intelligent media management. I use it to optimize, store, and serve images and videos ultra-fast, ensuring the web is lightweight without losing visual quality.",
+                            firebase: "The infrastructure for real-time data, storage, and secure user authentication.",
+                            react: "The library for building dynamic and scalable user interfaces using components.",
+                            tailwind: "Style engine to design clean and minimalist interfaces directly from the code.",
+                            vercel: "Deployment platform that guarantees maximum loading speed and optimal web performance.",
+                            github: "Version control center where I collaborate with AI to maintain secure and organized code.",
+                            davinci: "Definitive tool for video post-production, used for its cinematic color control and power in professional editing.",
+                            ae: "Motion graphics creation to explain abstract AI concepts in a visual and simple way.",
+                            ps: "Design pillar for creating covers and personal brand visual elements.",
+                            antigravity: "The design skeleton that provides visual coherence and a futuristic user experience.",
+                            vscode: "My operation center configured for AI-assisted development, where prompt engineering and code converge."
+                        }
                     }
                 }
             }
