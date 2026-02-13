@@ -10,7 +10,7 @@ export const projectsData = [
         id: 'sitges-art',
         slug: 'sitges-art',
         image: '/sitges_art.png',
-        tags: ['Cultura', 'Història', 'IA'],
+        tags: ['Cultura', 'Història', 'IA', 'Python', 'Gemini API'],
         translationKey: 'sitgesart'
     },
     // Es poden afegir més projectes aquí fàcilment

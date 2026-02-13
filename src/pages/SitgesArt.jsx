@@ -11,7 +11,7 @@ export default function SitgesArt() {
         window.scrollTo(0, 0);
     }, []);
 
-    const tags = ['Cultura', 'Història', 'IA'];
+    const tags = ['Cultura', 'Història', 'IA', 'Python', 'Gemini API'];
 
     return (
         <div className="project-detail-page" style={{ paddingTop: '2rem', paddingBottom: '6rem' }}>
@@ -91,22 +91,27 @@ export default function SitgesArt() {
                                     style={{ width: '100%', height: 'auto', display: 'block' }}
                                 />
                                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                                    <span className="btn-primary" style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '0.8rem',
-                                        padding: '0.8rem 1.5rem',
-                                        borderRadius: '3rem',
-                                        fontSize: '1.1rem',
-                                        fontWeight: 'bold',
-                                        width: '100%',
-                                        justifyContent: 'center',
-                                        opacity: 0.8,
-                                        cursor: 'default'
-                                    }}>
+                                    <a
+                                        href="https://peresitg.github.io/ART/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn-primary"
+                                        style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            gap: '0.8rem',
+                                            padding: '0.8rem 1.5rem',
+                                            borderRadius: '3rem',
+                                            fontSize: '1.1rem',
+                                            fontWeight: 'bold',
+                                            textDecoration: 'none',
+                                            width: '100%',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
                                         {t('projects.sitgesart.try_button')}
                                         <ExternalLink size={20} />
-                                    </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -193,23 +198,30 @@ export default function SitgesArt() {
                                 style={{ width: '100%', height: 'auto', display: 'block' }}
                             />
                             <div style={{ padding: '2.5rem', textAlign: 'center' }}>
-                                <span style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '0.8rem',
-                                    background: 'var(--accent-primary)',
-                                    color: 'white',
-                                    padding: '1rem 2rem',
-                                    borderRadius: '3rem',
-                                    fontSize: '1.2rem',
-                                    fontWeight: 'bold',
-                                    textDecoration: 'none',
-                                    opacity: 0.8,
-                                    cursor: 'default'
-                                }} className="btn-primary">
+                                <a
+                                    href="https://peresitg.github.io/ART/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.8rem',
+                                        background: 'var(--accent-primary)',
+                                        color: 'white',
+                                        padding: '1rem 2rem',
+                                        borderRadius: '3rem',
+                                        fontSize: '1.2rem',
+                                        fontWeight: 'bold',
+                                        textDecoration: 'none',
+                                        transition: 'transform 0.2s, background 0.2s'
+                                    }}
+                                    className="btn-primary"
+                                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                                >
                                     {t('projects.sitgesart.try_button')}
                                     <ExternalLink size={20} />
-                                </span>
+                                </a>
                             </div>
                         </div>
                     </motion.div>

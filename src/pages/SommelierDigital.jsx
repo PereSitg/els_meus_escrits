@@ -128,6 +128,26 @@ export default function SommelierDigital() {
                             }}>
                                 {t('projects.sommelier.detail_desc')}
                             </p>
+
+                            {/* Author's Note */}
+                            <div style={{
+                                padding: '2rem',
+                                background: 'rgba(59, 130, 246, 0.05)',
+                                borderRadius: '1.5rem',
+                                borderLeft: '4px solid var(--accent-primary)',
+                                marginTop: '2.5rem'
+                            }}>
+                                <p style={{
+                                    fontFamily: 'var(--font-heading)',
+                                    fontStyle: 'italic',
+                                    fontSize: '1.1rem',
+                                    lineHeight: '1.7',
+                                    color: 'var(--text-primary)',
+                                    margin: 0
+                                }}>
+                                    "{t('projects.sommelier.author_note')}"
+                                </p>
+                            </div>
                         </div>
 
                         <div style={{ marginBottom: '3rem' }}>
