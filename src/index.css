@@ -31,6 +31,16 @@ body {
   overflow-x: hidden;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 h1,
 h2,
 h3,
@@ -477,4 +487,12 @@ a {
     width: 45px;
     height: 45px;
   }
+}
+
+.footer-link {
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent-primary) !important;
 }
