@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PenLine, Monitor, ChevronRight } from 'lucide-react';
+import TechLogos from '../components/TechLogos';
 
 export default function Home() {
     const { t } = useTranslation();
@@ -166,6 +167,7 @@ export default function Home() {
                     ))}
                 </div>
             </div>
+            <TechLogos />
         </div>
     );
 }
