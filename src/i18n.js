@@ -114,10 +114,9 @@ i18n
                         learning_title: '"Always Learning"',
                         learning_desc: 'Aquest stack no és estàtic. Cada setmana testo noves eines de l\'ecosistema IA per mantenir-me a l\'avantguarda de l\'eficiència digital.',
                         sections: {
-                            brain: "El Cervell (IA & Data Science)",
-                            web: "Arquitectura i Gestió de Continguts (Web & Media)",
-                            creative: "Creació Creativa & Postproducció (Disseny & Vídeo)",
-                            workspace: "Entorn de Treball"
+                            ia: "IA & Core Tech",
+                            web: "Web Architecture",
+                            creative: "Creative & Workflow"
                         },
                         items: {
                             gemini: "El motor de raonament principal. La seva gran finestra de context em permet processar volums massius de dades amb una precisió quirúrgica.",
@@ -134,6 +133,12 @@ i18n
                             ps: "Pilar del disseny gràfic per a la creació de portades i elements visuals de marca personal.",
                             antigravity: "L'esquelet de disseny que dóna coherència visual i una experiència d'usuari futurista.",
                             vscode: "El meu centre d'operacions configurat per al desenvolupament assistit per IA, on el prompt engineering i el codi convergeixen."
+                        },
+                        diagram: {
+                            title: "Arquitectura de Solucions (Exemple: Sommelier Digital)",
+                            frontend: "Frontend",
+                            logic: "IA & Python Orchestration",
+                            data: "Dades"
                         }
                     }
                 }
@@ -240,14 +245,13 @@ i18n
                         learning_title: '"Always Learning"',
                         learning_desc: 'Este stack no es estático. Cada semana testo nuevas herramientas del ecosistema IA para mantenerme a la vanguardia de la eficiencia digital.',
                         sections: {
-                            brain: "El Cerebro (IA & Data Science)",
-                            web: "Arquitectura y Gestión de Contenidos (Web & Media)",
-                            creative: "Creación Creativa & Postproducción (Diseño & Vídeo)",
-                            workspace: "Entorno de Trabajo"
+                            ia: "IA & Core Tech",
+                            web: "Web Architecture",
+                            creative: "Creative & Workflow"
                         },
                         items: {
                             gemini: "El motor de razonamiento principal. Su gran ventana de contexto me permite procesar volúmenes masivos de datos con una precisión quirúrgica.",
-                            openai: "Estándar de la industria para la generación de texto y orquestación de lógica compleja en mis flujos de trabajo.",
+                            openai: "Estándar de la industria para la generación de texto y orquestración de lógica compleja en mis flujos de trabajo.",
                             python: "El lenguaje fundamental que me permite conectar la IA con la ejecución de código y la automatización.",
                             cloudinary: "Mi solución para la gestión inteligente de medios. Lo utilizo para optimizar, almacenar y servir imágenes y vídeos de forma ultra-rápida, asegurando que la web sea ligera sin perder calidad visual.",
                             firebase: "La infraestructura para datos en tiempo real, almacenamiento y autenticación segura de usuarios.",
@@ -260,6 +264,12 @@ i18n
                             ps: "Pilar del diseño gráfico para la creación de portadas y elementos visuals de marca personal.",
                             antigravity: "El esqueleto de diseño que da coherencia visual y una experiencia de usuario futurista.",
                             vscode: "Mi centro de operaciones configurado para el desarrollo asistido por IA, donde el prompt engineering y el código convergen."
+                        },
+                        diagram: {
+                            title: "Arquitectura de Soluciones (Ejemplo: Sommelier Digital)",
+                            frontend: "Frontend",
+                            logic: "IA & Python Orchestration",
+                            data: "Datos"
                         }
                     }
                 }
@@ -366,10 +376,9 @@ i18n
                         learning_title: '"Always Learning"',
                         learning_desc: 'This stack is not static. Every week I test new tools from the AI ecosystem to stay at the forefront of digital efficiency.',
                         sections: {
-                            brain: "The Brain (IA & Data Science)",
-                            web: "Architecture & Content Management (Web & Media)",
-                            creative: "Creative Creation & Post-production (Design & Video)",
-                            workspace: "Work Environment"
+                            ia: "IA & Core Tech",
+                            web: "Web Architecture",
+                            creative: "Creative & Workflow"
                         },
                         items: {
                             gemini: "The primary reasoning engine. Its large context window allows me to process massive volumes of data with surgical precision.",
@@ -386,6 +395,12 @@ i18n
                             ps: "Design pillar for creating covers and personal brand visual elements.",
                             antigravity: "The design skeleton that provides visual coherence and a futuristic user experience.",
                             vscode: "My operation center configured for AI-assisted development, where prompt engineering and code converge."
+                        },
+                        diagram: {
+                            title: "Solution Architecture (Example: Digital Sommelier)",
+                            frontend: "Frontend",
+                            logic: "AI & Python Orchestration",
+                            data: "Data"
                         }
                     }
                 }
