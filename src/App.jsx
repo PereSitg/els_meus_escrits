@@ -16,6 +16,9 @@ import PostDetail from './pages/PostDetail';
 import SommelierDigital from './pages/SommelierDigital';
 import SitgesArt from './pages/SitgesArt';
 import SitgesWalk from './pages/SitgesWalk';
+import LegalNotice from './pages/LegalNotice';
+import CookiePolicy from './pages/CookiePolicy';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
             <Route path="projects/sommelier" element={<SommelierDigital />} />
             <Route path="projects/sitges-art" element={<SitgesArt />} />
             <Route path="projects/sitges-walk" element={<SitgesWalk />} />
+            <Route path="avis-legal" element={<LegalNotice />} />
+            <Route path="politica-cookies" element={<CookiePolicy />} />
+            <Route path="politica-privacitat" element={<PrivacyPolicy />} />
           </Route>
 
           {/* Admin Routes */}
