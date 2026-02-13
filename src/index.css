@@ -418,36 +418,62 @@ a {
 }
 
 .tech-logo-item {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  opacity: 0.4;
-  transition: all 0.4s ease;
-  filter: grayscale(1);
+  opacity: 0.6;
+  /* Higher base opacity for clarity */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .tech-logo-item:hover {
   opacity: 1;
   color: var(--accent-primary);
-  transform: scale(1.1);
-  filter: grayscale(0);
+  filter: drop-shadow(0 0 8px var(--accent-glow));
 }
 
-.tech-logo-item svg {
+.tech-logo-svg {
   width: 100%;
   height: 100%;
+  max-width: 48px;
+  max-height: 48px;
+  transition: transform 0.3s ease;
+}
+
+.tech-logo-item:hover .tech-logo-svg {
+  transform: translateY(-8px);
+}
+
+.tech-logo-name {
+  position: absolute;
+  bottom: -20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tech-logo-item:hover .tech-logo-name {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 480px) {
   .tech-logos-grid {
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .tech-logo-item {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 }
