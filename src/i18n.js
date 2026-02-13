@@ -15,6 +15,7 @@ i18n
             ca: {
                 translation: {
                     nav: {
+                        home: 'Inici',
                         projects: 'Projectes',
                         writings: 'Els meus escrits',
                         sitges: 'Sitges',
@@ -88,6 +89,7 @@ i18n
                             feature_1: 'Mapes interactius de rutes culturals',
                             feature_2: 'Informació històrica geolocalitzada',
                             feature_3: 'Interfície optimitzada per a l\'ús a l\'exterior',
+                            try_button: 'Veure la web',
                             back_button: 'Tornar a projectes'
                         },
                         related_title: 'Altres Projectes'
@@ -108,6 +110,7 @@ i18n
             es: {
                 translation: {
                     nav: {
+                        home: 'Inicio',
                         projects: 'Proyectos',
                         writings: 'Mis escritos',
                         sitges: 'Sitges',
@@ -181,6 +184,7 @@ i18n
                             feature_1: 'Mapas interactivos de rutas culturales',
                             feature_2: 'Información histórica geolocalizada',
                             feature_3: 'Interfaz optimizada para el uso al exterior',
+                            try_button: 'Ver la web',
                             back_button: 'Volver a proyectos'
                         },
                         related_title: 'Otros Proyectos'
@@ -201,6 +205,7 @@ i18n
             en: {
                 translation: {
                     nav: {
+                        home: 'Home',
                         projects: 'Projects',
                         writings: 'My Writings',
                         sitges: 'Sitges',
@@ -274,6 +279,7 @@ i18n
                             feature_1: 'Interactive cultural route maps',
                             feature_2: 'Geolocated historical information',
                             feature_3: 'Interface optimized for outdoor use',
+                            try_button: 'View the website',
                             back_button: 'Back to projects'
                         },
                         related_title: 'Other Projects'

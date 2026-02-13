@@ -56,12 +56,21 @@ export default function Header() {
     return (
         <header className="header glass">
             <div className="container header-content">
-                <Link to="/" style={{ fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
+                <Link to="/" className="header-logo" style={{ fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
                     Pere Badia i Lorenz
                 </Link>
 
                 {/* Desktop Nav */}
                 <nav className="desktop-nav">
+                    <Link
+                        to="/"
+                        className={`nav-link ${isActive('/') ? 'active' : ''}`}
+                        style={{ marginLeft: '1.5rem', marginRight: '0.75rem' }}
+                    >
+                        {t('nav.home') || 'Inici'}
+                    </Link>
+
+                    <div className="nav-separator"></div>
                     <Link
                         to={professionalItem.path}
                         className={`nav-link ${isActive(professionalItem.path) ? 'active' : ''}`}
@@ -146,8 +155,23 @@ export default function Header() {
                         exit={{ opacity: 0, height: 0 }}
                         style={{ overflow: 'hidden', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--bg-primary)' }}
                     >
-                        <div className="container" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 1.5rem' }}>
+                        <div className="container mobile-nav-content" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 1.5rem' }}>
                             <LangSwitcher mobile />
+
+                            <Link
+                                to="/"
+                                style={{
+                                    padding: '1rem 0',
+                                    fontSize: '1.2rem',
+                                    fontWeight: 'bold',
+                                    color: isActive('/') ? 'var(--accent-primary)' : 'var(--text-primary)'
+                                }}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {t('nav.home') || 'Inici'}
+                            </Link>
+
+                            <div className="nav-separator"></div>
 
                             <Link
                                 to={professionalItem.path}

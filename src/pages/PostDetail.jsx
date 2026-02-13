@@ -20,6 +20,13 @@ export default function PostDetail() {
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
+        // Reiniciar estats per al nou article
+        setLoading(true);
+        setPost(null);
+        setTranslatedContent(null);
+        setShowTranslation(false);
+        window.scrollTo(0, 0);
+
         async function fetchPost() {
             try {
                 const docSnap = await getDoc(doc(db, "posts", id));

@@ -210,37 +210,43 @@ a {
     /* Keep button on the right */
   }
 
-  /* Shift title to the right on mobile */
-  .header-content a[href="/"] {
-    padding-left: 2rem;
+  /* Logo and Header positioning */
+  .header-logo {
+    padding-left: 0 !important;
     flex: 1;
     text-align: left;
   }
 
   .nav-item-dropdown.mobile {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .nav-item-dropdown.desktop-only {
     display: none;
   }
 
-  .dropdown-trigger {
+  /* Reset trigger flex behavior on mobile */
+  .nav-item-dropdown.mobile .dropdown-trigger {
     padding: 1rem 0;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
   }
 
   .dropdown-content {
-    position: static;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    box-shadow: none;
-    border: none;
-    background: rgba(15, 23, 42, 0.4);
-    padding-left: 2.5rem;
-    /* Indent from parent */
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: rgba(15, 23, 42, 0.4) !important;
+    padding-left: 1.5rem !important;
+    /* Controlled indent */
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     border-left: 2px solid var(--accent-primary);
