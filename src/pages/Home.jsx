@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Palmtree, Briefcase, ChevronRight } from 'lucide-react';
+import { PenLine, Monitor, ChevronRight } from 'lucide-react';
 
 export default function Home() {
     const { t } = useTranslation();
@@ -11,17 +11,17 @@ export default function Home() {
             title: t('nav.writings') || 'Els meus escrits',
             description: t('home.sitges_desc') || 'Explora els meus escrits i històries sobre Sitges.',
             path: '/category/sitges',
-            icon: <Palmtree size={48} />,
+            icon: <PenLine size={48} />,
             color: 'var(--accent-primary)',
-            bgImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80'
+            bgImage: '/els_escrits.png'
         },
         {
             title: t('nav.projects'),
             description: t('home.projects_desc') || 'Descobreix els projectes professionals i creatius en els quals he treballat.',
             path: '/projects',
-            icon: <Briefcase size={48} />,
+            icon: <Monitor size={48} />,
             color: '#10b981',
-            bgImage: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80'
+            bgImage: '/meus_projectes.png'
         }
     ];
 
