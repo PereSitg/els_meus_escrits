@@ -461,16 +461,6 @@ export default function PostDetail() {
                             </button>
                         </div>
 
-                        <Link to="/" style={{
-                            color: 'var(--accent-primary)',
-                            fontWeight: '600',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            fontSize: '1.1rem'
-                        }}>
-                            <BookOpen size={20} /> Més històries de Pere Badia
-                        </Link>
                     </div>
 
                     {/* Related Posts Section */}
@@ -487,9 +477,12 @@ export default function PostDetail() {
                             </h2>
                             <div style={{
                                 display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                                gap: '2rem'
-                            }}>
+                                gridTemplateColumns: 'repeat(3, 1fr)',
+                                gap: '2rem',
+                                '@media (max-width: 768px)': {
+                                    gridTemplateColumns: '1fr'
+                                }
+                            }} className="related-grid-container">
                                 {relatedPosts.map((rPost, idx) => (
                                     <motion.div
                                         key={rPost.id}

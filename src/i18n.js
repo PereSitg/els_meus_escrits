@@ -88,10 +88,9 @@ i18n
                             feature_1: 'Mapes interactius de rutes culturals',
                             feature_2: 'Informació històrica geolocalitzada',
                             feature_3: 'Interfície optimitzada per a l\'ús a l\'exterior',
-                            try_button: 'Veure la web',
-                            back_button: 'Tornar a projectes',
-                            related_title: 'Altres Projectes'
-                        }
+                            back_button: 'Tornar a projectes'
+                        },
+                        related_title: 'Altres Projectes'
                     },
                     footer: {
                         made_with: 'Fet amb ❤️ des de Sitges.'
@@ -182,10 +181,9 @@ i18n
                             feature_1: 'Mapas interactivos de rutas culturales',
                             feature_2: 'Información histórica geolocalizada',
                             feature_3: 'Interfaz optimizada para el uso al exterior',
-                            try_button: 'Ver la web',
-                            back_button: 'Volver a proyectos',
-                            related_title: 'Otros Proyectos'
-                        }
+                            back_button: 'Volver a proyectos'
+                        },
+                        related_title: 'Otros Proyectos'
                     },
                     footer: {
                         made_with: 'Hecho con ❤️ desde Sitges.'
@@ -276,10 +274,9 @@ i18n
                             feature_1: 'Interactive cultural route maps',
                             feature_2: 'Geolocated historical information',
                             feature_3: 'Interface optimized for outdoor use',
-                            try_button: 'View the website',
-                            back_button: 'Back to projects',
-                            related_title: 'Other Projects'
-                        }
+                            back_button: 'Back to projects'
+                        },
+                        related_title: 'Other Projects'
                     },
                     footer: {
                         made_with: 'Made with ❤️ from Sitges.'
