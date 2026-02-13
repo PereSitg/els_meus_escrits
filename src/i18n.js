@@ -25,6 +25,30 @@ i18n
                         contact: 'Contacte',
                         logout: 'Tancar sessió'
                     },
+                    contact: {
+                        title: 'Contacte',
+                        subtitle: 'Tens alguna proposta o suggeriment? Envia\'m un missatge.',
+                        bio_title: 'De la placa base a la Intel·ligència Artificial: Una visió 360°',
+                        bio_p1: 'La meva relació amb la tecnologia no va començar davant d\'una pantalla, sinó amb un tornavís a la mà. Vaig iniciar la meva trajectòria com a tècnic de hardware, entenent com funcionen les màquines des de dins, per després saltar a l\'administració de sistemes. Aquesta base tècnica és la que avui em permet picar codi amb una comprensió profunda de la infraestructura que hi ha al darrere.',
+                        bio_p2: 'Però la tecnologia sense comunicació és buida. La meva etapa com a comercial em va ensenyar a escoltar les necessitats reals del client, i l\'oportunitat d\'escriure a L\'Eco de Sitges va ser el catalitzador perfecte: vaig descobrir que explicar històries i transmetre idees és tan important com saber programar-les.',
+                        bio_p3: 'Avui, fusiono tota aquesta experiència en el meu flux de treball:',
+                        bio_f1_title: 'Programació & IA:',
+                        bio_f1_desc: 'Desenvolupo solucions on el codi (React, Python) i la IA (Gemini, OpenAI) treballen al servei d\'una estratègia.',
+                        bio_f2_title: 'Narrativa Digital:',
+                        bio_f2_desc: 'Domino les Xarxes Socials i la creació de contingut visual amb DaVinci Resolve, entenent que cada projecte necessita una veu pròpia per arribar a la gent.',
+                        bio_f3_title: 'Visió de Negoci:',
+                        bio_f3_desc: 'Gràcies al meu passat comercial, no construeixo només eines; construeixo solucions que aporten valor real i són entenedores per a l\'usuari final.',
+                        bio_footer: 'No sóc només un programador. Sóc un tècnic que comunica i un comunicador que entén la tecnologia.',
+                        form: {
+                            name: 'Nom',
+                            email: 'Email',
+                            message: 'Missatge',
+                            submit: 'Enviar',
+                            captcha_label: 'Control humà: Quant és {{num1}} + {{num2}}?',
+                            captcha_error: 'La suma és incorrecta. Si us plau, torna-ho a intentar.',
+                            success: 'Missatge enviat correctament!'
+                        }
+                    },
                     hero: {
                         title: 'Pere Badia i Lorenz',
                         subtitle: 'Benvinguts al meu portafoli personal. Aquí trobareu els meus projectes, el meu currículum i un recull de reflexions i històries. Una finestra a la meva tasca professional i creativa.'
@@ -156,6 +180,30 @@ i18n
                         contact: 'Contacto',
                         logout: 'Cerrar sesión'
                     },
+                    contact: {
+                        title: 'Contacto',
+                        subtitle: '¿Tienes alguna propuesta o sugerencia? Envíame un mensaje.',
+                        bio_title: 'De la placa base a la Inteligencia Artificial: Una visión 360°',
+                        bio_p1: 'Mi relación con la tecnología no empezó frente a una pantalla, sino con un destornillador en la mano. Inicié mi trayectoria como técnico de hardware, entendiendo cómo funcionan las máquinas desde dentro, para después saltar a la administración de sistemas. Esta base técnica es la que hoy me permite picar código con una comprensión profunda de la infraestructura que hay detrás.',
+                        bio_p2: 'Pero la tecnología sin comunicación está vacía. Mi etapa como comercial me enseñó a escuchar las necesidades reales del cliente, y la oportunidad de escribir en L\'Eco de Sitges fue el catalizador perfecto: descubrí que explicar historias y transmitir ideas es tan importante como saber programarlas.',
+                        bio_p3: 'Hoy, fusiono toda esta experiencia en mi flujo de trabajo:',
+                        bio_f1_title: 'Programación & IA:',
+                        bio_f1_desc: 'Desarrollo soluciones donde el código (React, Python) y la IA (Gemini, OpenAI) trabajan al servicio de una estrategia.',
+                        bio_f2_title: 'Narrativa Digital:',
+                        bio_f2_desc: 'Domino las Redes Sociales y la creación de contenido visual con DaVinci Resolve, entendiendo que cada proyecto necesita una voz propia para llegar a la gente.',
+                        bio_f3_title: 'Visión de Negocio:',
+                        bio_f3_desc: 'Gracias a mi pasado comercial, no construyo solo herramientas; construyo soluciones que aportan valor real y son comprensibles para el usuario final.',
+                        bio_footer: 'No soy solo un programador. Soy un técnico que comunica y un comunicador que entiende la tecnología.',
+                        form: {
+                            name: 'Nombre',
+                            email: 'Email',
+                            message: 'Mensaje',
+                            submit: 'Enviar',
+                            captcha_label: 'Control humano: ¿Cuánto es {{num1}} + {{num2}}?',
+                            captcha_error: 'La suma es incorrecta. Por favor, inténtalo de nuevo.',
+                            success: '¡Mensaje enviado correctamente!'
+                        }
+                    },
                     hero: {
                         title: 'Pere Badia i Lorenz',
                         subtitle: 'Bienvenidos a mi portafolio personal. Aquí encontraréis mis proyectos, mi currículum y una colección de reflexiones e historias. Una ventana a mi labor profesional y creativa.'
@@ -286,6 +334,30 @@ i18n
                         stack: 'My Stack',
                         contact: 'Contact',
                         logout: 'Log out'
+                    },
+                    contact: {
+                        title: 'Contact',
+                        subtitle: 'Do you have any proposal or suggestion? Send me a message.',
+                        bio_title: 'From Motherboards to Artificial Intelligence: A 360° Vision',
+                        bio_p1: 'My relationship with technology didn\'t start in front of a screen, but with a screwdriver in my hand. I began my career as a hardware technician, understanding how machines work from the inside, later moving into systems administration. This technical foundation is what allows me today to write code with a deep understanding of the underlying infrastructure.',
+                        bio_p2: 'But technology without communication is empty. My time in sales taught me to listen to real customer needs, and the opportunity to write for L\'Eco de Sitges was the perfect catalyst: I discovered that telling stories and transmitting ideas is as important as knowing how to program them.',
+                        bio_p3: 'Today, I merge all this experience into my workflow:',
+                        bio_f1_title: 'Programming & AI:',
+                        bio_f1_desc: 'I develop solutions where code (React, Python) and AI (Gemini, OpenAI) work at the service of a strategy.',
+                        bio_f2_title: 'Digital Narrative:',
+                        bio_f2_desc: 'I master Social Media and visual content creation with DaVinci Resolve, understanding that every project needs its own voice to reach people.',
+                        bio_f3_title: 'Business Vision:',
+                        bio_f3_desc: 'Thanks to my sales background, I don\'t just build tools; I build solutions that provide real value and are understandable for the end user.',
+                        bio_footer: 'I am not just a programmer. I am a technician who communicates and a communicator who understands technology.',
+                        form: {
+                            name: 'Name',
+                            email: 'Email',
+                            message: 'Message',
+                            submit: 'Send',
+                            captcha_label: 'Human control: How much is {{num1}} + {{num2}}?',
+                            captcha_error: 'The sum is incorrect. Please try again.',
+                            success: 'Message sent successfully!'
+                        }
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
