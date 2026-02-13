@@ -13,6 +13,7 @@ import Dashboard from './pages/admin/Dashboard';
 import Editor from './pages/admin/Editor';
 import PostDetail from './pages/PostDetail';
 import SommelierDigital from './pages/SommelierDigital';
+import SitgesArt from './pages/SitgesArt';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="post/:id" element={<PostDetail />} />
             <Route path="projects/sommelier" element={<SommelierDigital />} />
+            <Route path="projects/sitges-art" element={<SitgesArt />} />
           </Route>
 
           {/* Admin Routes */}

@@ -56,6 +56,22 @@ i18n
                             feature_3: 'Base de dades dinàmica actualitzada amb IA',
                             try_button: 'Provar l\'aplicació',
                             back_button: 'Tornar a projectes'
+                        },
+                        sitgesart: {
+                            title: 'Sitges Art',
+                            desc: 'Un viatge per l\'art, la cultura i la memòria de Sitges. Una plataforma interactiva que connecta el passat amb el futur mitjançant la tecnologia.',
+                            detail_title: 'Sobre el Projecte',
+                            detail_desc: 'Sitges Art és un arxiu digital viu que celebra l\'herència cultural de Sitges. Hem creat una experiència on l\'art i la memòria històrica es fusionen amb una interfície moderna i accessible.',
+                            architecture_title: 'Arquitectura Tecnològica',
+                            architecture_ai: 'Motor d\'IA: Integració de models de llenguatge per a la contextualització d\'obres i indrets.',
+                            architecture_data: 'Gestió de Dades: Indexació semàntica de continguts culturals i històrics.',
+                            architecture_dev: 'Desenvolupament: Arquitectura basada en React amb un enfocament "mobile-first" per a la millor experiència en rutes urbanes.',
+                            features_title: 'Característiques Clau',
+                            feature_1: 'Cerca intel·ligent per art i història',
+                            feature_2: 'Disseny responsiu adaptat a dispositius mòbils',
+                            feature_3: 'Contingut multimèdia immersiu',
+                            try_button: 'Veure la web',
+                            back_button: 'Tornar a projectes'
                         }
                     },
                     footer: {
@@ -115,6 +131,22 @@ i18n
                             feature_3: 'Base de datos dinámica actualizada con IA',
                             try_button: 'Probar la aplicación',
                             back_button: 'Volver a proyectos'
+                        },
+                        sitgesart: {
+                            title: 'Sitges Art',
+                            desc: 'Un viaje por el arte, la cultura y la memoria de Sitges. Una plataforma interactiva que conecta el pasado con el futuro mediante la tecnología.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'Sitges Art es un archivo digital vivo que celebra la herencia cultural de Sitges. Hemos creado una experiencia donde el arte y la memoria histórica se fusionan con una interfaz moderna y accesible.',
+                            architecture_title: 'Arquitectura Tecnológica',
+                            architecture_ai: 'Motor de IA: Integración de modelos de lenguaje para la contextualización de obras y lugares.',
+                            architecture_data: 'Gestión de Datos: Indexación semántica de contenidos culturales e históricos.',
+                            architecture_dev: 'Desarrollo: Arquitectura basada en React con un enfoque "mobile-first" para la mejor experiencia en rutas urbanas.',
+                            features_title: 'Características Clave',
+                            feature_1: 'Búsqueda inteligente por arte e historia',
+                            feature_2: 'Diseño responsivo adaptado a dispositivos móviles',
+                            feature_3: 'Contenido multimedia inmersivo',
+                            try_button: 'Ver la web',
+                            back_button: 'Volver a proyectos'
                         }
                     },
                     footer: {
@@ -173,6 +205,22 @@ i18n
                             feature_2: 'Intuitive voice and text interface',
                             feature_3: 'Dynamic AI-updated database',
                             try_button: 'Try the app',
+                            back_button: 'Back to projects'
+                        },
+                        sitgesart: {
+                            title: 'Sitges Art',
+                            desc: 'A journey through the art, culture, and memory of Sitges. An interactive platform that connects the past with the future through technology.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'Sitges Art is a living digital archive that celebrates Sitges\' cultural heritage. We have created an experience where art and historical memory merge with a modern and accessible interface.',
+                            architecture_title: 'Technological Architecture',
+                            architecture_ai: 'AI Engine: Language model integration for contextualizing artworks and locations.',
+                            architecture_data: 'Data Management: Semantic indexing of cultural and historical content.',
+                            architecture_dev: 'Development: React-based architecture with a "mobile-first" approach for the best experience on urban routes.',
+                            features_title: 'Key Features',
+                            feature_1: 'Intelligent search by art and history',
+                            feature_2: 'Responsive design adapted for mobile devices',
+                            feature_3: 'Immersive multimedia content',
+                            try_button: 'View the website',
                             back_button: 'Back to projects'
                         }
                     },

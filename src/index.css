@@ -206,6 +206,15 @@ a {
     background: none;
     border: none;
     cursor: pointer;
+    order: 2;
+    /* Keep button on the right */
+  }
+
+  /* Shift title to the right on mobile */
+  .header-content a[href="/"] {
+    padding-left: 2rem;
+    flex: 1;
+    text-align: left;
   }
 
   .nav-item-dropdown.mobile {

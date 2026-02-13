@@ -6,6 +6,13 @@ export const projectsData = [
         tags: ['IA', 'Python', 'Gemini API', 'LangChain'],
         translationKey: 'sommelier'
     },
+    {
+        id: 'sitges-art',
+        slug: 'sitges-art',
+        image: '/sitges_art.png',
+        tags: ['Cultura', 'Història', 'IA'],
+        translationKey: 'sitgesart'
+    },
     // Es poden afegir més projectes aquí fàcilment
 ];
 
