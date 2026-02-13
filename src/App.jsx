@@ -14,6 +14,7 @@ import Editor from './pages/admin/Editor';
 import PostDetail from './pages/PostDetail';
 import SommelierDigital from './pages/SommelierDigital';
 import SitgesArt from './pages/SitgesArt';
+import SitgesWalk from './pages/SitgesWalk';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="post/:id" element={<PostDetail />} />
             <Route path="projects/sommelier" element={<SommelierDigital />} />
             <Route path="projects/sitges-art" element={<SitgesArt />} />
+            <Route path="projects/sitges-walk" element={<SitgesWalk />} />
           </Route>
 
           {/* Admin Routes */}

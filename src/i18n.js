@@ -73,6 +73,22 @@ i18n
                             feature_3: 'Contingut multimèdia immersiu',
                             try_button: 'Veure la web',
                             back_button: 'Tornar a projectes'
+                        },
+                        sitgeswalk: {
+                            title: 'Sitges Walk',
+                            desc: 'Explora Sitges a peu amb aquesta guia interactiva. Descobreix rutes, punts d\'interès i la història de la vila d\'una manera dinàmica i mobile-first.',
+                            detail_title: 'Sobre el Projecte',
+                            detail_desc: 'Hem dissenyat Sitges Walk per ser el company perfecte per als teus passejos. Una aplicació que no només et guia geogràficament, sinó que t\'explica la història que s\'amaga darrere de cada cantonada de Sitges.',
+                            architecture_title: 'Arquitectura Tecnològica',
+                            architecture_ai: 'Geolocalització: Integració en temps real per a una navegació fluida.',
+                            architecture_data: 'Gestió de Dades: Base de dades optimitzada per a rutes i punts d\'interès.',
+                            architecture_dev: 'Desenvolupament: Enfocament de Progressive Web App (PWA) amb React per a una experiència nativa en el mòbil.',
+                            features_title: 'Característiques Clau',
+                            feature_1: 'Mapes interactius de rutes culturals',
+                            feature_2: 'Informació històrica geolocalitzada',
+                            feature_3: 'Interfície optimitzada per a l\'ús a l\'exterior',
+                            try_button: 'Veure la web',
+                            back_button: 'Tornar a projectes'
                         }
                     },
                     footer: {
@@ -149,6 +165,22 @@ i18n
                             feature_3: 'Contenido multimedia inmersivo',
                             try_button: 'Ver la web',
                             back_button: 'Volver a proyectos'
+                        },
+                        sitgeswalk: {
+                            title: 'Sitges Walk',
+                            desc: 'Explora Sitges a pie con esta guía interactiva. Descubre rutas, puntos de interés e historia de la villa de una manera dinámica y mobile-first.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'Hemos diseñado Sitges Walk para ser el compañero perfecto para tus paseos. Una aplicación que no solo te guía geográficamente, sino que te explica la historia que se esconde detrás de cada rincón de Sitges.',
+                            architecture_title: 'Arquitectura Tecnológica',
+                            architecture_ai: 'Geolocalización: Integración en tiempo real para una navegación fluida.',
+                            architecture_data: 'Gestión de Datos: Base de datos optimizada para rutas y puntos de interés.',
+                            architecture_dev: 'Desarrollo: Enfoque de Progressive Web App (PWA) con React para una experiencia nativa en el móvil.',
+                            features_title: 'Características Clave',
+                            feature_1: 'Mapas interactivos de rutas culturales',
+                            feature_2: 'Información histórica geolocalizada',
+                            feature_3: 'Interfaz optimizada para el uso al exterior',
+                            try_button: 'Ver la web',
+                            back_button: 'Volver a proyectos'
                         }
                     },
                     footer: {
@@ -223,6 +255,22 @@ i18n
                             feature_1: 'Intelligent search by art and history',
                             feature_2: 'Responsive design adapted for mobile devices',
                             feature_3: 'Immersive multimedia content',
+                            try_button: 'View the website',
+                            back_button: 'Back to projects'
+                        },
+                        sitgeswalk: {
+                            title: 'Sitges Walk',
+                            desc: 'Explore Sitges on foot with this interactive guide. Discover routes, points of interest, and the town\'s history in a dynamic and mobile-first way.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'We designed Sitges Walk to be the perfect companion for your walks. An application that not only guides you geographically but also explains the history hidden behind every corner of Sitges.',
+                            architecture_title: 'Technological Architecture',
+                            architecture_ai: 'Geolocation: Real-time integration for smooth navigation.',
+                            architecture_data: 'Data Management: Database optimized for routes and points of interest.',
+                            architecture_dev: 'Development: Progressive Web App (PWA) approach with React for a native mobile experience.',
+                            features_title: 'Key Features',
+                            feature_1: 'Interactive cultural route maps',
+                            feature_2: 'Geolocated historical information',
+                            feature_3: 'Interface optimized for outdoor use',
                             try_button: 'View the website',
                             back_button: 'Back to projects'
                         }
