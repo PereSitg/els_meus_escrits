@@ -215,401 +215,401 @@ i18n
                         rights_text: "Tens dret a accedir, rectificar o suprimir les teves dades personals en qualsevol moment. Per fer-ho, només cal que m'enviïs un correu electrònic."
                     }
                 }
-            }
-        },
-        es: {
-            translation: {
-                nav: {
-                    home: 'Inicio',
-                    projects: 'Proyectos',
-                    writings: 'Mis escritos',
-                    sitges: 'Sitges',
-                    ecos: 'Ecos de Sociedad',
-                    altres: 'Otros',
-                    stack: 'Mi Stack',
-                    contact: 'Contacto',
-                    logout: 'Cerrar sesión'
-                },
-                contact: {
-                    title: 'Contacto',
-                    subtitle: '¿Tienes alguna propuesta o sugerencia? Envíame un mensaje.',
-                    bio_title: 'De la placa base a la Inteligencia Artificial: Una visión 360°',
-                    bio_p1: 'Mi relación con la tecnología no empezó frente a una pantalla, sino con un destornillador en la mano. Inicié mi trayectoria como técnico de hardware, entendiendo cómo funcionan las máquinas desde dentro, para después saltar a la administración de sistemas. Esta base técnica es la que hoy me permite picar código con una comprensión profunda de la infraestructura que hay detrás.',
-                    bio_p2: 'Pero la tecnología sin comunicación está vacía. Mi etapa como comercial me enseñó a escuchar las necesidades reales del cliente, y la oportunidad de escribir en L\'Eco de Sitges fue el catalizador perfecto: descubrí que explicar historias y transmitir ideas es tan importante como saber programarlas.',
-                    bio_p3: 'Hoy, fusiono toda esta experiencia en mi flujo de trabajo:',
-                    bio_f1_title: 'Programación & IA:',
-                    bio_f1_desc: 'Desarrollo soluciones donde el código (React, Python) y la IA (Gemini, OpenIA) trabajan al servicio de una estrategia.',
-                    bio_f2_title: 'Narrativa Digital:',
-                    bio_f2_desc: 'Domino las Redes Sociales y la creación de contenido visual con DaVinci Resolve, entendiendo que cada proyecto necesita una voz propia para llegar a la gente.',
-                    bio_f3_title: 'Visión de Negocio:',
-                    bio_f3_desc: 'Gracias a mi pasado comercial, no construyo solo herramientas; construyo soluciones que aportan valor real y son comprensibles para el usuario final.',
-                    bio_footer: 'No soy solo un programador. Soy un técnico que comunica y un comunicador que entiende la tecnología.',
-                    form: {
-                        name: 'Nombre',
-                        email: 'Email',
-                        message: 'Mensaje',
-                        submit: 'Enviar',
-                        captcha_label: 'Control humano: ¿Cuánto es {{num1}} + {{num2}}?',
-                        captcha_error: 'La suma es incorrecta. Por favor, inténtalo de nuevo.',
-                        fill_required: 'Por favor, rellena todos los campos obligatorios.',
-                        success: '¡Mensaje enviado correctamente!'
-                    }
-                },
-                hero: {
-                    title: 'Pere Badia i Lorenz',
-                    subtitle: 'Bienvenidos a mi portafolio personal. Aquí encontraréis mis proyectos, mi currículum y una colección de reflexiones e historias. Una ventana a mi labor profesional y creativa.'
-                },
-                home: {
-                    latest_posts: 'Últimas publicaciones',
-                    read_more: 'Leer más',
-                    loading: 'Cargando publicaciones...',
-                    sitges_desc: 'Explora mis escritos e historias sobre Sitges.',
-                    projects_desc: 'Descubre los proyectos profesionales y creativos en los que he trabajado.',
-                    related_posts: 'Otras historias que te podrían gustar'
-                },
-                projects: {
-                    title: 'Proyectos',
-                    description: 'Esta es una selección de los proyectos más destacados en los que he trabajado. Desde desarrollo web hasta iniciativas culturales y sociales.',
-                    filter_all: 'Todos',
-                    coming_soon: 'Próximamente',
-                    placeholder_title: 'Nuevo Proyecto',
-                    placeholder_desc: 'Estoy preparando la documentación de mis proyectos recientes para mostrarlos aquí.',
-                    sommelier: {
-                        title: 'Sommelier Digital',
-                        desc: 'Aplicación inteligente de recomendación de vinos basada en IA Generativa. La fusión perfecta entre tecnología moderna y conocimiento enológico.',
-                        detail_title: 'Sobre el Proyecto',
-                        detail_desc: 'He desarrollado un asistente inteligente que actúa como un sommelier experto. Esta herramienta no solo conoce miles de referencias, sino que entiende el contexto del usuario (presupuesto, tipo de cocina, preferencias personales) para ofrecer recomendaciones precisas.',
-                        author_note: 'Este proyecto es un laboratorio vivo. Estoy trabajando constantemente en el prompt tuning y en el filtrado de datos de Firebase para reducir el margen de error y hacer que las recomendaciones sean cada vez más precisas.',
-                        architecture_title: 'Arquitectura Tecnológica',
-                        architecture_ai: 'Motor de IA: Google Gemini API con configuración de system instructions para un tono experto.',
-                        architecture_data: 'Gestión de Datos: Firebase Realtime Database para almacenar la bodega y el historial.',
-                        architecture_dev: 'Desarrollo: Python para el procesamiento de lenguaje natural e integración de la API.',
-                        features_title: 'Características Clave',
-                        feature_1: 'Análisis de maridaje inteligente',
-                        feature_2: 'Interfaz de voz y texto intuitiva',
-                        feature_3: 'Base de datos dinámica actualizada con IA',
-                        try_button: 'Probar la aplicación',
-                        back_button: 'Volver a proyectos'
-                    },
-                    sitgesart: {
-                        title: 'Sitges Art',
-                        desc: 'Un viaje por el arte, la cultura y la memoria de Sitges. Una plataforma interactiva que conecta el pasado con el futuro mediante la tecnología.',
-                        detail_title: 'Sobre el Proyecto',
-                        detail_desc: 'Sitges Art es un archivo digital vivo que celebra la herencia cultural de Sitges. Hemos creado una experiencia donde el arte y la memoria histórica se fusionan con una interfaz moderna y accesible.',
-                        architecture_title: 'Arquitectura Tecnológica',
-                        architecture_ai: 'Motor de IA: Integración de modelos de lenguaje para la contextualización de obras y lugares.',
-                        architecture_data: 'Gestión de Datos: Indexación semántica de contenidos culturales e históricos.',
-                        architecture_dev: 'Desarrollo: Arquitectura basada en React con un enfoque "mobile-first" para la mejor experiencia en rutas urbanas.',
-                        features_title: 'Caracteristicas Clave',
-                        feature_1: 'Búsqueda inteligente por arte e historia',
-                        feature_2: 'Diseño responsivo adaptado a dispositivos móviles',
-                        feature_3: 'Contenido multimedia inmersivo',
-                        try_button: 'Ver la web',
-                        back_button: 'Volver a proyectos'
-                    },
-                    sitgeswalk: {
-                        title: 'Sitges Walk',
-                        desc: 'Explora Sitges a pie con esta guía interactiva. Descubre rutas, puntos de interés e historia de la villa de una manera dinámica y mobile-first.',
-                        detail_title: 'Sobre el Proyecto',
-                        detail_desc: 'Hemos diseñado Sitges Walk para ser el compañero perfecto para tus paseos. Una aplicación que no solo te guía geográficamente, sino que te explica la historia que se esconde detrás de cada rincón de Sitges.',
-                        architecture_title: 'Arquitectura Tecnológica',
-                        architecture_ai: 'Geolocalización: Integración en tiempo real para una navegación fluida.',
-                        architecture_data: 'Gestión de Datos: Base de datos optimizada para rutas y puntos de interés.',
-                        architecture_dev: 'Desarrollo: Enfoque de Progressive Web App (PWA) con React para una experiencia nativa en el móvil.',
-                        features_title: 'Características Clave',
-                        feature_1: 'Mapes interactivos de rutas culturales',
-                        feature_2: 'Información histórica geolocalizada',
-                        feature_3: 'Interfaz optimizada para el uso al exterior',
-                        try_button: 'Ver la web',
-                        back_button: 'Volver a proyectos'
-                    },
-                    related_title: 'Otros Proyectos'
-                },
-                footer: {
-                    made_with: 'Hecho con ❤️ i IA',
-                    legal: "Aviso Legal",
-                    cookies: "Política de Cookies",
-                    privacy: "Política de Privacidad"
-                },
+            },
+            es: {
                 translation: {
-                    warning_es: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
-                    warning_en: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
-                    translate_button: 'Traducir con IA',
-                    translating: 'Traduciendo...',
-                    show_original: 'Mostrar original',
-                    translation_error: 'Error al traducir. Inténtalo de nuevo.'
-                },
-                stack: {
-                    title: 'Mi Stack:',
-                    subtitle: 'Donde la Estrategia encuentra la Ejecución.',
-                    intro_p1: 'Este stack tecnológico es mi campo de juego. Mediante el uso experto de la IA Generativa, transformo concepto complejos en productos reales, demostrando que la visión estratégica y el buen uso de la tecnología son más potentes que el conocimiento técnico aislado.',
-                    quote: '"No soy un programador convencional; soy un AI-Powered Builder. Mi valor no reside en la memorización de sintaxis, sino en la capacidad de dialogar con la Inteligencia Artificial para extraer su máximo potencial técnico. Esto me permite ser extremadamente ágil: lo que antes requería un equipo entero, ahora lo ejecuto con precisión y criterio propio."',
-                    learning_title: '"Always Learning"',
-                    learning_desc: 'Este stack no es estático. Cada semana testo nuevas herramientas del ecosistema IA para mantenerme a la vanguardia de la eficiencia digital.',
-                    sections: {
-                        ia: "IA y Core Tech",
-                        web: "Arquitectura Web",
-                        creative: "Diseño y Flujo Creativo"
+                    nav: {
+                        home: 'Inicio',
+                        projects: 'Proyectos',
+                        writings: 'Mis escritos',
+                        sitges: 'Sitges',
+                        ecos: 'Ecos de Sociedad',
+                        altres: 'Otros',
+                        stack: 'Mi Stack',
+                        contact: 'Contacto',
+                        logout: 'Cerrar sesión'
                     },
-                    items: {
-                        gemini: "El motor de razonamiento principal. Su gran ventana de contexto me permite procesar volúmenes masivos de datos con una precisión quirúrgica.",
-                        openai: "Estándar de la industria para la generación de texto y orquestración de lógica compleja en mis flujos de trabajo. Es mi OpenIA.",
-                        python: "El lenguaje fundamental que me permite conectar la IA con la ejecución de código y la automatización.",
-                        cloudinary: "Mi solución para la gestión inteligente de medios. Lo utilizo para optimizar, almacenar y servir imágenes y vídeos de forma ultra-rápida, asegurando que la web sea ligera sin perder calidad visual.",
-                        firebase: "La infraestructura para datos en tiempo real, almacenamiento y autenticación segura de usuarios.",
-                        react: "La librería para construir interfaces de usuario dinámicas y escalables mediante componentes.",
-                        tailwind: "Motor de estilo para diseñar interfaces limpias y minimalistas directamente desde el código.",
-                        vercel: "Plataforma de deployment que garantiza la máxima velocidad de carga y un rendimiento óptimo de la web.",
-                        github: "Centro de control de versiones donde colaboro con la IA para mantener un código seguro y organizado.",
-                        davinci: "Herramienta definitiva para la postproducción de vídeo, utilizada por su control cinematográfico del color y potencia en el montaje profesional.",
-                        ae: "Creación de motion graphics para explicar conceptos abstractos de IA de manera visual y sencilla.",
-                        ps: "Pilar del diseño gráfico para la creación de portadas y elementos visuals de marca personal.",
-                        antigravity: "El esqueleto de diseño que da coherencia visual y una experiencia de usuario futurista.",
-                        vscode: "Mi centro de operaciones configurado para el desarrollo asistido por IA, donde el prompt engineering y el código convergen."
+                    contact: {
+                        title: 'Contacto',
+                        subtitle: '¿Tienes alguna propuesta o sugerencia? Envíame un mensaje.',
+                        bio_title: 'De la placa base a la Inteligencia Artificial: Una visión 360°',
+                        bio_p1: 'Mi relación con la tecnología no empezó frente a una pantalla, sino con un destornillador en la mano. Inicié mi trayectoria como técnico de hardware, entendiendo cómo funcionan las máquinas desde dentro, para después saltar a la administración de sistemas. Esta base técnica es la que hoy me permite picar código con una comprensión profunda de la infraestructura que hay detrás.',
+                        bio_p2: 'Pero la tecnología sin comunicación está vacía. Mi etapa como comercial me enseñó a escuchar las necesidades reales del cliente, y la oportunidad de escribir en L\'Eco de Sitges fue el catalizador perfecto: descubrí que explicar historias y transmitir ideas es tan importante como saber programarlas.',
+                        bio_p3: 'Hoy, fusiono toda esta experiencia en mi flujo de trabajo:',
+                        bio_f1_title: 'Programación & IA:',
+                        bio_f1_desc: 'Desarrollo soluciones donde el código (React, Python) y la IA (Gemini, OpenIA) trabajan al servicio de una estrategia.',
+                        bio_f2_title: 'Narrativa Digital:',
+                        bio_f2_desc: 'Domino las Redes Sociales y la creación de contenido visual con DaVinci Resolve, entendiendo que cada proyecto necesita una voz propia para llegar a la gente.',
+                        bio_f3_title: 'Visión de Negocio:',
+                        bio_f3_desc: 'Gracias a mi pasado comercial, no construyo solo herramientas; construyo soluciones que aportan valor real y son comprensibles para el usuario final.',
+                        bio_footer: 'No soy solo un programador. Soy un técnico que comunica y un comunicador que entiende la tecnología.',
+                        form: {
+                            name: 'Nombre',
+                            email: 'Email',
+                            message: 'Mensaje',
+                            submit: 'Enviar',
+                            captcha_label: 'Control humano: ¿Cuánto es {{num1}} + {{num2}}?',
+                            captcha_error: 'La suma es incorrecta. Por favor, inténtalo de nuevo.',
+                            fill_required: 'Por favor, rellena todos los campos obligatorios.',
+                            success: '¡Mensaje enviado correctamente!'
+                        }
                     },
-                    diagram: {
-                        title: "Arquitectura de Soluciones (Ejemplo: Sommelier Digital)",
-                        frontend: "Frontend",
-                        logic: "IA & Python Orchestration",
-                        data: "Datos"
+                    hero: {
+                        title: 'Pere Badia i Lorenz',
+                        subtitle: 'Bienvenidos a mi portafolio personal. Aquí encontraréis mis proyectos, mi currículum y una colección de reflexiones e historias. Una ventana a mi labor profesional y creativa.'
+                    },
+                    home: {
+                        latest_posts: 'Últimas publicaciones',
+                        read_more: 'Leer más',
+                        loading: 'Cargando publicaciones...',
+                        sitges_desc: 'Explora mis escritos e historias sobre Sitges.',
+                        projects_desc: 'Descubre los proyectos profesionales y creativos en los que he trabajado.',
+                        related_posts: 'Otras historias que te podrían gustar'
+                    },
+                    projects: {
+                        title: 'Proyectos',
+                        description: 'Esta es una selección de los proyectos más destacados en los que he trabajado. Desde desarrollo web hasta iniciativas culturales y sociales.',
+                        filter_all: 'Todos',
+                        coming_soon: 'Próximamente',
+                        placeholder_title: 'Nuevo Proyecto',
+                        placeholder_desc: 'Estoy preparando la documentación de mis proyectos recientes para mostrarlos aquí.',
+                        sommelier: {
+                            title: 'Sommelier Digital',
+                            desc: 'Aplicación inteligente de recomendación de vinos basada en IA Generativa. La fusión perfecta entre tecnología moderna y conocimiento enológico.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'He desarrollado un asistente inteligente que actúa como un sommelier experto. Esta herramienta no solo conoce miles de referencias, sino que entiende el contexto del usuario (presupuesto, tipo de cocina, preferencias personales) para ofrecer recomendaciones precisas.',
+                            author_note: 'Este proyecto es un laboratorio vivo. Estoy trabajando constantemente en el prompt tuning y en el filtrado de datos de Firebase para reducir el margen de error y hacer que las recomendaciones sean cada vez más precisas.',
+                            architecture_title: 'Arquitectura Tecnológica',
+                            architecture_ai: 'Motor de IA: Google Gemini API con configuración de system instructions para un tono experto.',
+                            architecture_data: 'Gestión de Datos: Firebase Realtime Database para almacenar la bodega y el historial.',
+                            architecture_dev: 'Desarrollo: Python para el procesamiento de lenguaje natural e integración de la API.',
+                            features_title: 'Características Clave',
+                            feature_1: 'Análisis de maridaje inteligente',
+                            feature_2: 'Interfaz de voz y texto intuitiva',
+                            feature_3: 'Base de datos dinámica actualizada con IA',
+                            try_button: 'Probar la aplicación',
+                            back_button: 'Volver a proyectos'
+                        },
+                        sitgesart: {
+                            title: 'Sitges Art',
+                            desc: 'Un viaje por el arte, la cultura y la memoria de Sitges. Una plataforma interactiva que conecta el pasado con el futuro mediante la tecnología.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'Sitges Art es un archivo digital vivo que celebra la herencia cultural de Sitges. Hemos creado una experiencia donde el arte y la memoria histórica se fusionan con una interfaz moderna y accesible.',
+                            architecture_title: 'Arquitectura Tecnológica',
+                            architecture_ai: 'Motor de IA: Integración de modelos de lenguaje para la contextualización de obras y lugares.',
+                            architecture_data: 'Gestión de Datos: Indexación semántica de contenidos culturales e históricos.',
+                            architecture_dev: 'Desarrollo: Arquitectura basada en React con un enfoque "mobile-first" para la mejor experiencia en rutas urbanas.',
+                            features_title: 'Caracteristicas Clave',
+                            feature_1: 'Búsqueda inteligente por arte e historia',
+                            feature_2: 'Diseño responsivo adaptado a dispositivos móviles',
+                            feature_3: 'Contenido multimedia inmersivo',
+                            try_button: 'Ver la web',
+                            back_button: 'Volver a proyectos'
+                        },
+                        sitgeswalk: {
+                            title: 'Sitges Walk',
+                            desc: 'Explora Sitges a pie con esta guía interactiva. Descubre rutas, puntos de interés e historia de la villa de una manera dinámica y mobile-first.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'Hemos diseñado Sitges Walk para ser el compañero perfecto para tus paseos. Una aplicación que no solo te guía geográficamente, sino que te explica la historia que se esconde detrás de cada rincón de Sitges.',
+                            architecture_title: 'Arquitectura Tecnológica',
+                            architecture_ai: 'Geolocalización: Integración en tiempo real para una navegación fluida.',
+                            architecture_data: 'Gestión de Datos: Base de datos optimizada para rutas y puntos de interés.',
+                            architecture_dev: 'Desarrollo: Enfoque de Progressive Web App (PWA) con React para una experiencia nativa en el móvil.',
+                            features_title: 'Características Clave',
+                            feature_1: 'Mapes interactivos de rutas culturales',
+                            feature_2: 'Información histórica geolocalizada',
+                            feature_3: 'Interfaz optimizada para el uso al exterior',
+                            try_button: 'Ver la web',
+                            back_button: 'Volver a proyectos'
+                        },
+                        related_title: 'Otros Proyectos'
+                    },
+                    footer: {
+                        made_with: 'Hecho con ❤️ i IA',
+                        legal: "Aviso Legal",
+                        cookies: "Política de Cookies",
+                        privacy: "Política de Privacidad"
+                    },
+                    translation: {
+                        warning_es: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
+                        warning_en: 'Estos textos están escritos en catalán. La traducción puede perder parte del sentido y de la ironía.',
+                        translate_button: 'Traducir con IA',
+                        translating: 'Traduciendo...',
+                        show_original: 'Mostrar original',
+                        translation_error: 'Error al traducir. Inténtalo de nuevo.'
+                    },
+                    stack: {
+                        title: 'Mi Stack:',
+                        subtitle: 'Donde la Estrategia encuentra la Ejecución.',
+                        intro_p1: 'Este stack tecnológico es mi campo de juego. Mediante el uso experto de la IA Generativa, transformo concepto complejos en productos reales, demostrando que la visión estratégica y el buen uso de la tecnología son más potentes que el conocimiento técnico aislado.',
+                        quote: '"No soy un programador convencional; soy un AI-Powered Builder. Mi valor no reside en la memorización de sintaxis, sino en la capacidad de dialogar con la Inteligencia Artificial para extraer su máximo potencial técnico. Esto me permite ser extremadamente ágil: lo que antes requería un equipo entero, ahora lo ejecuto con precisión y criterio propio."',
+                        learning_title: '"Always Learning"',
+                        learning_desc: 'Este stack no es estático. Cada semana testo nuevas herramientas del ecosistema IA para mantenerme a la vanguardia de la eficiencia digital.',
+                        sections: {
+                            ia: "IA y Core Tech",
+                            web: "Arquitectura Web",
+                            creative: "Diseño y Flujo Creativo"
+                        },
+                        items: {
+                            gemini: "El motor de razonamiento principal. Su gran ventana de contexto me permite procesar volúmenes masivos de datos con una precisión quirúrgica.",
+                            openai: "Estándar de la industria para la generación de texto y orquestración de lógica compleja en mis flujos de trabajo. Es mi OpenIA.",
+                            python: "El lenguaje fundamental que me permite conectar la IA con la ejecución de código y la automatización.",
+                            cloudinary: "Mi solución para la gestión inteligente de medios. Lo utilizo para optimizar, almacenar y servir imágenes y vídeos de forma ultra-rápida, asegurando que la web sea ligera sin perder calidad visual.",
+                            firebase: "La infraestructura para datos en tiempo real, almacenamiento y autenticación segura de usuarios.",
+                            react: "La librería para construir interfaces de usuario dinámicas y escalables mediante componentes.",
+                            tailwind: "Motor de estilo para diseñar interfaces limpias y minimalistas directamente desde el código.",
+                            vercel: "Plataforma de deployment que garantiza la máxima velocidad de carga y un rendimiento óptimo de la web.",
+                            github: "Centro de control de versiones donde colaboro con la IA para mantener un código seguro y organizado.",
+                            davinci: "Herramienta definitiva para la postproducción de vídeo, utilizada por su control cinematográfico del color y potencia en el montaje profesional.",
+                            ae: "Creación de motion graphics para explicar conceptos abstractos de IA de manera visual y sencilla.",
+                            ps: "Pilar del diseño gráfico para la creación de portadas y elementos visuals de marca personal.",
+                            antigravity: "El esqueleto de diseño que da coherencia visual y una experiencia de usuario futurista.",
+                            vscode: "Mi centro de operaciones configurado para el desarrollo asistido por IA, donde el prompt engineering y el código convergen."
+                        },
+                        diagram: {
+                            title: "Arquitectura de Soluciones (Ejemplo: Sommelier Digital)",
+                            frontend: "Frontend",
+                            logic: "IA & Python Orchestration",
+                            data: "Datos"
+                        }
+                    },
+                    legal: {
+                        title: "Aviso Legal",
+                        intro: "En cumplimiento de la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se informa que el titular de este sitio web es:",
+                        owner_title: "Titular",
+                        owner_label: "Titular",
+                        contact_label: "Contacto",
+                        activity_label: "Actividad",
+                        activity_text: "Consultoría y desarrollo de soluciones basadas en Inteligencia Artificial y Desarrollo Web.",
+                        copyright_title: "Propiedad Intelectual",
+                        copyright_text: "El contenido de esta web (textos, código, diseño y arquitectura) es propiedad intelectual del titular, salvo que se indique lo contrario. Queda prohibida la reproducción total o parcial sin autorización."
+                    },
+                    cookies: {
+                        title: "Política de Cookies",
+                        intro: "Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia del usuario y analizar la navegación.",
+                        what_title: "¿Qué son las cookies?",
+                        what_text: "Son pequeños archivos que se almacenan en tu navegador para recordar preferencias o analizar el tráfico de la web (por ejemplo, a través de Google Analytics o Vercel Insights).",
+                        types_title: "Cookies utilizadas en esta web",
+                        technical_label: "Técnicas",
+                        technical_text: "Necesarias para el funcionamiento de la web (Framework Antigravity/React).",
+                        analytics_label: "Analíticas",
+                        analytics_text: "Nos permeten saber cuántas visitas tenemos y cómo interactúan los usuarios con el contenido.",
+                        config_text: "Puedes configurar o desactivar las cookies a través de la configuración de tu navegador."
+                    },
+                    privacy: {
+                        title: "Política de Privacidad",
+                        intro: "En cumplimiento del Reglamento General de Protección de Datos (RGPD), te informo sobre cómo se tratan los datos personales que facilites a través del formulario de contacto de esta web.",
+                        responsible_title: "Responsable del tratamiento",
+                        responsible_text: "El responsable de los datos recogidos es Pere Badia i Lorenz, con domicilio en Sitges y correo electrónico de contacto pbadialorenz@gmail.com.",
+                        purpose_title: "Finalidad del tratamiento",
+                        purpose_text: "La finalidad de la recogida de datos (nombre y correo electrónico) es exclusivamente para responder a tus consultas, presupuestos o mensajes enviados a través del formulario. No se utilizarán para el envío de publicidad no solicitada (spam).",
+                        legitimacy_title: "Legitimación",
+                        legitimacy_text: "El tratamiento de los datos se basa en tu consentimiento explícito al marcar la casilla de aceptación antes de enviar el formulario.",
+                        recipients_title: "Destinatarios de los datos",
+                        recipients_text: "Los datos se almacenan de forma segura a través de Firebase (Google Cloud) o el servicio de correo utilizado por la web, cumpliendo con los estándares de seguridad de la UE. No se cederán datos a terceros, excepto obligación legal.",
+                        rights_title: "Tus derechos",
+                        rights_text: "Tienes derecho a acceder, rectificar o suprimir tus datos personales en cualquier momento. Para hacerlo, solo tienes que enviarme un correo electrónico."
                     }
-                },
-                legal: {
-                    title: "Aviso Legal",
-                    intro: "En cumplimiento de la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se informa que el titular de este sitio web es:",
-                    owner_title: "Titular",
-                    owner_label: "Titular",
-                    contact_label: "Contacto",
-                    activity_label: "Actividad",
-                    activity_text: "Consultoría y desarrollo de soluciones basadas en Inteligencia Artificial y Desarrollo Web.",
-                    copyright_title: "Propiedad Intelectual",
-                    copyright_text: "El contenido de esta web (textos, código, diseño y arquitectura) es propiedad intelectual del titular, salvo que se indique lo contrario. Queda prohibida la reproducción total o parcial sin autorización."
-                },
-                cookies: {
-                    title: "Política de Cookies",
-                    intro: "Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia del usuario y analizar la navegación.",
-                    what_title: "¿Qué son las cookies?",
-                    what_text: "Son pequeños archivos que se almacenan en tu navegador para recordar preferencias o analizar el tráfico de la web (por ejemplo, a través de Google Analytics o Vercel Insights).",
-                    types_title: "Cookies utilizadas en esta web",
-                    technical_label: "Técnicas",
-                    technical_text: "Necesarias para el funcionamiento de la web (Framework Antigravity/React).",
-                    analytics_label: "Analíticas",
-                    analytics_text: "Nos permeten saber cuántas visitas tenemos y cómo interactúan los usuarios con el contenido.",
-                    config_text: "Puedes configurar o desactivar las cookies a través de la configuración de tu navegador."
-                },
-                privacy: {
-                    title: "Política de Privacidad",
-                    intro: "En cumplimiento del Reglamento General de Protección de Datos (RGPD), te informo sobre cómo se tratan los datos personales que facilites a través del formulario de contacto de esta web.",
-                    responsible_title: "Responsable del tratamiento",
-                    responsible_text: "El responsable de los datos recogidos es Pere Badia i Lorenz, con domicilio en Sitges y correo electrónico de contacto pbadialorenz@gmail.com.",
-                    purpose_title: "Finalidad del tratamiento",
-                    purpose_text: "La finalidad de la recogida de datos (nombre y correo electrónico) es exclusivamente para responder a tus consultas, presupuestos o mensajes enviados a través del formulario. No se utilizarán para el envío de publicidad no solicitada (spam).",
-                    legitimacy_title: "Legitimación",
-                    legitimacy_text: "El tratamiento de los datos se basa en tu consentimiento explícito al marcar la casilla de aceptación antes de enviar el formulario.",
-                    recipients_title: "Destinatarios de los datos",
-                    recipients_text: "Los datos se almacenan de forma segura a través de Firebase (Google Cloud) o el servicio de correo utilizado por la web, cumpliendo con los estándares de seguridad de la UE. No se cederán datos a terceros, excepto obligación legal.",
-                    rights_title: "Tus derechos",
-                    rights_text: "Tienes derecho a acceder, rectificar o suprimir tus datos personales en cualquier momento. Para hacerlo, solo tienes que enviarme un correo electrónico."
                 }
-            }
-        },
-        en: {
-            translation: {
-                nav: {
-                    home: 'Home',
-                    projects: 'Projects',
-                    writings: 'My Writings',
-                    sitges: 'Sitges',
-                    ecos: 'Society News',
-                    altres: 'Others',
-                    stack: 'My Stack',
-                    contact: 'Contact',
-                    logout: 'Log out'
-                },
-                contact: {
-                    title: 'Contact',
-                    subtitle: 'Do you have any proposal or suggestion? Send me a message.',
-                    bio_title: 'From Motherboards to Artificial Intelligence: A 360° Vision',
-                    bio_p1: 'My relationship with technology didn\'t start in front of a screen, but with a screwdriver in my hand. I began my career as a hardware technician, understanding how machines work from the inside, later moving into systems administration. This technical foundation is what allows me today to write code with a deep understanding of the underlying infrastructure.',
-                    bio_p2: 'But technology without communication is empty. My time in sales taught me to listen to real customer needs, and the opportunity to write for L\'Eco de Sitges was the perfect catalyst: I discovered that telling stories and transmitting ideas is as important as knowing how to program them.',
-                    bio_p3: 'Today, I merge all this experience into my workflow:',
-                    bio_f1_title: 'Programming & AI:',
-                    bio_f1_desc: 'I develop solutions where code (React, Python) and AI (Gemini, OpenIA) work at the service of a strategy.',
-                    bio_f2_title: 'Digital Narrative:',
-                    bio_f2_desc: 'I master Social Media and visual content creation with DaVinci Resolve, understanding that every project needs its own voice to reach people.',
-                    bio_f3_title: 'Business Vision:',
-                    bio_f3_desc: 'Thanks to my sales background, I don\'t just build tools; I build solutions that provide real value and are understandable for the end user.',
-                    bio_footer: 'I am not just a programmer. I am a technician who communicates and a communicator who understands technology.',
-                    form: {
-                        name: 'Name',
-                        email: 'Email',
-                        message: 'Message',
-                        submit: 'Send',
-                        captcha_label: 'Human control: How much is {{num1}} + {{num2}}?',
-                        captcha_error: 'The sum is incorrect. Please try again.',
-                        fill_required: 'Please fill in all required fields.',
-                        success: 'Message sent successfully!'
-                    }
-                },
-                hero: {
-                    title: 'Pere Badia i Lorenz',
-                    subtitle: 'Welcome to my personal portfolio. Here you will find my projects, my CV, and a collection of reflections and stories. A window into my professional and creative work.'
-                },
-                home: {
-                    latest_posts: 'Latest Posts',
-                    read_more: 'Read more',
-                    loading: 'Loading posts...',
-                    sitges_desc: 'Explore my writings and stories about Sitges.',
-                    projects_desc: 'Discover the professional and creative projects I have worked on.',
-                    related_posts: 'Other stories you might like'
-                },
-                projects: {
-                    title: 'Projects',
-                    description: 'This is a selection of the most relevant projects I have worked on. From web development to cultural and social initiatives.',
-                    filter_all: 'All',
-                    coming_soon: 'Coming Soon',
-                    placeholder_title: 'New Project',
-                    placeholder_desc: 'I am preparing the documentation for my recent projects to showcase them here.',
-                    sommelier: {
-                        title: 'Digital Sommelier',
-                        desc: 'Intelligent wine recommendation application based on Generative AI. The perfect fusion between modern technology and enological knowledge.',
-                        detail_title: 'About the Project',
-                        detail_desc: 'I have developed an intelligent assistant that acts as an expert sommelier. This tool not only knows thousands of references but also understands the user context (budget, type of cuisine, personal preferences) to offer precise recommendations.',
-                        author_note: 'This project is a living laboratory. I am constantly working on prompt tuning and Firebase data filtering to reduce the error margin and make the recommendations increasingly precise.',
-                        architecture_title: 'Technological Architecture',
-                        architecture_ai: 'AI Engine: Google Gemini API with system instructions configured for an expert tone.',
-                        architecture_data: 'Data Management: Firebase Realtime Database to store cellar and history.',
-                        architecture_dev: 'Development: Python for natural language processing and API integration.',
-                        features_title: 'Key Features',
-                        feature_1: 'Intelligent pairing analysis',
-                        feature_2: 'Intuitive voice and text interface',
-                        feature_3: 'Dynamic AI-updated database',
-                        try_button: 'Try the app',
-                        back_button: 'Back to projects'
-                    },
-                    sitgesart: {
-                        title: 'Sitges Art',
-                        desc: 'A journey through the art, culture, and memory of Sitges. An interactive platform that connects the past with the future through technology.',
-                        detail_title: 'About the Project',
-                        detail_desc: 'Sitges Art is a living digital archive that celebrates Sitges\' cultural heritage. We have created an experience where art and historical memory merge with a modern and accessible interface.',
-                        architecture_title: 'Technological Architecture',
-                        architecture_ai: 'AI Engine: Language model integration for contextualizing artworks and locations.',
-                        architecture_data: 'Data Management: Semantic indexing of cultural and historical content.',
-                        architecture_dev: 'Development: React-based architecture with a "mobile-first" approach for the best experience on urban routes.',
-                        features_title: 'Key Features',
-                        feature_1: 'Intelligent search by art and history',
-                        feature_2: 'Responsive design adapted for mobile devices',
-                        feature_3: 'Immersive multimedia content',
-                        try_button: 'View the website',
-                        back_button: 'Back to projects'
-                    },
-                    sitgeswalk: {
-                        title: 'Sitges Walk',
-                        desc: 'Explore Sitges on foot with this interactive guide. Discover routes, points of interest, and the town\'s history in a dynamic and mobile-first way.',
-                        detail_title: 'About the Project',
-                        detail_desc: 'We designed Sitges Walk to be the perfect companion for your walks. An application that not only guides you geographically but also explains the history hidden behind every corner of Sitges.',
-                        architecture_title: 'Technological Architecture',
-                        architecture_ai: 'Geolocation: Real-time integration for smooth navigation.',
-                        architecture_data: 'Data Management: Database optimized for routes and points of interest.',
-                        architecture_dev: 'Development: Progressive Web App (PWA) approach with React for a native mobile experience.',
-                        features_title: 'Key Features',
-                        feature_1: 'Interactive cultural route maps',
-                        feature_2: 'Geolocated historical information',
-                        feature_3: 'Interface optimized for outdoor use',
-                        try_button: 'View the website',
-                        back_button: 'Back to projects'
-                    },
-                    related_title: 'Other Projects'
-                },
-                footer: {
-                    made_with: 'Made with ❤️ and AI',
-                    legal: "Legal Notice",
-                    cookies: "Cookie Policy",
-                    privacy: "Privacy Policy"
-                },
+            },
+            en: {
                 translation: {
-                    warning_es: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
-                    warning_en: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
-                    translate_button: 'Translate with AI',
-                    translating: 'Translating...',
-                    show_original: 'Show original',
-                    translation_error: 'Translation error. Please try again.'
-                },
-                stack: {
-                    title: 'My Stack:',
-                    subtitle: 'Where Strategy meets Execution.',
-                    intro_p1: 'This tech stack is my playground. Through the expert use of Generative AI, I transform complex concepts into real products, demonstrating that strategic vision and the effective use of technology are more powerful than isolated technical knowledge.',
-                    quote: '"I am not a conventional programmer; I am an AI-Powered Builder. My value does not lie in memorizing syntax, but in the ability to dialogue with Artificial Intelligence to extract its full technical potential. This allows me to be extremely agile: what used to require a whole team, I now execute with precision and my own judgment."',
-                    learning_title: '"Always Learning"',
-                    learning_desc: 'This stack is not static. Every week I test new tools from the AI ecosystem to stay at the forefront of digital efficiency.',
-                    sections: {
-                        ia: "IA & Core Tech",
-                        web: "Web Architecture",
-                        creative: "Creative & Workflow"
+                    nav: {
+                        home: 'Home',
+                        projects: 'Projects',
+                        writings: 'My Writings',
+                        sitges: 'Sitges',
+                        ecos: 'Society News',
+                        altres: 'Others',
+                        stack: 'My Stack',
+                        contact: 'Contact',
+                        logout: 'Log out'
                     },
-                    items: {
-                        gemini: "The primary reasoning engine. Its large context window allows me to process massive volumes of data with surgical precision.",
-                        openai: "Industry standard for text generation and complex logic orchestration in my workflows. It's my OpenIA.",
-                        python: "The fundamental language that allows me to connect AI with code execution and automation.",
-                        cloudinary: "My solution for intelligent media management. I use it to optimize, store, and serve images and videos ultra-fast, ensuring the web is lightweight without losing visual quality.",
-                        firebase: "The infrastructure for real-time data, storage, and secure user authentication.",
-                        react: "The library for building dynamic and scalable user interfaces using components.",
-                        tailwind: "Style engine to design clean and minimalist interfaces directly from the code.",
-                        vercel: "Deployment platform that guarantees maximum loading speed and optimal web performance.",
-                        github: "Version control center where I collaborate with AI to maintain secure and organized code.",
-                        davinci: "Definitive tool for video post-production, used for its cinematic color control and power in professional editing.",
-                        ae: "Motion graphics creation to explain abstract AI concepts in a visual and simple way.",
-                        ps: "Design pillar for creating covers and personal brand visual elements.",
-                        antigravity: "The design skeleton that provides visual coherence and a futuristic user experience.",
-                        vscode: "My operation center configured for AI-assisted development, where prompt engineering and code converge."
+                    contact: {
+                        title: 'Contact',
+                        subtitle: 'Do you have any proposal or suggestion? Send me a message.',
+                        bio_title: 'From Motherboards to Artificial Intelligence: A 360° Vision',
+                        bio_p1: 'My relationship with technology didn\'t start in front of a screen, but with a screwdriver in my hand. I began my career as a hardware technician, understanding how machines work from the inside, later moving into systems administration. This technical foundation is what allows me today to write code with a deep understanding of the underlying infrastructure.',
+                        bio_p2: 'But technology without communication is empty. My time in sales taught me to listen to real customer needs, and the opportunity to write for L\'Eco de Sitges was the perfect catalyst: I discovered that telling stories and transmitting ideas is as important as knowing how to program them.',
+                        bio_p3: 'Today, I merge all this experience into my workflow:',
+                        bio_f1_title: 'Programming & AI:',
+                        bio_f1_desc: 'I develop solutions where code (React, Python) and AI (Gemini, OpenIA) work at the service of a strategy.',
+                        bio_f2_title: 'Digital Narrative:',
+                        bio_f2_desc: 'I master Social Media and visual content creation with DaVinci Resolve, understanding that every project needs its own voice to reach people.',
+                        bio_f3_title: 'Business Vision:',
+                        bio_f3_desc: 'Thanks to my sales background, I don\'t just build tools; I build solutions that provide real value and are understandable for the end user.',
+                        bio_footer: 'I am not just a programmer. I am a technician who communicates and a communicator who understands technology.',
+                        form: {
+                            name: 'Name',
+                            email: 'Email',
+                            message: 'Message',
+                            submit: 'Send',
+                            captcha_label: 'Human control: How much is {{num1}} + {{num2}}?',
+                            captcha_error: 'The sum is incorrect. Please try again.',
+                            fill_required: 'Please fill in all required fields.',
+                            success: 'Message sent successfully!'
+                        }
                     },
-                    diagram: {
-                        title: "Solution Architecture (Example: Digital Sommelier)",
-                        frontend: "Frontend",
-                        logic: "AI & Python Orchestration",
-                        data: "Data"
+                    hero: {
+                        title: 'Pere Badia i Lorenz',
+                        subtitle: 'Welcome to my personal portfolio. Here you will find my projects, my CV, and a collection of reflections and stories. A window into my professional and creative work.'
+                    },
+                    home: {
+                        latest_posts: 'Latest Posts',
+                        read_more: 'Read more',
+                        loading: 'Loading posts...',
+                        sitges_desc: 'Explore my writings and stories about Sitges.',
+                        projects_desc: 'Discover the professional and creative projects I have worked on.',
+                        related_posts: 'Other stories you might like'
+                    },
+                    projects: {
+                        title: 'Projects',
+                        description: 'This is a selection of the most relevant projects I have worked on. From web development to cultural and social initiatives.',
+                        filter_all: 'All',
+                        coming_soon: 'Coming Soon',
+                        placeholder_title: 'New Project',
+                        placeholder_desc: 'I am preparing the documentation for my recent projects to showcase them here.',
+                        sommelier: {
+                            title: 'Digital Sommelier',
+                            desc: 'Intelligent wine recommendation application based on Generative AI. The perfect fusion between modern technology and enological knowledge.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'I have developed an intelligent assistant that acts as an expert sommelier. This tool not only knows thousands of references but also understands the user context (budget, type of cuisine, personal preferences) to offer precise recommendations.',
+                            author_note: 'This project is a living laboratory. I am constantly working on prompt tuning and Firebase data filtering to reduce the error margin and make the recommendations increasingly precise.',
+                            architecture_title: 'Technological Architecture',
+                            architecture_ai: 'AI Engine: Google Gemini API with system instructions configured for an expert tone.',
+                            architecture_data: 'Data Management: Firebase Realtime Database to store cellar and history.',
+                            architecture_dev: 'Development: Python for natural language processing and API integration.',
+                            features_title: 'Key Features',
+                            feature_1: 'Intelligent pairing analysis',
+                            feature_2: 'Intuitive voice and text interface',
+                            feature_3: 'Dynamic AI-updated database',
+                            try_button: 'Try the app',
+                            back_button: 'Back to projects'
+                        },
+                        sitgesart: {
+                            title: 'Sitges Art',
+                            desc: 'A journey through the art, culture, and memory of Sitges. An interactive platform that connects the past with the future through technology.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'Sitges Art is a living digital archive that celebrates Sitges\' cultural heritage. We have created an experience where art and historical memory merge with a modern and accessible interface.',
+                            architecture_title: 'Technological Architecture',
+                            architecture_ai: 'AI Engine: Language model integration for contextualizing artworks and locations.',
+                            architecture_data: 'Data Management: Semantic indexing of cultural and historical content.',
+                            architecture_dev: 'Development: React-based architecture with a "mobile-first" approach for the best experience on urban routes.',
+                            features_title: 'Key Features',
+                            feature_1: 'Intelligent search by art and history',
+                            feature_2: 'Responsive design adapted for mobile devices',
+                            feature_3: 'Immersive multimedia content',
+                            try_button: 'View the website',
+                            back_button: 'Back to projects'
+                        },
+                        sitgeswalk: {
+                            title: 'Sitges Walk',
+                            desc: 'Explore Sitges on foot with this interactive guide. Discover routes, points of interest, and the town\'s history in a dynamic and mobile-first way.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'We designed Sitges Walk to be the perfect companion for your walks. An application that not only guides you geographically but also explains the history hidden behind every corner of Sitges.',
+                            architecture_title: 'Technological Architecture',
+                            architecture_ai: 'Geolocation: Real-time integration for smooth navigation.',
+                            architecture_data: 'Data Management: Database optimized for routes and points of interest.',
+                            architecture_dev: 'Development: Progressive Web App (PWA) approach with React for a native mobile experience.',
+                            features_title: 'Key Features',
+                            feature_1: 'Interactive cultural route maps',
+                            feature_2: 'Geolocated historical information',
+                            feature_3: 'Interface optimized for outdoor use',
+                            try_button: 'View the website',
+                            back_button: 'Back to projects'
+                        },
+                        related_title: 'Other Projects'
+                    },
+                    footer: {
+                        made_with: 'Made with ❤️ and AI',
+                        legal: "Legal Notice",
+                        cookies: "Cookie Policy",
+                        privacy: "Privacy Policy"
+                    },
+                    translation: {
+                        warning_es: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
+                        warning_en: 'These texts are written in Catalan. Translation may lose some of the meaning and irony.',
+                        translate_button: 'Translate with AI',
+                        translating: 'Translating...',
+                        show_original: 'Show original',
+                        translation_error: 'Translation error. Please try again.'
+                    },
+                    stack: {
+                        title: 'My Stack:',
+                        subtitle: 'Where Strategy meets Execution.',
+                        intro_p1: 'This tech stack is my playground. Through the expert use of Generative AI, I transform complex concepts into real products, demonstrating that strategic vision and the effective use of technology are more powerful than isolated technical knowledge.',
+                        quote: '"I am not a conventional programmer; I am an AI-Powered Builder. My value does not lie in memorizing syntax, but in the ability to dialogue with Artificial Intelligence to extract its full technical potential. This allows me to be extremely agile: what used to require a whole team, I now execute with precision and my own judgment."',
+                        learning_title: '"Always Learning"',
+                        learning_desc: 'This stack is not static. Every week I test new tools from the AI ecosystem to stay at the forefront of digital efficiency.',
+                        sections: {
+                            ia: "IA & Core Tech",
+                            web: "Web Architecture",
+                            creative: "Creative & Workflow"
+                        },
+                        items: {
+                            gemini: "The primary reasoning engine. Its large context window allows me to process massive volumes of data with surgical precision.",
+                            openai: "Industry standard for text generation and complex logic orchestration in my workflows. It's my OpenIA.",
+                            python: "The fundamental language that allows me to connect AI with code execution and automation.",
+                            cloudinary: "My solution for intelligent media management. I use it to optimize, store, and serve images and videos ultra-fast, ensuring the web is lightweight without losing visual quality.",
+                            firebase: "The infrastructure for real-time data, storage, and secure user authentication.",
+                            react: "The library for building dynamic and scalable user interfaces using components.",
+                            tailwind: "Style engine to design clean and minimalist interfaces directly from the code.",
+                            vercel: "Deployment platform that guarantees maximum loading speed and optimal web performance.",
+                            github: "Version control center where I collaborate with AI to maintain secure and organized code.",
+                            davinci: "Definitive tool for video post-production, used for its cinematic color control and power in professional editing.",
+                            ae: "Motion graphics creation to explain abstract AI concepts in a visual and simple way.",
+                            ps: "Design pillar for creating covers and personal brand visual elements.",
+                            antigravity: "The design skeleton that provides visual coherence and a futuristic user experience.",
+                            vscode: "My operation center configured for AI-assisted development, where prompt engineering and code converge."
+                        },
+                        diagram: {
+                            title: "Solution Architecture (Example: Digital Sommelier)",
+                            frontend: "Frontend",
+                            logic: "AI & Python Orchestration",
+                            data: "Data"
+                        }
+                    },
+                    legal: {
+                        title: "Legal Notice",
+                        intro: "In compliance with Law 34/2002, of July 11, on information society services and electronic commerce (LSSI-CE), it is reported that the owner of this website is:",
+                        owner_title: "Owner",
+                        owner_label: "Owner",
+                        contact_label: "Contact",
+                        activity_label: "Activity",
+                        activity_text: "Consulting and development of solutions based on Artificial Intelligence and Web Development.",
+                        copyright_title: "Intellectual Property",
+                        copyright_text: "The content of this website (texts, code, design and architecture) is the intellectual property of the owner, unless otherwise indicated. Total or partial reproduction without authorization is prohibited."
+                    },
+                    cookies: {
+                        title: "Cookie Policy",
+                        intro: "This website uses its own and third-party cookies to improve the user experience and analyze navigation.",
+                        what_title: "What are cookies?",
+                        what_text: "They are small files that are stored in your browser to remember preferences or analyze web traffic (for example, through Google Analytics or Vercel Insights).",
+                        types_title: "Cookies used on this website",
+                        technical_label: "Technical",
+                        technical_text: "Necessary for the operation of the website (Antigravity/React Framework).",
+                        analytics_label: "Analytics",
+                        analytics_text: "They allow us to know how many visits we have and how users interact with the content.",
+                        config_text: "You can configure or disable cookies through your browser settings."
+                    },
+                    privacy: {
+                        title: "Privacy Policy",
+                        intro: "In compliance with the General Data Protection Regulation (GDPR), I inform you about how the personal data you provide through the contact form on this website is processed.",
+                        responsible_title: "Data Controller",
+                        responsible_text: "The data controller is Pere Badia i Lorenz, domiciled in Sitges and contact email pbadialorenz@gmail.com.",
+                        purpose_title: "Purpose of processing",
+                        purpose_text: "The purpose of data collection (name and email) is exclusively to respond to your inquiries, quotes or messages sent through the form. They will not be used to send unsolicited advertising (spam).",
+                        legitimacy_title: "Legitimacy",
+                        legitimacy_text: "The processing of data is based on your explicit consent by checking the acceptance box before submitting the form.",
+                        recipients_title: "Data recipients",
+                        recipients_text: "Data is stored securely through Firebase (Google Cloud) or the email service used by the website, complying with EU security standards. Data will not be transferred to third parties, except by legal obligation.",
+                        rights_title: "Your rights",
+                        rights_text: "You have the right to access, rectify or delete your personal data at any time. To do so, just send me an email."
                     }
-                },
-                legal: {
-                    title: "Legal Notice",
-                    intro: "In compliance with Law 34/2002, of July 11, on information society services and electronic commerce (LSSI-CE), it is reported that the owner of this website is:",
-                    owner_title: "Owner",
-                    owner_label: "Owner",
-                    contact_label: "Contact",
-                    activity_label: "Activity",
-                    activity_text: "Consulting and development of solutions based on Artificial Intelligence and Web Development.",
-                    copyright_title: "Intellectual Property",
-                    copyright_text: "The content of this website (texts, code, design and architecture) is the intellectual property of the owner, unless otherwise indicated. Total or partial reproduction without authorization is prohibited."
-                },
-                cookies: {
-                    title: "Cookie Policy",
-                    intro: "This website uses its own and third-party cookies to improve the user experience and analyze navigation.",
-                    what_title: "What are cookies?",
-                    what_text: "They are small files that are stored in your browser to remember preferences or analyze web traffic (for example, through Google Analytics or Vercel Insights).",
-                    types_title: "Cookies used on this website",
-                    technical_label: "Technical",
-                    technical_text: "Necessary for the operation of the website (Antigravity/React Framework).",
-                    analytics_label: "Analytics",
-                    analytics_text: "They allow us to know how many visits we have and how users interact with the content.",
-                    config_text: "You can configure or disable cookies through your browser settings."
-                },
-                privacy: {
-                    title: "Privacy Policy",
-                    intro: "In compliance with the General Data Protection Regulation (GDPR), I inform you about how the personal data you provide through the contact form on this website is processed.",
-                    responsible_title: "Data Controller",
-                    responsible_text: "The data controller is Pere Badia i Lorenz, domiciled in Sitges and contact email pbadialorenz@gmail.com.",
-                    purpose_title: "Purpose of processing",
-                    purpose_text: "The purpose of data collection (name and email) is exclusively to respond to your inquiries, quotes or messages sent through the form. They will not be used to send unsolicited advertising (spam).",
-                    legitimacy_title: "Legitimacy",
-                    legitimacy_text: "The processing of data is based on your explicit consent by checking the acceptance box before submitting the form.",
-                    recipients_title: "Data recipients",
-                    recipients_text: "Data is stored securely through Firebase (Google Cloud) or the email service used by the website, complying with EU security standards. Data will not be transferred to third parties, except by legal obligation.",
-                    rights_title: "Your rights",
-                    rights_text: "You have the right to access, rectify or delete your personal data at any time. To do so, just send me an email."
                 }
             }
         }
-    }
-});
+    });
 
 export default i18n;
+
