@@ -424,9 +424,10 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
-  opacity: 0.6;
-  /* Higher base opacity for clarity */
+  color: #ffffff;
+  /* Blanc pur com les lletres de les cards */
+  opacity: 1;
+  /* Màxima visibilitat */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
