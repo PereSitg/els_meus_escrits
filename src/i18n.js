@@ -24,7 +24,9 @@ i18n
                         altres: 'Altres històries',
                         stack: 'El meu Stack',
                         contact: 'Contacte',
-                        logout: 'Tancar sessió'
+                        logout: 'Tancar sessió',
+                        dev_ia: 'Desenvolupament i IA',
+                        strat_pol: 'Estratègia i Consultoria Política'
                     },
                     contact: {
                         title: 'Contacte',
@@ -250,7 +252,9 @@ i18n
                         altres: 'Otros',
                         stack: 'Mi Stack',
                         contact: 'Contacto',
-                        logout: 'Cerrar sesión'
+                        logout: 'Cerrar sesión',
+                        dev_ia: 'Desarrollo e IA',
+                        strat_pol: 'Estrategia y Consultoría Política'
                     },
                     contact: {
                         title: 'Contacto',
@@ -472,7 +476,9 @@ i18n
                         altres: 'Others',
                         stack: 'My Stack',
                         contact: 'Contact',
-                        logout: 'Log out'
+                        logout: 'Log out',
+                        dev_ia: 'Development & AI',
+                        strat_pol: 'Strategy & Political Consulting'
                     },
                     contact: {
                         title: 'Contact',

@@ -28,7 +28,10 @@ export default function Header() {
         i18n.changeLanguage(lng);
     };
 
-    const professionalItem = { name: t('nav.projects'), path: '/projects' };
+    const professionalItems = [
+        { name: t('nav.dev_ia'), path: '/projects?tag=IA' },
+        { name: t('nav.strat_pol'), path: '/projects?tag=Politica' },
+    ];
 
     const writingItems = [
         { name: t('nav.sitges'), path: '/category/sitges' },
@@ -38,6 +41,7 @@ export default function Header() {
 
     const isActive = (path) => location.pathname === path;
     const isWritingsActive = writingItems.some(item => isActive(item.path));
+    const isProjectsActive = isActive('/projects') || professionalItems.some(item => location.pathname + location.search === item.path);
 
     const LangSwitcher = ({ mobile = false }) => (
         <div className={mobile ? "mobile-lang-switcher" : "lang-switcher"}>
@@ -71,13 +75,25 @@ export default function Header() {
                     </Link>
 
                     <div className="nav-separator"></div>
-                    <Link
-                        to={professionalItem.path}
-                        className={`nav-link ${isActive(professionalItem.path) ? 'active' : ''}`}
-                        style={{ marginLeft: '1.5rem', marginRight: '0.75rem' }}
-                    >
-                        {professionalItem.name}
-                    </Link>
+                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.75rem' }}>
+                        <Link
+                            to="/projects"
+                            className={`dropdown-trigger ${isProjectsActive ? 'active' : ''}`}
+                        >
+                            {t('nav.projects')} <ChevronDown size={16} />
+                        </Link>
+                        <div className="dropdown-content">
+                            {professionalItems.map((item) => (
+                                <Link
+                                    key={item.path}
+                                    to={item.path}
+                                    className="dropdown-link"
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
 
                     <div className="nav-separator"></div>
 
@@ -188,18 +204,53 @@ export default function Header() {
 
                             <div className="nav-separator"></div>
 
-                            <Link
-                                to={professionalItem.path}
-                                style={{
-                                    padding: '1rem 0',
-                                    fontSize: '1.2rem',
-                                    fontWeight: 'bold',
-                                    color: isActive(professionalItem.path) ? 'var(--accent-primary)' : 'var(--text-primary)'
-                                }}
-                                onClick={() => setIsOpen(false)}
+                            <div
+                                className={`nav-item-dropdown mobile ${dropdownOpen ? 'open' : ''}`}
+                                style={{ padding: '0.5rem 0' }}
                             >
-                                {professionalItem.name}
-                            </Link>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                                    <Link
+                                        to="/projects"
+                                        className={`dropdown-trigger ${isProjectsActive ? 'active' : ''}`}
+                                        style={{
+                                            fontSize: '1.2rem',
+                                            color: isProjectsActive ? 'var(--accent-primary)' : 'var(--text-secondary)',
+                                            flex: 1,
+                                            padding: '1rem 0'
+                                        }}
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {t('nav.projects')}
+                                    </Link>
+                                    <div
+                                        style={{ padding: '1rem', cursor: 'pointer' }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setDropdownOpen(!dropdownOpen);
+                                        }}
+                                    >
+                                        <ChevronDown size={20} style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+                                    </div>
+                                </div>
+                                <div className="dropdown-content">
+                                    {professionalItems.map((item) => (
+                                        <Link
+                                            key={item.path}
+                                            to={item.path}
+                                            style={{
+                                                display: 'block',
+                                                padding: '0.75rem 0',
+                                                fontSize: '1.1rem',
+                                                color: isActive(item.path) ? 'var(--accent-primary)' : 'var(--text-secondary)'
+                                            }}
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
 
                             <div className="nav-separator"></div>
 
