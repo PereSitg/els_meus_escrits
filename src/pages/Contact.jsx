@@ -158,7 +158,7 @@ export default function Contact() {
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.name')} <span style={{ color: '#ef4444', marginLeft: '4px', fontWeight: 'bold' }}>*</span>
+                                    {t('contact.form.name')} <span style={{ color: '#ff4444', marginLeft: '5px', fontSize: '1.2rem', fontWeight: 'bold' }}>*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -179,7 +179,7 @@ export default function Contact() {
 
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.email')} <span style={{ color: '#ef4444', marginLeft: '4px', fontWeight: 'bold' }}>*</span>
+                                    {t('contact.form.email')} <span style={{ color: '#ff4444', marginLeft: '5px', fontSize: '1.2rem', fontWeight: 'bold' }}>*</span>
                                 </label>
                                 <input
                                     type="email"
@@ -200,7 +200,7 @@ export default function Contact() {
 
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.message')} <span style={{ color: '#ef4444', marginLeft: '4px', fontWeight: 'bold' }}>*</span>
+                                    {t('contact.form.message')} <span style={{ color: '#ff4444', marginLeft: '5px', fontSize: '1.2rem', fontWeight: 'bold' }}>*</span>
                                 </label>
                                 <textarea
                                     rows="4"

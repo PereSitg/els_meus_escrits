@@ -51,9 +51,9 @@ i18n
                             email_required: 'L\'email és obligatori',
                             message_required: 'El missatge és obligatori',
                             fill_required: 'Si us plau, omple tots els camps obligatoris.',
-                            send_error: 'Error enviant el missatge. Torna-ho a intentar.',
-                            success: 'Missatge enviat correctament!'
-                        }
+                            send_error: 'Si hi ha un error, m\'ho indiqui.',
+                            success: 'Gràcies ! He rebut el teu missatge correctament.'
+                        },
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
