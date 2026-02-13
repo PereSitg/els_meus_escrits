@@ -8,12 +8,6 @@ i18n
     .init({
         fallbackLng: 'ca',
         supportedLngs: ['ca', 'es', 'en'],
-        detection: {
-            order: ['querystring', 'localStorage', 'navigator'],
-            lookupQuerystring: 'lang',
-            lookupLocalStorage: 'i18nextLng',
-            caches: ['localStorage'],
-        },
         debug: false,
         interpolation: {
             escapeValue: false,
