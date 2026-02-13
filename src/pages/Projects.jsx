@@ -20,7 +20,11 @@ export default function Projects() {
 
     const filteredProjects = activeFilter === 'All'
         ? projectsData
-        : projectsData.filter(project => project.tags.includes(activeFilter));
+        : projectsData.filter(project => {
+            if (activeFilter === 'IA') return project.category === 'dev_ia';
+            if (activeFilter === 'Politica') return project.category === 'strat_pol';
+            return true;
+        });
 
     return (
         <div className="container" style={{ paddingTop: '4rem', paddingBottom: '6rem' }}>
@@ -34,7 +38,7 @@ export default function Projects() {
                     {t('projects.description')}
                 </p>
 
-                {/* Filter Bar */}
+                {/* Category Filter Bar */}
                 <div style={{
                     display: 'flex',
                     gap: '1rem',
@@ -61,24 +65,36 @@ export default function Projects() {
                     >
                         {t('projects.filter_all', 'Tots')}
                     </button>
-                    {allTags.map(tag => (
-                        <button
-                            key={tag}
-                            onClick={() => setActiveFilter(tag)}
-                            style={{
-                                padding: '0.6rem 1.5rem',
-                                borderRadius: '2rem',
-                                border: 'none',
-                                background: activeFilter === tag ? 'var(--accent-primary)' : 'transparent',
-                                color: activeFilter === tag ? 'white' : 'var(--text-secondary)',
-                                fontWeight: '600',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease'
-                            }}
-                        >
-                            {tag}
-                        </button>
-                    ))}
+                    <button
+                        onClick={() => setActiveFilter('IA')}
+                        style={{
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '2rem',
+                            border: 'none',
+                            background: activeFilter === 'IA' ? 'var(--accent-primary)' : 'transparent',
+                            color: activeFilter === 'IA' ? 'white' : 'var(--text-secondary)',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        IA
+                    </button>
+                    <button
+                        onClick={() => setActiveFilter('Politica')}
+                        style={{
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '2rem',
+                            border: 'none',
+                            background: activeFilter === 'Politica' ? 'var(--accent-primary)' : 'transparent',
+                            color: activeFilter === 'Politica' ? 'white' : 'var(--text-secondary)',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        Política
+                    </button>
                 </div>
 
                 <div style={{
@@ -120,29 +136,33 @@ export default function Projects() {
                                             />
                                         </div>
                                         <div style={{ padding: '2rem' }}>
-                                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-                                                {project.tags.map(tag => (
-                                                    <span
-                                                        key={tag}
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            e.stopPropagation();
-                                                            setActiveFilter(tag);
-                                                        }}
-                                                        style={{
-                                                            fontSize: '0.75rem',
-                                                            padding: '0.2rem 0.6rem',
-                                                            background: activeFilter === tag ? 'var(--accent-primary)' : 'rgba(59, 130, 246, 0.1)',
-                                                            color: activeFilter === tag ? 'white' : 'var(--accent-primary)',
-                                                            borderRadius: '2rem',
-                                                            fontWeight: '600',
-                                                            transition: 'all 0.2s ease',
-                                                            cursor: 'pointer'
-                                                        }}
-                                                    >
-                                                        {tag}
-                                                    </span>
-                                                ))}
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                    {project.tags.map(tag => (
+                                                        <span
+                                                            key={tag}
+                                                            style={{
+                                                                fontSize: '0.75rem',
+                                                                padding: '0.2rem 0.6rem',
+                                                                background: 'rgba(59, 130, 246, 0.1)',
+                                                                color: 'var(--accent-primary)',
+                                                                borderRadius: '2rem',
+                                                                fontWeight: '600'
+                                                            }}
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                                <span style={{
+                                                    fontSize: '0.7rem',
+                                                    color: 'var(--text-secondary)',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.05em',
+                                                    fontWeight: '700'
+                                                }}>
+                                                    {t(`projects.categories.${project.category}`)}
+                                                </span>
                                             </div>
                                             <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
                                                 {t(`projects.${project.translationKey}.title`)}

@@ -71,6 +71,11 @@ i18n
                     projects: {
                         title: 'Projectes',
                         description: 'Aquesta és una selecció dels projectes més destacats en els quals he treballat. Des de desenvolupament web fins a iniciatives culturals i socials.',
+                        categories: {
+                            all: 'Tots',
+                            dev_ia: 'Desenvolupament i IA',
+                            strat_pol: 'Estratègia i Consultoria Política'
+                        },
                         filter_all: 'Tots',
                         coming_soon: 'Proximament',
                         placeholder_title: 'Nou Projecte',
@@ -122,6 +127,23 @@ i18n
                             feature_2: 'Informació històrica geolocalitzada',
                             feature_3: 'Interfície optimitzada per a l\'ús a l\'exterior',
                             try_button: 'Veure la web',
+                            back_button: 'Tornar a projectes'
+                        },
+                        fetspersitges: {
+                            title: 'Fets per Sitges',
+                            desc: 'Estratègia i comunicació política per a un projecte transformador a Sitges. Una plataforma que connecta la visió política amb la realitat ciutadana.',
+                            detail_title: 'Sobre el Projecte',
+                            detail_desc: 'Fets per Sitges és un projecte d\'estratègia i consultoria política on he aplicat la meva experiència en comunicació narrativa i anàlisi de context. El projecte busca canalitzar les inquietuds de la vila d\'una manera clara, directa i amb una visió de futur integrada.',
+                            author_note: 'A vegades el codi no és l\'única eina per transformar la realitat; l\'estratègia i la bona narrativa són el programari que mou les societats.',
+                            architecture_title: 'Eixos Estratègics',
+                            architecture_ai: 'Estratègia: Definició del relat i anàlisi d\'escenaris polítics.',
+                            architecture_data: 'Comunicació: Gestió de xarxes socials i producció de contingut visual amb DaVinci Resolve.',
+                            architecture_dev: 'Participació: Implementació de canals d\'escolta ciutadana activa.',
+                            features_title: 'Objectius Clau',
+                            feature_1: 'Definició d\'un relat de ciutat propi',
+                            feature_2: 'Gestió de la campanya digital 360',
+                            feature_3: 'Anàlisi de dades i tendències d\'opinió',
+                            try_button: 'Veure el projecte',
                             back_button: 'Tornar a projectes'
                         },
                         related_title: 'Altres Projectes'
@@ -274,6 +296,11 @@ i18n
                     projects: {
                         title: 'Proyectos',
                         description: 'Esta es una selección de los proyectos más destacados en los que he trabajado. Desde desarrollo web hasta iniciativas culturales y sociales.',
+                        categories: {
+                            all: 'Todos',
+                            dev_ia: 'Desarrollo e IA',
+                            strat_pol: 'Estrategia y Consultoría Política'
+                        },
                         filter_all: 'Todos',
                         coming_soon: 'Próximamente',
                         placeholder_title: 'Nuevo Proyecto',
@@ -320,11 +347,28 @@ i18n
                             architecture_ai: 'Geolocalización: Integración en tiempo real para una navegación fluida.',
                             architecture_data: 'Gestión de Datos: Base de datos optimizada para rutas y puntos de interés.',
                             architecture_dev: 'Desarrollo: Enfoque de Progressive Web App (PWA) con React para una experiencia nativa en el móvil.',
-                            features_title: 'Características Clave',
+                            features_title: 'Características Clau',
                             feature_1: 'Mapes interactivos de rutas culturales',
                             feature_2: 'Información histórica geolocalizada',
                             feature_3: 'Interfaz optimizada para el uso al exterior',
                             try_button: 'Ver la web',
+                            back_button: 'Volver a proyectos'
+                        },
+                        fetspersitges: {
+                            title: 'Fets per Sitges',
+                            desc: 'Estrategia y comunicación política para un proyecto transformador en Sitges. Una plataforma que conecta la visión política con la realidad ciudadana.',
+                            detail_title: 'Sobre el Proyecto',
+                            detail_desc: 'Fets per Sitges es un proyecto de estrategia y consultoría política donde he aplicado mi experiencia en comunicación narrativa y análisis de contexto. El proyecto busca canalizar las inquietudes de la villa de una manera clara, directa y con una visión de futuro integrada.',
+                            author_note: 'A veces el código no es la única herramienta para transformar la realidad; la estrategia y la buena narrativa son el software que mueve las sociedades.',
+                            architecture_title: 'Ejes Estratégicos',
+                            architecture_ai: 'Estrategia: Definición del relato y análisis de escenarios políticos.',
+                            architecture_data: 'Comunicación: Gestión de redes sociales y producción de contenido visual con DaVinci Resolve.',
+                            architecture_dev: 'Participación: Implementación de canales de escucha ciudadana activa.',
+                            features_title: 'Objetivos Clave',
+                            feature_1: 'Definición de un relato de ciudad propio',
+                            feature_2: 'Gestión de la campaña digital 360',
+                            feature_3: 'Análisis de datos y tendencias de opinión',
+                            try_button: 'Ver el proyecto',
                             back_button: 'Volver a proyectos'
                         },
                         related_title: 'Otros Proyectos'
@@ -474,6 +518,11 @@ i18n
                     projects: {
                         title: 'Projects',
                         description: 'This is a selection of the most relevant projects I have worked on. From web development to cultural and social initiatives.',
+                        categories: {
+                            all: 'All',
+                            dev_ia: 'Development & AI',
+                            strat_pol: 'Strategy & Political Consulting'
+                        },
                         filter_all: 'All',
                         coming_soon: 'Coming Soon',
                         placeholder_title: 'New Project',
@@ -525,6 +574,23 @@ i18n
                             feature_2: 'Geolocated historical information',
                             feature_3: 'Interface optimized for outdoor use',
                             try_button: 'View the website',
+                            back_button: 'Back to projects'
+                        },
+                        fetspersitges: {
+                            title: 'Fets per Sitges',
+                            desc: 'Strategy and political communication for a transformative project in Sitges. A platform that connects political vision with citizen reality.',
+                            detail_title: 'About the Project',
+                            detail_desc: 'Fets per Sitges is a strategy and political consulting project where I have applied my experience in narrative communication and context analysis. The project seeks to channel the town\'s concerns in a clear, direct way and with an integrated vision of the future.',
+                            author_note: 'Sometimes code is not the only tool to transform reality; strategy and good narrative are the software that moves societies.',
+                            architecture_title: 'Strategic Pillars',
+                            architecture_ai: 'Strategy: Relational definition and political scenarios analysis.',
+                            architecture_data: 'Communication: Social media management and visual content production with DaVinci Resolve.',
+                            architecture_dev: 'Participation: Implementation of active citizen listening channels.',
+                            features_title: 'Key Objectives',
+                            feature_1: 'Definition of an own city narrative',
+                            feature_2: '360 digital campaign management',
+                            feature_3: 'Data analysis and opinion trends',
+                            try_button: 'View the project',
                             back_button: 'Back to projects'
                         },
                         related_title: 'Other Projects'

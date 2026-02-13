@@ -4,6 +4,7 @@ export const projectsData = [
         slug: 'sommelier',
         image: '/sommelier_digital.png',
         tags: ['IA', 'Python', 'Gemini API', 'LangChain'],
+        category: 'dev_ia',
         translationKey: 'sommelier'
     },
     {
@@ -11,6 +12,7 @@ export const projectsData = [
         slug: 'sitges-art',
         image: '/sitges_art.png',
         tags: ['Cultura', 'Història', 'IA', 'Python', 'Gemini API'],
+        category: 'dev_ia',
         translationKey: 'sitgesart'
     },
     {
@@ -18,9 +20,17 @@ export const projectsData = [
         slug: 'sitges-walk',
         image: '/sitges_walk.png',
         tags: ['Cultura', 'Geolocalització', 'React', 'Mobile First'],
+        category: 'dev_ia',
         translationKey: 'sitgeswalk'
     },
-    // Es poden afegir més projectes aquí fàcilment
+    {
+        id: 'fets-per-sitges',
+        slug: 'fets-per-sitges',
+        image: '/portada.png', // Placeholder o demanar imatge
+        tags: ['Política', 'Estratègia', 'Consultoria'],
+        category: 'strat_pol',
+        translationKey: 'fetspersitges'
+    }
 ];
 
 export const allTags = Array.from(
