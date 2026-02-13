@@ -50,6 +50,7 @@ i18n
                             name_required: 'El nom és obligatori',
                             email_required: 'L\'email és obligatori',
                             message_required: 'El missatge és obligatori',
+                            fill_required: 'Si us plau, omple tots els camps obligatoris.',
                             send_error: 'Error enviant el missatge. Torna-ho a intentar.',
                             success: 'Missatge enviat correctament!'
                         }
@@ -250,6 +251,7 @@ i18n
                         submit: 'Enviar',
                         captcha_label: 'Control humano: ¿Cuánto es {{num1}} + {{num2}}?',
                         captcha_error: 'La suma es incorrecta. Por favor, inténtalo de nuevo.',
+                        fill_required: 'Por favor, rellena todos los campos obligatorios.',
                         success: '¡Mensaje enviado correctamente!'
                     }
                 },
@@ -445,6 +447,7 @@ i18n
                         submit: 'Send',
                         captcha_label: 'Human control: How much is {{num1}} + {{num2}}?',
                         captcha_error: 'The sum is incorrect. Please try again.',
+                        fill_required: 'Please fill in all required fields.',
                         success: 'Message sent successfully!'
                     }
                 },
@@ -607,6 +610,6 @@ i18n
             }
         }
     }
-    });
+});
 
 export default i18n;

@@ -1,0 +1,15 @@
+PAS 1: Ves a https://www.emailjs.com/ i crea un compte gratuït.
+
+PAS 2: Crea un "Email Service" (tria Gmail) i copia el "Service ID".
+
+PAS 3: Crea un "Email Template" i copia el "Template ID".
+
+PAS 4: Ves a "Account" -> "API Keys" i copia la "Public Key".
+
+PAS 5: Obre l'arxiu ".env" del teu ordinador i posa les claus així:
+
+VITE_EMAILJS_SERVICE_ID=el_teu_service_id
+VITE_EMAILJS_TEMPLATE_ID=el_teu_template_id
+VITE_EMAILJS_PUBLIC_KEY=la_teva_public_key
+
+PAS 6: Guarda l'arxiu i reinicia la web.

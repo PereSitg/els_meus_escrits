@@ -17,16 +17,16 @@ export default function Layout() {
                 borderTop: '1px solid var(--bg-secondary)',
                 marginTop: '4rem'
             }}>
-                <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <Link to="/politica-cookies" style={{ color: 'var(--text-secondary)', textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+                <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.8rem', position: 'relative', zIndex: 10 }}>
+                    <Link to="/politica-cookies" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem', opacity: 1 }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
                         {t('footer.cookies') || 'Política de Cookies'}
                     </Link>
-                    <span style={{ color: 'var(--text-secondary)', opacity: 0.3 }}>|</span>
-                    <Link to="/politica-privacitat" style={{ color: 'var(--text-secondary)', textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+                    <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>|</span>
+                    <Link to="/politica-privacitat" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem', opacity: 1 }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
                         {t('footer.privacy') || 'Política de Privacitat'}
                     </Link>
-                    <span style={{ color: 'var(--text-secondary)', opacity: 0.3 }}>|</span>
-                    <Link to="/avis-legal" style={{ color: 'var(--text-secondary)', textDecoration: 'none', padding: '0.5rem 1rem', fontSize: '0.9rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
+                    <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>|</span>
+                    <Link to="/avis-legal" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem', opacity: 1 }} onMouseEnter={(e) => e.target.style.color = 'var(--accent-primary)'} onMouseLeave={(e) => e.target.style.color = 'var(--text-secondary)'}>
                         {t('footer.legal') || 'Avís Legal'}
                     </Link>
                 </div>
