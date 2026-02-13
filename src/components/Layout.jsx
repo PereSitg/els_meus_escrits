@@ -22,15 +22,15 @@ export default function Layout() {
             }}>
                 <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center' }}>
                     <Link to="/politica-cookies" className="footer-link" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem' }}>
-                        Política de Cookies
+                        {t('cookies.title')}
                     </Link>
                     <span style={{ color: 'var(--text-secondary)', opacity: 0.3, fontSize: '0.8rem' }}>|</span>
                     <Link to="/politica-privacitat" className="footer-link" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem' }}>
-                        Política de Privacitat
+                        {t('privacy.title')}
                     </Link>
                     <span style={{ color: 'var(--text-secondary)', opacity: 0.3, fontSize: '0.8rem' }}>|</span>
                     <Link to="/avis-legal" className="footer-link" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.95rem' }}>
-                        Avís Legal
+                        {t('legal.title')}
                     </Link>
                 </div>
                 <p style={{ margin: 0, fontSize: '0.9rem', opacity: 0.8 }}>

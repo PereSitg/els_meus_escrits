@@ -49,13 +49,13 @@ export default function Contact() {
 
         if (hasError) {
             setErrors(newErrors);
-            setError(t('contact.form.fill_required') || 'Si us plau, omple tots els camps obligatoris.');
+            setError('contact.form.fill_required');
             return;
         }
 
         // Validació del captcha
         if (parseInt(formData.captcha) !== captchaNums.n1 + captchaNums.n2) {
-            setError(t('contact.form.captcha_error'));
+            setError('contact.form.captcha_error');
             generateCaptcha();
             return;
         }
@@ -82,7 +82,7 @@ export default function Contact() {
             setTimeout(() => setSuccess(false), 5000);
         } catch (err) {
             console.error('Error sending email:', err);
-            setError(t('contact.form.send_error') || 'Error enviant el missatge. Torna-ho a intentar.');
+            setError('contact.form.send_error');
         } finally {
             setSending(false);
         }
@@ -244,7 +244,7 @@ export default function Contact() {
                                         exit={{ opacity: 0 }}
                                         style={{ color: '#ef4444', fontSize: '0.85rem', textAlign: 'center' }}
                                     >
-                                        {error}
+                                        {t(error)}
                                     </motion.p>
                                 )}
                                 {success && (

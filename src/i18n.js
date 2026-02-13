@@ -51,7 +51,7 @@ i18n
                             email_required: 'L\'email és obligatori',
                             message_required: 'El missatge és obligatori',
                             fill_required: 'Si us plau, omple tots els camps obligatoris.',
-                            send_error: 'Si hi ha un error, m\'ho indiqui.',
+                            send_error: 'Error en l\'enviament, prova-ho més tard.',
                             success: 'Gràcies ! He rebut el teu missatge correctament.'
                         },
                     },
@@ -250,7 +250,11 @@ i18n
                             submit: 'Enviar',
                             captcha_label: 'Control humano: ¿Cuánto es {{num1}} + {{num2}}?',
                             captcha_error: 'La suma es incorrecta. Por favor, inténtalo de nuevo.',
+                            name_required: 'El nombre es obligatorio',
+                            email_required: 'El email es obligatorio',
+                            message_required: 'El mensaje es obligatorio',
                             fill_required: 'Por favor, rellena todos los campos obligatorios.',
+                            send_error: 'Error en el envío, inténtalo más tarde.',
                             success: '¡Mensaje enviado correctamente!'
                         }
                     },
@@ -446,7 +450,11 @@ i18n
                             submit: 'Send',
                             captcha_label: 'Human control: How much is {{num1}} + {{num2}}?',
                             captcha_error: 'The sum is incorrect. Please try again.',
+                            name_required: 'Name is required',
+                            email_required: 'Email is required',
+                            message_required: 'Message is required',
                             fill_required: 'Please fill in all required fields.',
+                            send_error: 'Error sending message. Please try again later.',
                             success: 'Message sent successfully!'
                         }
                     },
