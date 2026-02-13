@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Database, Code2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Database, Layout } from 'lucide-react';
+import RelatedProjects from '../components/RelatedProjects';
 
 export default function SommelierDigital() {
     const { t } = useTranslation();
@@ -246,6 +247,8 @@ export default function SommelierDigital() {
                         </div>
                     </motion.div>
                 </div>
+
+                <RelatedProjects currentProjectId="sommelier-digital" />
             </div>
         </div>
     );

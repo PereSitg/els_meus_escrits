@@ -31,8 +31,9 @@ i18n
                         latest_posts: 'Darreres publicacions',
                         read_more: 'Llegir més',
                         loading: 'Carregant publicacions...',
-                        sitges_desc: 'Explora els meus escrits, reflexions i històries sobre la Blanca Subur.',
-                        projects_desc: 'Descobreix els projectes professionals i creatius en els quals he participat.'
+                        sitges_desc: 'Explora els meus escrits i històries sobre Sitges.',
+                        projects_desc: 'Descobreix els projectes professionals i creatius en els quals he treballat.',
+                        related_posts: 'Altres històries que et podrien agradar'
                     },
                     projects: {
                         title: 'Projectes',
@@ -88,7 +89,8 @@ i18n
                             feature_2: 'Informació històrica geolocalitzada',
                             feature_3: 'Interfície optimitzada per a l\'ús a l\'exterior',
                             try_button: 'Veure la web',
-                            back_button: 'Tornar a projectes'
+                            back_button: 'Tornar a projectes',
+                            related_title: 'Altres Projectes'
                         }
                     },
                     footer: {
@@ -123,8 +125,9 @@ i18n
                         latest_posts: 'Últimas publicaciones',
                         read_more: 'Leer más',
                         loading: 'Cargando publicaciones...',
-                        sitges_desc: 'Explora mis escritos, reflexiones e historias sobre la Blanca Subur.',
-                        projects_desc: 'Descubre los proyectos profesionales y creativos en los que he participado.'
+                        sitges_desc: 'Explora mis escritos e historias sobre Sitges.',
+                        projects_desc: 'Descubre los proyectos profesionales y creativos en los que he trabajado.',
+                        related_posts: 'Otras historias que te podrían gustar'
                     },
                     projects: {
                         title: 'Proyectos',
@@ -159,7 +162,7 @@ i18n
                             architecture_ai: 'Motor de IA: Integración de modelos de lenguaje para la contextualización de obras y lugares.',
                             architecture_data: 'Gestión de Datos: Indexación semántica de contenidos culturales e históricos.',
                             architecture_dev: 'Desarrollo: Arquitectura basada en React con un enfoque "mobile-first" para la mejor experiencia en rutas urbanas.',
-                            features_title: 'Características Clave',
+                            features_title: 'Caracteristicas Clave',
                             feature_1: 'Búsqueda inteligente por arte e historia',
                             feature_2: 'Diseño responsivo adaptado a dispositivos móviles',
                             feature_3: 'Contenido multimedia inmersivo',
@@ -180,7 +183,8 @@ i18n
                             feature_2: 'Información histórica geolocalizada',
                             feature_3: 'Interfaz optimizada para el uso al exterior',
                             try_button: 'Ver la web',
-                            back_button: 'Volver a proyectos'
+                            back_button: 'Volver a proyectos',
+                            related_title: 'Otros Proyectos'
                         }
                     },
                     footer: {
@@ -215,8 +219,9 @@ i18n
                         latest_posts: 'Latest Posts',
                         read_more: 'Read more',
                         loading: 'Loading posts...',
-                        sitges_desc: 'Explore my writings, reflections and stories about the Blanca Subur.',
-                        projects_desc: 'Discover the professional and creative projects I have been involved in.'
+                        sitges_desc: 'Explore my writings and stories about Sitges.',
+                        projects_desc: 'Discover the professional and creative projects I have worked on.',
+                        related_posts: 'Other stories you might like'
                     },
                     projects: {
                         title: 'Projects',
@@ -272,7 +277,8 @@ i18n
                             feature_2: 'Geolocated historical information',
                             feature_3: 'Interface optimized for outdoor use',
                             try_button: 'View the website',
-                            back_button: 'Back to projects'
+                            back_button: 'Back to projects',
+                            related_title: 'Other Projects'
                         }
                     },
                     footer: {

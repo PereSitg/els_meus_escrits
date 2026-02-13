@@ -3,13 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, ChevronLeft, Share2, Clock, BookOpen, Languages, AlertCircle } from 'lucide-react';
+import { Calendar, Tag, ChevronLeft, Share2, Clock, BookOpen, Languages, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { collection, query, limit, getDocs } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import { translateText } from '../lib/translateService';
 
 export default function PostDetail() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [relatedPosts, setRelatedPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [translatedContent, setTranslatedContent] = useState(null);
     const [isTranslating, setIsTranslating] = useState(false);
@@ -43,7 +45,25 @@ export default function PostDetail() {
                 setLoading(false);
             }
         }
+
+        async function fetchRelated() {
+            try {
+                const q = query(collection(db, "posts"), limit(10)); // Fetch a few to randomize
+                const querySnapshot = await getDocs(q);
+                const allPosts = querySnapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .filter(p => p.id !== id);
+
+                // Shuffle and pick 3
+                const shuffled = allPosts.sort(() => 0.5 - Math.random()).slice(0, 3);
+                setRelatedPosts(shuffled);
+            } catch (error) {
+                console.error("Error fetching related posts:", error);
+            }
+        }
+
         fetchPost();
+        fetchRelated();
 
         // Cleanup: Reset title when leaving page
         return () => {
@@ -413,15 +433,30 @@ export default function PostDetail() {
                         gap: '2rem'
                     }}>
                         <div style={{ display: 'flex', gap: '1.5rem' }}>
-                            <button className="btn" style={{
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                                color: 'white',
-                                padding: '0.6rem 1.2rem'
-                            }}>
+                            <button
+                                onClick={() => {
+                                    if (navigator.share) {
+                                        navigator.share({
+                                            title: post.title,
+                                            text: post.subtitle,
+                                            url: window.location.href,
+                                        }).catch(console.error);
+                                    } else {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        alert('Enllaç copiat al porta-retalls');
+                                    }
+                                }}
+                                className="btn"
+                                style={{
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    color: 'white',
+                                    padding: '0.6rem 1.2rem'
+                                }}
+                            >
                                 <Share2 size={18} /> Compartir article
                             </button>
                         </div>
@@ -437,6 +472,81 @@ export default function PostDetail() {
                             <BookOpen size={20} /> Més històries de Pere Badia
                         </Link>
                     </div>
+
+                    {/* Related Posts Section */}
+                    {relatedPosts.length > 0 && (
+                        <div style={{ marginTop: '8rem' }}>
+                            <h2 style={{
+                                fontSize: '2rem',
+                                marginBottom: '3rem',
+                                textAlign: 'center',
+                                fontWeight: '800',
+                                letterSpacing: '-0.01em'
+                            }}>
+                                {t('home.related_posts')}
+                            </h2>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: '2rem'
+                            }}>
+                                {relatedPosts.map((rPost, idx) => (
+                                    <motion.div
+                                        key={rPost.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        viewport={{ once: true }}
+                                    >
+                                        <Link to={`/post/${rPost.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <div style={{
+                                                background: 'rgba(255, 255, 255, 0.03)',
+                                                borderRadius: '1.25rem',
+                                                overflow: 'hidden',
+                                                border: '1px solid rgba(255, 255, 255, 0.05)',
+                                                height: '100%',
+                                                transition: 'transform 0.3s ease'
+                                            }}
+                                                onMouseOver={e => e.currentTarget.style.transform = 'translateY(-8px)'}
+                                                onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+                                            >
+                                                <div style={{ height: '180px', overflow: 'hidden' }}>
+                                                    <img
+                                                        src={rPost.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800'}
+                                                        alt={rPost.title}
+                                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                    />
+                                                </div>
+                                                <div style={{ padding: '1.5rem' }}>
+                                                    <span style={{
+                                                        fontSize: '0.8rem',
+                                                        color: 'var(--accent-primary)',
+                                                        fontWeight: '600',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.05em'
+                                                    }}>
+                                                        {rPost.category}
+                                                    </span>
+                                                    <h3 style={{
+                                                        fontSize: '1.3rem',
+                                                        marginTop: '0.5rem',
+                                                        marginBottom: '0.75rem',
+                                                        fontWeight: '700',
+                                                        lineHeight: '1.3'
+                                                    }}>
+                                                        {rPost.title}
+                                                    </h3>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                                                        {t('home.read_more')} <ChevronRight size={16} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </section>
 

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, CheckCircle2, Map, Database, Layout } from 'lucide-react';
+import RelatedProjects from '../components/RelatedProjects';
 
 export default function SitgesWalk() {
     const { t } = useTranslation();
@@ -226,6 +227,8 @@ export default function SitgesWalk() {
                         </div>
                     </motion.div>
                 </div>
+
+                <RelatedProjects currentProjectId="sitges-walk" />
             </div>
         </div>
     );

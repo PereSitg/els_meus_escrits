@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Database, Code2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, CheckCircle2, Search, Database, Layout } from 'lucide-react';
+import RelatedProjects from '../components/RelatedProjects';
 
 export default function SitgesArt() {
     const { t } = useTranslation();
@@ -50,7 +51,7 @@ export default function SitgesArt() {
                             {tags.map(tag => (
                                 <Link
                                     key={tag}
-                                    to={`/projects?tag=${encodeURIComponent(tag)}`}
+                                    to={`/ projects ? tag = ${encodeURIComponent(tag)} `}
                                     style={{
                                         fontSize: '0.9rem',
                                         padding: '0.4rem 1rem',
@@ -171,7 +172,7 @@ export default function SitgesArt() {
                                         color: 'var(--text-secondary)'
                                     }}>
                                         <CheckCircle2 size={24} style={{ color: '#10b981' }} />
-                                        {t(`projects.sitgesart.feature_${i}`)}
+                                        {t(`projects.sitgesart.feature_${i} `)}
                                     </li>
                                 ))}
                             </ul>
@@ -226,6 +227,8 @@ export default function SitgesArt() {
                         </div>
                     </motion.div>
                 </div>
+
+                <RelatedProjects currentProjectId="sitges-art" />
             </div>
         </div>
     );
