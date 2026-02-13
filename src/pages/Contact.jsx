@@ -11,6 +11,7 @@ export default function Contact() {
 
     useEffect(() => {
         generateCaptcha();
+        window.scrollTo(0, 0);
     }, []);
 
     const generateCaptcha = () => {
@@ -51,15 +52,22 @@ export default function Contact() {
                             {t('contact.bio_title')}
                         </h1>
 
-                        <div style={{ color: 'var(--text-secondary)', lineHeight: '1.7', fontSize: '1.05rem' }}>
+                        <div className="contact-bio-text" style={{
+                            color: 'rgba(255,255,255,0.95)',
+                            lineHeight: '2.2',
+                            fontSize: '1.45rem',
+                            fontFamily: '"Outfit", sans-serif',
+                            fontWeight: '400',
+                            letterSpacing: '0.02em'
+                        }}>
                             <p style={{ marginBottom: '1.5rem' }}>{t('contact.bio_p1')}</p>
                             <p style={{ marginBottom: '1.5rem' }}>{t('contact.bio_p2')}</p>
                             <p style={{ marginBottom: '1.5rem' }}>{t('contact.bio_p3')}</p>
 
                             <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                                 {[1, 2, 3].map(i => (
-                                    <li key={i} style={{ marginBottom: '1.25rem' }}>
-                                        <strong style={{ color: 'var(--accent-primary)', display: 'block', marginBottom: '0.25rem' }}>
+                                    <li key={i} style={{ marginBottom: '1.5rem' }}>
+                                        <strong style={{ color: 'var(--accent-primary)', display: 'block', marginBottom: '0.5rem' }}>
                                             {t(`contact.bio_f${i}_title`)}
                                         </strong>
                                         {t(`contact.bio_f${i}_desc`)}
@@ -70,8 +78,10 @@ export default function Contact() {
                             <p style={{
                                 fontStyle: 'italic',
                                 borderTop: '1px solid rgba(255,255,255,0.1)',
-                                paddingTop: '1.5rem',
-                                color: '#ffffff'
+                                paddingTop: '2rem',
+                                color: '#ffffff',
+                                fontSize: '1.2rem',
+                                opacity: 0.9
                             }}>
                                 {t('contact.bio_footer')}
                             </p>
@@ -202,6 +212,17 @@ export default function Contact() {
                     </motion.div>
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 768px) {
+                    .contact-page { padding-top: 3rem !important; }
+                    .contact-bio-text { 
+                        font-size: 1.25rem !important; 
+                        line-height: 1.8 !important; 
+                    }
+                    .contact-bio-text li { font-size: 1.15rem !important; }
+                    .glass { padding: 1.5rem !important; }
+                }
+            `}</style>
         </div>
     );
 }

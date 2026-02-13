@@ -273,9 +273,11 @@ export default function Stack() {
                     .hide-mobile { display: none; }
                     .stack-page { padding-top: 3rem !important; }
                     .stack-header h1 { font-size: 2.5rem !important; }
-                    .stack-header p { font-size: 1.1rem !important; }
+                    .stack-header p { font-size: 1.2rem !important; line-height: 1.6 !important; }
                     .glass { padding: 1.5rem !important; border-radius: 1.5rem !important; }
                     .stack-grid { gap: 2rem !important; }
+                    .stack-grid p { font-size: 1.05rem !important; line-height: 1.6 !important; }
+                    .stack-grid h4 { font-size: 1.15rem !important; }
                     .diagram-container { flex-direction: column !important; gap: 3rem !important; }
                 }
             `}</style>
