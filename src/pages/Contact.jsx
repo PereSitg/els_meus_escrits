@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
     const { t } = useTranslation();
     const [formData, setFormData] = useState({ name: '', email: '', message: '', captcha: '' });
     const [captchaNums, setCaptchaNums] = useState({ n1: 0, n2: 0 });
     const [error, setError] = useState('');
+    const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+    const [sending, setSending] = useState(false);
 
     useEffect(() => {
         generateCaptcha();
@@ -22,21 +25,67 @@ export default function Contact() {
         setFormData(prev => ({ ...prev, captcha: '' }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setErrors({});
 
+        const newErrors = {};
+        let hasError = false;
+
+        // Validació de camps obligatoris
+        if (!formData.name.trim()) {
+            newErrors.name = true;
+            hasError = true;
+        }
+        if (!formData.email.trim()) {
+            newErrors.email = true;
+            hasError = true;
+        }
+        if (!formData.message.trim()) {
+            newErrors.message = true;
+            hasError = true;
+        }
+
+        if (hasError) {
+            setErrors(newErrors);
+            setError(t('contact.form.fill_required') || 'Si us plau, omple tots els camps obligatoris.');
+            return;
+        }
+
+        // Validació del captcha
         if (parseInt(formData.captcha) !== captchaNums.n1 + captchaNums.n2) {
             setError(t('contact.form.captcha_error'));
             generateCaptcha();
             return;
         }
 
-        // Aquí aniria la lògica d'enviament (Firebase, EmailJS, etc.)
-        console.log('Form submited:', formData);
-        setSuccess(true);
-        setFormData({ name: '', email: '', message: '', captcha: '' });
-        setTimeout(() => setSuccess(false), 5000);
+        setSending(true);
+
+        try {
+            // Enviar email amb EmailJS
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    message: formData.message,
+                    to_email: 'pbadialorenz@gmail.com'
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            setSuccess(true);
+            setFormData({ name: '', email: '', message: '', captcha: '' });
+            generateCaptcha();
+            setTimeout(() => setSuccess(false), 5000);
+        } catch (err) {
+            console.error('Error sending email:', err);
+            setError(t('contact.form.send_error') || 'Error enviant el missatge. Torna-ho a intentar.');
+        } finally {
+            setSending(false);
+        }
     };
 
     return (
@@ -109,51 +158,63 @@ export default function Contact() {
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.name')}
+                                    {t('contact.form.name')} <span style={{ color: '#ef4444' }}>*</span>
                                 </label>
                                 <input
-                                    required
                                     type="text"
                                     value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, name: e.target.value });
+                                        if (e.target.value.trim()) setErrors({ ...errors, name: false });
+                                    }}
                                     style={{
                                         width: '100%', padding: '1rem', borderRadius: '0.75rem',
-                                        border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)',
-                                        color: 'white', fontFamily: 'inherit'
+                                        border: `1px solid ${errors.name ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
+                                        background: 'rgba(255,255,255,0.02)',
+                                        color: 'white', fontFamily: 'inherit',
+                                        transition: 'border-color 0.2s'
                                     }}
                                 />
                             </div>
 
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.email')}
+                                    {t('contact.form.email')} <span style={{ color: '#ef4444' }}>*</span>
                                 </label>
                                 <input
-                                    required
                                     type="email"
                                     value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, email: e.target.value });
+                                        if (e.target.value.trim()) setErrors({ ...errors, email: false });
+                                    }}
                                     style={{
                                         width: '100%', padding: '1rem', borderRadius: '0.75rem',
-                                        border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)',
-                                        color: 'white', fontFamily: 'inherit'
+                                        border: `1px solid ${errors.email ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
+                                        background: 'rgba(255,255,255,0.02)',
+                                        color: 'white', fontFamily: 'inherit',
+                                        transition: 'border-color 0.2s'
                                     }}
                                 />
                             </div>
 
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                                    {t('contact.form.message')}
+                                    {t('contact.form.message')} <span style={{ color: '#ef4444' }}>*</span>
                                 </label>
                                 <textarea
-                                    required
                                     rows="4"
                                     value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, message: e.target.value });
+                                        if (e.target.value.trim()) setErrors({ ...errors, message: false });
+                                    }}
                                     style={{
                                         width: '100%', padding: '1rem', borderRadius: '0.75rem',
-                                        border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)',
-                                        color: 'white', fontFamily: 'inherit', resize: 'none'
+                                        border: `1px solid ${errors.message ? '#ef4444' : 'rgba(255,255,255,0.1)'}`,
+                                        background: 'rgba(255,255,255,0.02)',
+                                        color: 'white', fontFamily: 'inherit', resize: 'none',
+                                        transition: 'border-color 0.2s'
                                     }}
                                 ></textarea>
                             </div>
@@ -198,15 +259,16 @@ export default function Contact() {
                                 )}
                             </AnimatePresence>
 
-                            <button type="submit" style={{
-                                padding: '1rem', background: 'var(--accent-primary)', color: 'white',
+                            <button type="submit" disabled={sending} style={{
+                                padding: '1rem', background: sending ? 'rgba(59, 130, 246, 0.5)' : 'var(--accent-primary)', color: 'white',
                                 borderRadius: '1rem', fontWeight: 'bold', fontSize: '1rem', border: 'none',
-                                cursor: 'pointer', transition: 'transform 0.2s', width: '100%'
+                                cursor: sending ? 'not-allowed' : 'pointer', transition: 'transform 0.2s', width: '100%',
+                                opacity: sending ? 0.7 : 1
                             }}
-                                onMouseEnter={e => e.target.style.transform = 'scale(1.02)'}
+                                onMouseEnter={e => !sending && (e.target.style.transform = 'scale(1.02)')}
                                 onMouseLeave={e => e.target.style.transform = 'scale(1)'}
                             >
-                                {t('contact.form.submit')}
+                                {sending ? (t('contact.form.sending') || 'Enviant...') : t('contact.form.submit')}
                             </button>
                         </form>
                     </motion.div>

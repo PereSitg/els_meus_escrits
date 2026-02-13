@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import openIALogo from '../assets/logos/openIA.svg';
 
 // Components auxiliars per mantenir el codi net
@@ -51,6 +52,11 @@ const Tool = ({ name, desc, icon, viewBox }) => (
 
 export default function Stack() {
     const { t } = useTranslation();
+
+    // Scroll to top on mount
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const icons = {
         gemini: <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />,

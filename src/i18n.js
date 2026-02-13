@@ -44,8 +44,13 @@ i18n
                             email: 'Email',
                             message: 'Missatge',
                             submit: 'Enviar',
+                            sending: 'Enviant...',
                             captcha_label: 'Control humà: Quant és {{num1}} + {{num2}}?',
                             captcha_error: 'La suma és incorrecta. Si us plau, torna-ho a intentar.',
+                            name_required: 'El nom és obligatori',
+                            email_required: 'L\'email és obligatori',
+                            message_required: 'El missatge és obligatori',
+                            send_error: 'Error enviant el missatge. Torna-ho a intentar.',
                             success: 'Missatge enviat correctament!'
                         }
                     },
