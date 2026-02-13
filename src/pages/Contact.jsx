@@ -155,7 +155,7 @@ export default function Contact() {
                         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', color: '#ffffff' }}>{t('contact.title')}</h2>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '0.9rem' }}>{t('contact.subtitle')}</p>
 
-                        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                                     {t('contact.form.name')} <span style={{ color: '#ff4444', marginLeft: '5px', fontSize: '1.2rem', fontWeight: 'bold' }}>*</span>
