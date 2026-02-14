@@ -96,42 +96,42 @@ export default function FetsPerSitges() {
                 </Link>
 
                 {/* Hero Section */}
-                <div className="project-header" style={{ marginBottom: '5rem', textAlign: 'center' }}>
+                <div className="project-header" style={{ marginBottom: '3rem', textAlign: 'center' }}>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
                     >
                         <h1 className="project-title" style={{
-                            fontSize: 'clamp(3rem, 8vw, 5rem)',
-                            marginBottom: '1rem',
-                            letterSpacing: '-0.04em',
+                            fontSize: 'clamp(2rem, 6vw, 4rem)',
+                            marginBottom: '0.5rem',
+                            letterSpacing: '-0.02em',
                             color: '#fff',
-                            fontWeight: '900',
+                            fontWeight: '700',
                             textTransform: 'uppercase'
                         }}>
-                            Fets per Sitges: 666 vots amb pressupost de guerrilla.
+                            FETS PER SITGES
                         </h1>
                         <p style={{
-                            fontSize: '1.5rem',
-                            color: palette.accent,
-                            fontWeight: '600',
-                            letterSpacing: '0.1em',
-                            marginBottom: '3rem'
+                            fontSize: '1.2rem',
+                            color: 'rgba(255, 255, 255, 0.7)',
+                            fontWeight: '300',
+                            letterSpacing: '0.05em',
+                            marginBottom: '2rem'
                         }}>
-                            Creativitat estratègica per maximitzar recursos on cada euro compta.
+                            666 vots amb un pressupost de guerrilla.
                         </p>
 
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                             {['Política', 'Estratègia', 'Consultoria'].map(tag => (
                                 <span key={tag} style={{
-                                    fontSize: '0.8rem',
-                                    padding: '0.5rem 1.5rem',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    color: '#fff',
+                                    fontSize: '0.75rem',
+                                    padding: '0.4rem 1.25rem',
+                                    background: 'rgba(255,255,255,0.03)',
+                                    color: 'rgba(255,255,255,0.6)',
                                     borderRadius: '0.2rem',
-                                    fontWeight: '700',
-                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    fontWeight: '500',
+                                    border: '1px solid rgba(255,255,255,0.05)',
                                     textTransform: 'uppercase'
                                 }}>{tag}</span>
                             ))}

@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, query, orderBy, updateDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Edit2, Trash2, Plus, LogOut, ChevronRight, Globe, GlobeLock, Check, X, AlertCircle, Sparkles } from 'lucide-react';
-import { updateDoc } from 'firebase/firestore';
 
 export default function Dashboard() {
     const [posts, setPosts] = useState([]);
@@ -66,16 +65,20 @@ export default function Dashboard() {
             }));
         } catch (error) {
             console.error("Error updating page indexing status:", error);
-            if (error.code === 'not-found') {
-                const { setDoc, serverTimestamp } = await import('firebase/firestore');
-                await setDoc(doc(db, 'site_seo', pageKey), {
-                    isIndexed: !currentStatus,
-                    updatedAt: serverTimestamp()
-                });
-                setPagesSeo(prev => ({
-                    ...prev,
-                    [pageKey]: { ...prev[pageKey], isIndexed: !currentStatus }
-                }));
+            if (error.code === 'not-found' || error.name === 'FirebaseError') {
+                try {
+                    await setDoc(doc(db, 'site_seo', pageKey), {
+                        isIndexed: !currentStatus,
+                        updatedAt: serverTimestamp()
+                    });
+                    setPagesSeo(prev => ({
+                        ...prev,
+                        [pageKey]: { isIndexed: !currentStatus }
+                    }));
+                } catch (setErr) {
+                    console.error("Error setting page SEO on fallback:", setErr);
+                    alert('Error al canviar l\'estat d\'indexació');
+                }
             } else {
                 alert('Error al canviar l\'estat d\'indexació de la pàgina');
             }
@@ -84,7 +87,6 @@ export default function Dashboard() {
 
     async function handleSaveSeo(pageKey) {
         try {
-            const { serverTimestamp } = await import('firebase/firestore');
             await updateDoc(doc(db, 'site_seo', pageKey), {
                 title: editValues.title,
                 description: editValues.description,
@@ -97,19 +99,23 @@ export default function Dashboard() {
             setEditingPage(null);
         } catch (error) {
             console.error("Error saving SEO data:", error);
-            if (error.code === 'not-found') {
-                const { setDoc, serverTimestamp } = await import('firebase/firestore');
-                await setDoc(doc(db, 'site_seo', pageKey), {
-                    title: editValues.title,
-                    description: editValues.description,
-                    isIndexed: true,
-                    updatedAt: serverTimestamp()
-                });
-                setPagesSeo(prev => ({
-                    ...prev,
-                    [pageKey]: { title: editValues.title, description: editValues.description, isIndexed: true }
-                }));
-                setEditingPage(null);
+            if (error.code === 'not-found' || error.name === 'FirebaseError') {
+                try {
+                    await setDoc(doc(db, 'site_seo', pageKey), {
+                        title: editValues.title,
+                        description: editValues.description,
+                        isIndexed: true,
+                        updatedAt: serverTimestamp()
+                    });
+                    setPagesSeo(prev => ({
+                        ...prev,
+                        [pageKey]: { title: editValues.title, description: editValues.description, isIndexed: true }
+                    }));
+                    setEditingPage(null);
+                } catch (setErr) {
+                    console.error("Error setting SEO data on fallback:", setErr);
+                    alert('Error al desar les metadades SEO');
+                }
             } else {
                 alert('Error al desar les metadades SEO');
             }
