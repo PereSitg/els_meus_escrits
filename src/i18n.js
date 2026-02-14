@@ -159,8 +159,8 @@ i18n
                                 synthesis: { title: 'Enginyeria de Missatge', desc: 'Traducció de conceptes complexos en missatges clars i directes. Utilitzem el format vídeo per explicar la gestió política des de la claredat, eliminant el soroll i centrant-nos en solucions reals per a la ciutadania.' },
                                 commitment: { title: 'Compromís i Valor Humà', desc: 'La política són persones. Integrem la diversitat com un actiu fonamental del projecte, demostrant que una llista inclusiva no només és més justa, sinó que és més forta i representativa de la societat real.' },
                                 honesty: { title: 'Honestedat i Cultura de l\'Esforç', desc: 'La política entesa com un servei de proximitat. Posem cara i ulls a un compromís basat en el treball constant i la transparència, demostrant que l\'honestedat és l\'eina més potent per connectar amb l\'electorat.' },
-                                rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' },
-                                coming_soon: { title: 'Properament', desc: 'Estem treballant en nous continguts per explicar més detalls d\'aquest projecte.' }
+                                territory: { title: 'Cohesió i Territori', desc: 'Vam portar el missatge a cada barri de Sitges, des de les Botigues fins a Garraf. Una estratègia de capil·laritat total per assegurar que cada veí i veïna se sentís identificat amb un projecte de ciutat compartit.' },
+                                rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' }
                             },
                             roi_label: 'Impacte Total',
                             roi_title: 'ROI Polític: Un dels costos per vot més baixos de la història electoral de Sitges.',
@@ -414,8 +414,8 @@ i18n
                                 synthesis: { title: 'Ingeniería de Mensaje', desc: 'Traducción de conceptos complejos en mensajes claros y directos. Utilizamos el formato vídeo para explicar la gestión política desde la claridad, eliminando el ruido y centrándonos en soluciones reales para la ciudadanía.' },
                                 commitment: { title: 'Compromiso y Valor Humano', desc: 'La política son personas. Integramos la diversidad como un activo fundamental del proyecto, demostrando que una lista inclusiva no solo es más justa, sino que es más fuerte y representativa de la sociedad real.' },
                                 honesty: { title: 'Honestidad y Cultura del Esfuerzo', desc: 'La política entendida como un servicio de proximidad. Ponemos cara y ojos a un compromiso basado en el trabajo constante y la transparencia, demostrando que la honestidad es la herramienta más potente para conectar con el electorado.' },
-                                rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' },
-                                coming_soon: { title: 'Próximamente', desc: 'Estamos trabajando en nuevos contenidos para explicar más detalles de este proyecto.' }
+                                territory: { title: 'Cohesión y Territorio', desc: 'Llevamos el mensaje a cada barrio de Sitges, desde las Botigues hasta Garraf. Una estrategia de capilaridad total para asegurar que cada vecino y vecina se sintiera identificado con un proyecto de ciudad compartido.' },
+                                rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' }
                             },
                             roi_label: 'Impacto Total',
                             roi_title: 'ROI Político: Uno de los costes por voto más bajos de la historia electoral de Sitges.',
@@ -666,8 +666,8 @@ i18n
                                 synthesis: { title: 'Message Engineering', desc: 'Translation of complex concepts into clear and direct messages. We use the video format to explain political management with clarity, eliminating noise and focusing on real solutions for citizens.' },
                                 commitment: { title: 'Commitment and Human Value', desc: 'Politics is about people. We integrate diversity as a fundamental asset of the project, proving that an inclusive list is not only fairer, but also stronger and more representative of real society.' },
                                 honesty: { title: 'Honesty and Culture of Effort', desc: 'Politics understood as a proximity service. We put a face and eyes on a commitment based on constant work and transparency, proving that honesty is the most powerful tool to connect with the electorate.' },
-                                rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' },
-                                coming_soon: { title: 'Coming Soon', desc: 'We are working on new content to explain more details of this project.' }
+                                territory: { title: 'Cohesion and Territory', desc: 'We took the message to every neighborhood in Sitges, from Les Botigues to Garraf. A strategy of total capillarity to ensure that every neighbor felt identified with a shared city project.' },
+                                rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' }
                             },
                             roi_label: 'Total Impact',
                             roi_title: 'Political ROI: One of the lowest costs per vote in Sitges\' electoral history.',

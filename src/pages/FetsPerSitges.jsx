@@ -97,10 +97,10 @@ export default function FetsPerSitges() {
             video: "https://www.youtube.com/embed/JTYcu4o0DmM"
         },
         {
-            icon: <Sparkles size={24} />,
-            title: t('projects.fetspersitges.strategies.coming_soon.title'),
-            desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
-            isPlaceholder: true
+            icon: <Flag size={24} />,
+            title: t('projects.fetspersitges.strategies.territory.title'),
+            desc: t('projects.fetspersitges.strategies.territory.desc'),
+            video: "https://www.youtube.com/embed/VHkBiCUa20k"
         }
     ];
 
