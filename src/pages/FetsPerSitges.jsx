@@ -82,13 +82,25 @@ export default function FetsPerSitges() {
             icon: <FileText size={24} />,
             title: t('projects.fetspersitges.strategies.synthesis.title'),
             desc: t('projects.fetspersitges.strategies.synthesis.desc'),
-            video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            video: "https://www.youtube.com/embed/9y1H5EAkEgo"
         },
         {
             icon: <Sparkles size={24} />,
-            title: t('projects.fetspersitges.strategies.rigor.title'),
-            desc: t('projects.fetspersitges.strategies.rigor.desc'),
-            video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title: t('projects.fetspersitges.strategies.coming_soon.title'),
+            desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
+            isPlaceholder: true
+        },
+        {
+            icon: <Share2 size={24} />,
+            title: t('projects.fetspersitges.strategies.coming_soon.title'),
+            desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
+            isPlaceholder: true
+        },
+        {
+            icon: <Users size={24} />,
+            title: t('projects.fetspersitges.strategies.coming_soon.title'),
+            desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
+            isPlaceholder: true
         }
     ];
 
@@ -201,9 +213,21 @@ export default function FetsPerSitges() {
                     </motion.div>
                 </div>
 
-                {/* Strategy Blocks */}
+                {/* Strategy Blocks Grid */}
                 <h2 style={{ textAlign: 'center', fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', marginBottom: '4rem' }}>{t('projects.fetspersitges.strategy_heading')}</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '8rem' }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(1, 1fr)',
+                    gap: '2rem',
+                    marginBottom: '8rem'
+                }} className="md:grid-cols-3">
+                    <style>{`
+                        @media (min-width: 768px) {
+                            .md\\:grid-cols-3 {
+                                grid-template-columns: repeat(3, 1fr) !important;
+                            }
+                        }
+                    `}</style>
                     {strategies.map((s, i) => (
                         <motion.div
                             key={i}
@@ -212,20 +236,37 @@ export default function FetsPerSitges() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
                             style={{
-                                background: palette.card,
+                                background: s.isPlaceholder ? 'rgba(255,255,255,0.02)' : palette.card,
                                 padding: '2.5rem 2rem',
-                                borderTop: `4px solid ${palette.primary}`,
+                                borderTop: `4px solid ${s.isPlaceholder ? 'rgba(255,255,255,0.05)' : palette.primary}`,
                                 borderRadius: '0.3rem',
                                 display: 'flex',
-                                flexDirection: 'column'
+                                flexDirection: 'column',
+                                opacity: s.isPlaceholder ? 0.6 : 1,
+                                border: s.isPlaceholder ? '1px dashed rgba(255,255,255,0.1)' : 'none'
                             }}
                         >
-                            <div style={{ color: palette.accent, marginBottom: '1.25rem' }}>{s.icon}</div>
-                            <h3 style={{ marginBottom: '1rem', fontSize: '1.3rem' }}>{s.title}</h3>
-                            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', lineHeight: '1.6', marginBottom: '2rem', flex: 1 }}>{s.desc}</p>
-                            <div style={{ aspectRatio: '16/9', background: '#000', borderRadius: '0.3rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                <iframe width="100%" height="100%" src={s.video} frameBorder="0" allowFullScreen></iframe>
-                            </div>
+                            <div style={{ color: s.isPlaceholder ? 'rgba(255,255,255,0.3)' : palette.accent, marginBottom: '1.25rem' }}>{s.icon}</div>
+                            <h3 style={{ marginBottom: '1rem', fontSize: '1.2rem', color: s.isPlaceholder ? 'rgba(255,255,255,0.5)' : '#fff' }}>{s.title}</h3>
+                            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '2rem', flex: 1 }}>{s.desc}</p>
+
+                            {s.video ? (
+                                <div style={{ aspectRatio: '16/9', background: '#000', borderRadius: '0.3rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <iframe width="100%" height="100%" src={s.video} frameBorder="0" allowFullScreen></iframe>
+                                </div>
+                            ) : (
+                                <div style={{
+                                    aspectRatio: '16/9',
+                                    background: 'rgba(255,255,255,0.02)',
+                                    borderRadius: '0.3rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    border: '1px dashed rgba(255,255,255,0.05)'
+                                }}>
+                                    <Sparkles size={20} style={{ opacity: 0.1 }} />
+                                </div>
+                            )}
                         </motion.div>
                     ))}
                 </div>
