@@ -24,7 +24,8 @@ export default function MediaLibrary() {
             const snapshot = await getDocs(q);
             const items = snapshot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
+                isDirty: false // Nou camp per trackejar canvis no guardats
             }));
             setMediaItems(items);
         } catch (error) {
@@ -83,7 +84,7 @@ export default function MediaLibrary() {
 
     const handleUpdateAlt = async (id, newAlt) => {
         setMediaItems(prev => prev.map(item =>
-            item.id === id ? { ...item, alt_text: newAlt } : item
+            item.id === id ? { ...item, alt_text: newAlt, isDirty: true } : item
         ));
     };
 
@@ -95,6 +96,12 @@ export default function MediaLibrary() {
                 alt_text: item.alt_text || '',
                 updatedAt: serverTimestamp()
             });
+
+            // Marquem com a no 'dirty' (guardat)
+            setMediaItems(prev => prev.map(it =>
+                it.id === item.id ? { ...it, isDirty: false } : it
+            ));
+
             setSavedFeedback(item.id);
             setTimeout(() => setSavedFeedback(null), 3000);
         } catch (error) {
@@ -185,9 +192,12 @@ export default function MediaLibrary() {
                                 background: 'var(--bg-secondary)',
                                 borderRadius: '1rem',
                                 overflow: 'hidden',
-                                border: '1px solid rgba(255,255,255,0.05)',
+                                border: item.isDirty
+                                    ? '1px solid var(--accent-primary)'
+                                    : (savedFeedback === item.id ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.05)'),
                                 display: 'flex',
-                                flexDirection: 'column'
+                                flexDirection: 'column',
+                                transition: 'border 0.3s ease'
                             }}
                         >
                             <div style={{ position: 'relative', paddingTop: '56.25%', overflow: 'hidden', background: '#000' }}>
