@@ -175,7 +175,7 @@ i18n
                                 data: { title: 'Data Driven', desc: 'Cada publicació, cada hora de llançament i cada segmentació va ser fruit d\'un anàlisi de dades previ rigorós.' }
                             },
                             human_title: 'Inclusivitat Real',
-                            human_desc: 'L\'estratègia no va ser només algorítmica. Treballar braç a braç amb persones amb altres capacitats ens va permetre humanitzar el missatge i connectar amb l\'ànima de Sitges de forma genuïna.'
+                            human_desc: 'L\'èxit no va ser només tecnològic, sinó humà. Treballar amb persones amb altres capacitats ens va permetre aprendre a viure la vida d\'una manera diferent, una lliçó que vam traslladar a tota la comunicació per connectar amb Sitges des de la veritat i l\'empatia.'
                         },
                         tal_com_erem_project: {
                             title: 'Tal com érem',
@@ -434,7 +434,7 @@ i18n
                                 data: { title: 'Data Driven', desc: 'Cada publicación, cada hora de lanzamiento y cada segmentación fue fruto de un análisis de datos previo riguroso.' }
                             },
                             human_title: 'Inclusividad Real',
-                            human_desc: 'La estrategia no fue solo algorítmica. Trabajar codo con codo con personas con otras capacidades nos permitió humanizar el mensaje y conectar con el alma de Sitges de forma genuina.'
+                            human_desc: 'El éxito no fue solo tecnológico, sino humano. Trabajar con personas con otras capacidades nos permitió aprender a vivir la vida de una manera diferente, una lección que trasladamos a toda la comunicación para conectar con Sitges desde la verdad y la empatía.'
                         },
                         tal_com_erem_project: {
                             title: 'Tal com érem',
@@ -692,7 +692,7 @@ i18n
                                 data: { title: 'Data Driven', desc: 'Every post, every launch time, and every segmentation was the result of rigorous prior data analysis.' }
                             },
                             human_title: 'Real Inclusivity',
-                            human_desc: 'The strategy was not just algorithmic. Working side by side with people with other capabilities allowed us to humanize the message and connect with the soul of Sitges in a genuine way.'
+                            human_desc: 'Success was not just technological, but human. Working with people with other abilities allowed us to learn to live life in a different way, a lesson that we transferred to all communication to connect with Sitges from truth and empathy.'
                         },
                         tal_com_erem_project: {
                             title: 'Tal com érem',
