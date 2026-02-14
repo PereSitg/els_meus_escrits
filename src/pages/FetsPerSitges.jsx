@@ -8,29 +8,37 @@ import { projectsData } from '../data/projects';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-function Counter({ value, duration = 2 }) {
+function Counter({ value, duration = 2, delay = 0 }) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        let start = 0;
-        const end = parseInt(value);
-        if (start === end) return;
+        let timer;
+        const startCounter = () => {
+            let start = 0;
+            const end = parseInt(value);
+            if (start === end) return;
 
-        let totalMiliseconds = duration * 1000;
-        let increment = end / (totalMiliseconds / 16); // 60fps approx
+            let totalMiliseconds = duration * 1000;
+            let increment = end / (totalMiliseconds / 16); // 60fps approx
 
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= end) {
-                setCount(end);
-                clearInterval(timer);
-            } else {
-                setCount(Math.floor(start));
-            }
-        }, 16);
+            timer = setInterval(() => {
+                start += increment;
+                if (start >= end) {
+                    setCount(end);
+                    clearInterval(timer);
+                } else {
+                    setCount(Math.floor(start));
+                }
+            }, 16);
+        };
 
-        return () => clearInterval(timer);
-    }, [value, duration]);
+        const timeout = setTimeout(startCounter, delay * 1000);
+
+        return () => {
+            clearTimeout(timeout);
+            if (timer) clearInterval(timer);
+        };
+    }, [value, duration, delay]);
 
     return <span>{count.toLocaleString()}</span>;
 }
@@ -336,7 +344,7 @@ export default function FetsPerSitges() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, amount: 0.5 }}
                         style={{
                             position: 'relative',
                             background: 'rgba(255,255,255,0.02)',
@@ -358,11 +366,11 @@ export default function FetsPerSitges() {
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
                             {[
-                                { name: 'Junts', votes: 1928, percentage: 17.17, color: 'rgba(255,255,255,0.2)' },
-                                { name: 'ERC', votes: 1710, percentage: 15.23, color: 'rgba(255,255,255,0.2)' },
-                                { name: 'PSC', votes: 1503, percentage: 13.38, color: 'rgba(255,255,255,0.2)' },
-                                { name: 'FETS PER SITGES', votes: 666, percentage: 5.93, color: '#800020', highlight: true },
-                                { name: 'Altres', votes: 5493, percentage: 48.29, color: 'rgba(255,255,255,0.1)' }
+                                { name: 'Junts', votes: 1928, percentage: 17.17, color: 'rgba(255,255,255,0.15)', delay: 0.1, duration: 1.2 },
+                                { name: 'ERC', votes: 1710, percentage: 15.23, color: 'rgba(255,255,255,0.15)', delay: 0.2, duration: 1.2 },
+                                { name: 'PSC', votes: 1503, percentage: 13.38, color: 'rgba(255,255,255,0.15)', delay: 0.3, duration: 1.2 },
+                                { name: 'FETS PER SITGES', votes: 666, percentage: 5.93, color: '#800020', highlight: true, delay: 0.5, duration: 1.5 },
+                                { name: 'Altres', votes: 5493, percentage: 48.29, color: 'rgba(255,255,255,0.08)', delay: 0.4, duration: 1.2 }
                             ].map((result, idx) => (
                                 <div key={idx} style={{ position: 'relative' }}>
                                     <div style={{
@@ -379,9 +387,9 @@ export default function FetsPerSitges() {
                                                 <motion.span
                                                     initial={{ opacity: 0 }}
                                                     whileInView={{ opacity: 1 }}
-                                                    viewport={{ once: true }}
+                                                    viewport={{ once: true, amount: 0.5 }}
                                                 >
-                                                    <Counter value={666} />
+                                                    <Counter value={666} delay={result.delay} duration={result.duration} />
                                                 </motion.span>
                                             ) : result.votes.toLocaleString()} {t('projects.fetspersitges.votes_label')} ({result.percentage}%)
                                         </span>
@@ -395,14 +403,15 @@ export default function FetsPerSitges() {
                                     }}>
                                         <motion.div
                                             initial={{ width: 0 }}
-                                            whileInView={{ width: `${(result.votes / 1928) * 100}%` }}
-                                            transition={{ duration: 1.8, ease: [0.34, 1.56, 0.64, 1], delay: idx * 0.1 }}
-                                            viewport={{ once: true }}
+                                            whileInView={{ width: `${(result.percentage / 48.29) * 100}%` }}
+                                            transition={{ duration: result.duration, ease: [0.34, 1.56, 0.64, 1], delay: result.delay }}
+                                            viewport={{ once: true, amount: 0.5 }}
                                             style={{
                                                 height: '100%',
                                                 background: result.color,
                                                 borderRadius: '20px',
-                                                boxShadow: result.highlight ? '0 0 20px rgba(128, 0, 32, 0.4)' : 'none'
+                                                boxShadow: result.highlight ? '0 0 20px rgba(128, 0, 32, 0.4)' : 'none',
+                                                zIndex: result.highlight ? 10 : 1
                                             }}
                                         />
                                     </div>
