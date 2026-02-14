@@ -180,9 +180,9 @@ export default function Projects() {
                                                     </span>
                                                 ))}
                                             </div>
-                                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', opacity: 0.8 }}>
+                                            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', opacity: 0.8 }}>
                                                 {t(`projects.${project.translationKey}.title`)}
-                                            </h3>
+                                            </h2>
                                             <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem', opacity: 0.8 }}>
                                                 {t(`projects.${project.translationKey}.desc`)}
                                             </p>
@@ -241,9 +241,9 @@ export default function Projects() {
                                                         {t(`projects.categories.${project.category}`)}
                                                     </span>
                                                 </div>
-                                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                                                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
                                                     {t(`projects.${project.translationKey}.title`)}
-                                                </h3>
+                                                </h2>
                                                 <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
                                                     {t(`projects.${project.translationKey}.desc`)}
                                                 </p>

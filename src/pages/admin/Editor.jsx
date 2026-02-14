@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp, setDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
 import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2 } from 'lucide-react';
@@ -364,6 +364,28 @@ export default function PostEditor() {
             });
         }, 100);
 
+        const syncMediaLibrary = async (imageUrl, altText, postTitle) => {
+            if (!imageUrl) return;
+            try {
+                // Generem un ID basat en la URL (simplificat) o usem la URL mateixa
+                const mediaId = btoa(imageUrl).substring(0, 50).replace(/\//g, '_');
+                const mediaRef = doc(db, 'media_library', mediaId);
+
+                // Obtenim el nom de l'arxiu de la URL
+                const fileName = imageUrl.split('/').pop().split('?')[0];
+
+                await setDoc(mediaRef, {
+                    url_imatge: imageUrl,
+                    nom_arxiu: fileName || postTitle,
+                    alt_text: altText || '',
+                    projecte_associat: postTitle,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error("Error syncing to media library:", error);
+            }
+        };
+
         try {
             const postData = {
                 title,
@@ -389,6 +411,11 @@ export default function PostEditor() {
                 // Si és nou, usem la data triada
                 postData.createdAt = Timestamp.fromDate(new Date(customDate));
                 await addDoc(collection(db, 'posts'), postData);
+            }
+
+            // Sync with Media Library
+            if (image) {
+                await syncMediaLibrary(image, imageAlt, title);
             }
 
             clearInterval(interval);

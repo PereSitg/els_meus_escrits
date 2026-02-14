@@ -18,7 +18,7 @@ export default function Dashboard() {
         title_es: '', description_es: '',
         title_en: '', description_en: ''
     });
-    const [activeTab, setActiveTab] = useState('posts'); // 'posts' or 'seo'
+    const [activeTab, setActiveTab] = useState('posts'); // 'posts', 'seo', or 'media'
     const [isTranslating, setIsTranslating] = useState(false);
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
@@ -495,6 +495,22 @@ export default function Dashboard() {
                     }}
                 >
                     SEO & Pàgines
+                </button>
+                <button
+                    onClick={() => navigate('/admin/media')}
+                    style={{
+                        padding: '1rem 0.5rem',
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: '2px solid transparent',
+                        color: 'var(--text-secondary)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s'
+                    }}
+                >
+                    Mitjans (SEO)
                 </button>
             </div>
 

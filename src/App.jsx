@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import Login from './pages/admin/Login';
 import Dashboard from './pages/admin/Dashboard';
 import Editor from './pages/admin/Editor';
+import MediaLibrary from './pages/admin/MediaLibrary';
 import PostDetail from './pages/PostDetail';
 import SommelierDigital from './pages/SommelierDigital';
 import SitgesArt from './pages/SitgesArt';
@@ -63,6 +64,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/media"
+            element={
+              <ProtectedRoute>
+                <MediaLibrary />
               </ProtectedRoute>
             }
           />
