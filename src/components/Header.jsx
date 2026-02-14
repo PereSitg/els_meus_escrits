@@ -64,7 +64,7 @@ export default function Header() {
             gap: '1rem',
             alignItems: 'center',
             marginTop: mobile ? '1.5rem' : '0',
-            marginLeft: mobile ? '0' : '1rem'
+            marginLeft: mobile ? '0' : '0.5rem'
         }}>
             <a
                 href="https://www.linkedin.com/in/pbadialorenz/"
@@ -98,7 +98,7 @@ export default function Header() {
     return (
         <header className="header glass">
             <div className="container header-content">
-                <Link to="/" className="header-logo" style={{ fontSize: '1.8rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
+                <Link to="/" className="header-logo" style={{ fontSize: '1.6rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
                     Pere Badia i Lorenz
                 </Link>
 
@@ -107,13 +107,13 @@ export default function Header() {
                     <Link
                         to="/"
                         className={`nav-link ${isActive('/') ? 'active' : ''}`}
-                        style={{ marginLeft: '1rem', marginRight: '0.5rem' }}
+                        style={{ marginLeft: '0.75rem', marginRight: '0.25rem' }}
                     >
                         {t('nav.home') || 'Inici'}
                     </Link>
 
                     <div className="nav-separator"></div>
-                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.5rem' }}>
+                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.25rem' }}>
                         <Link
                             to="/projects"
                             className={`dropdown-trigger ${isProjectsActive ? 'active' : ''}`}
@@ -136,7 +136,7 @@ export default function Header() {
                     <div className="nav-separator"></div>
 
                     {/* Dropdown for "Els meus escrits" */}
-                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.5rem' }}>
+                    <div className="nav-item-dropdown desktop-only" style={{ margin: '0 0.25rem' }}>
                         <Link
                             to="/category/sitges"
                             className={`dropdown-trigger ${isWritingsActive ? 'active' : ''}`}
@@ -161,7 +161,7 @@ export default function Header() {
                     <Link
                         to="/stack"
                         className={`nav-link ${isActive('/stack') ? 'active' : ''}`}
-                        style={{ marginLeft: '1rem', marginRight: '0.5rem' }}
+                        style={{ marginLeft: '0.75rem', marginRight: '0.25rem' }}
                     >
                         {t('nav.stack')}
                     </Link>
@@ -171,7 +171,7 @@ export default function Header() {
                     <Link
                         to="/contact"
                         className={`nav-link ${isActive('/contact') ? 'active' : ''}`}
-                        style={{ margin: '0 0.75rem 0 0.5rem' }}
+                        style={{ margin: '0 0.5rem 0 0.25rem' }}
                     >
                         {t('nav.contact')}
                     </Link>

@@ -102,10 +102,10 @@ a {
 }
 
 .nav-link {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-secondary);
-  margin-left: 1rem;
+  margin-left: 0.75rem;
 }
 
 .nav-link:hover,
@@ -146,7 +146,7 @@ a {
 }
 
 .dropdown-trigger {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
@@ -205,7 +205,7 @@ a {
   width: 1px;
   height: 24px;
   background: rgba(255, 255, 255, 0.1);
-  margin: 0 0.75rem;
+  margin: 0 0.5rem;
 }
 
 .desktop-nav {
@@ -305,7 +305,7 @@ a {
 .lang-switcher {
   display: flex;
   gap: 0.5rem;
-  margin-left: 0.75rem;
+  margin-left: 0.5rem;
 }
 
 .lang-switcher button,
