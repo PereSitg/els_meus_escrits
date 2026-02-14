@@ -8,6 +8,33 @@ import { projectsData } from '../data/projects';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
+function Counter({ value, duration = 2 }) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let start = 0;
+        const end = parseInt(value);
+        if (start === end) return;
+
+        let totalMiliseconds = duration * 1000;
+        let increment = end / (totalMiliseconds / 16); // 60fps approx
+
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= end) {
+                setCount(end);
+                clearInterval(timer);
+            } else {
+                setCount(Math.floor(start));
+            }
+        }, 16);
+
+        return () => clearInterval(timer);
+    }, [value, duration]);
+
+    return <span>{count.toLocaleString()}</span>;
+}
+
 export default function FetsPerSitges() {
     const { t } = useTranslation();
     const [isIndexedOverride, setIsIndexedOverride] = useState(null);
@@ -310,28 +337,99 @@ export default function FetsPerSitges() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        style={{ position: 'relative' }}
-                        className="mobile-hidden-bg"
-                    >
-                        <div style={{
-                            position: 'absolute',
-                            inset: '-15px',
-                            border: `1px solid ${palette.primary}`,
+                        style={{
+                            position: 'relative',
+                            background: 'rgba(255,255,255,0.02)',
+                            padding: 'clamp(1.5rem, 4vw, 3rem)',
                             borderRadius: '1rem',
-                            zIndex: 0,
-                            opacity: 0.5
-                        }} className="mobile-hide"></div>
-                        <img
-                            src="/portada.png"
-                            alt="Estratègia Guerrilla"
-                            style={{
-                                width: '100%',
-                                borderRadius: '1rem',
-                                position: 'relative',
-                                zIndex: 1,
-                                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
-                            }}
-                        />
+                            border: '1px solid rgba(255,255,255,0.05)',
+                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                        }}
+                    >
+                        <h3 style={{
+                            fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
+                            marginBottom: '2.5rem',
+                            fontWeight: '600',
+                            textAlign: 'center',
+                            color: 'rgba(255,255,255,0.9)'
+                        }}>
+                            {t('projects.fetspersitges.chart_title')}
+                        </h3>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+                            {[
+                                { name: 'Junts', votes: 1928, percentage: 17.17, color: 'rgba(255,255,255,0.2)' },
+                                { name: 'ERC', votes: 1710, percentage: 15.23, color: 'rgba(255,255,255,0.2)' },
+                                { name: 'PSC', votes: 1503, percentage: 13.38, color: 'rgba(255,255,255,0.2)' },
+                                { name: 'FETS PER SITGES', votes: 666, percentage: 5.93, color: '#800020', highlight: true },
+                                { name: 'Altres', votes: 5493, percentage: 48.29, color: 'rgba(255,255,255,0.1)' }
+                            ].map((result, idx) => (
+                                <div key={idx} style={{ position: 'relative' }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        marginBottom: '0.6rem',
+                                        fontSize: '0.85rem',
+                                        color: result.highlight ? '#fff' : 'rgba(255,255,255,0.5)',
+                                        fontWeight: result.highlight ? '700' : '400'
+                                    }}>
+                                        <span>{result.name}</span>
+                                        <span>
+                                            {result.highlight ? (
+                                                <motion.span
+                                                    initial={{ opacity: 0 }}
+                                                    whileInView={{ opacity: 1 }}
+                                                    viewport={{ once: true }}
+                                                >
+                                                    <Counter value={666} />
+                                                </motion.span>
+                                            ) : result.votes.toLocaleString()} {t('projects.fetspersitges.votes_label')} ({result.percentage}%)
+                                        </span>
+                                    </div>
+                                    <div style={{
+                                        height: '10px',
+                                        background: 'rgba(255,255,255,0.03)',
+                                        borderRadius: '20px',
+                                        overflow: 'hidden',
+                                        border: '1px solid rgba(255,255,255,0.02)'
+                                    }}>
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: `${(result.votes / 1928) * 100}%` }}
+                                            transition={{ duration: 1.8, ease: [0.34, 1.56, 0.64, 1], delay: idx * 0.1 }}
+                                            viewport={{ once: true }}
+                                            style={{
+                                                height: '100%',
+                                                background: result.color,
+                                                borderRadius: '20px',
+                                                boxShadow: result.highlight ? '0 0 20px rgba(128, 0, 32, 0.4)' : 'none'
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div style={{
+                            marginTop: '2.5rem',
+                            paddingTop: '1.5rem',
+                            borderTop: '1px solid rgba(255,255,255,0.05)',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            gap: '3rem'
+                        }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#800020', lineHeight: '1' }}>1</div>
+                                <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', opacity: 0.5, marginTop: '0.5rem', letterSpacing: '0.1em' }}>
+                                    {t('projects.fetspersitges.councillors_label')}
+                                </div>
+                            </div>
+                            <div style={{ alignSelf: 'center', maxWidth: '150px' }}>
+                                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', margin: 0, fontStyle: 'italic', lineHeight: '1.4' }}>
+                                    {t('projects.fetspersitges.roi_title')}
+                                </p>
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
 

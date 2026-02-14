@@ -162,6 +162,9 @@ i18n
                                 territory: { title: 'Cohesió i Territori', desc: 'Vam portar el missatge a cada barri de Sitges, des de les Botigues fins a Garraf. Una estratègia de capil·laritat total per assegurar que cada veí i veïna se sentís identificat amb un projecte de ciutat compartit.' },
                                 rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' }
                             },
+                            chart_title: 'El Resultat del Mètode: Entrada al Consistori',
+                            votes_label: 'vots',
+                            councillors_label: 'Regidors',
                             roi_label: 'Impacte Total',
                             roi_title: 'ROI Polític: Un dels costos per vot més baixos de la història electoral de Sitges.',
                             features: {
@@ -417,6 +420,9 @@ i18n
                                 territory: { title: 'Cohesión y Territorio', desc: 'Llevamos el mensaje a cada barrio de Sitges, desde las Botigues hasta Garraf. Una estrategia de capilaridad total para asegurar que cada vecino y vecina se sintiera identificado con un proyecto de ciudad compartido.' },
                                 rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' }
                             },
+                            chart_title: 'El Resultado del Método: Entrada al Consistorio',
+                            votes_label: 'votos',
+                            councillors_label: 'Concejales',
                             roi_label: 'Impacto Total',
                             roi_title: 'ROI Político: Uno de los costes por voto más bajos de la historia electoral de Sitges.',
                             features: {
@@ -669,6 +675,9 @@ i18n
                                 territory: { title: 'Cohesion and Territory', desc: 'We took the message to every neighborhood in Sitges, from Les Botigues to Garraf. A strategy of total capillarity to ensure that every neighbor felt identified with a shared city project.' },
                                 rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' }
                             },
+                            chart_title: 'The Result of the Method: Entry to the City Council',
+                            votes_label: 'votes',
+                            councillors_label: 'Councillors',
                             roi_label: 'Total Impact',
                             roi_title: 'Political ROI: One of the lowest costs per vote in Sitges\' electoral history.',
                             features: {
