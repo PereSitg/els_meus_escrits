@@ -35,6 +35,18 @@ export default function Layout() {
                     </Link>
                 </div>
 
+                <div style={{
+                    maxWidth: '800px',
+                    margin: '0 auto 2rem auto',
+                    padding: '0 1.5rem',
+                    lineHeight: '1.6',
+                    fontSize: '1rem',
+                    color: 'var(--text-secondary)',
+                    opacity: 0.9
+                }}>
+                    {t('footer.description')}
+                </div>
+
                 <div className="footer-socials" style={{
                     display: 'flex',
                     justifyContent: 'center',

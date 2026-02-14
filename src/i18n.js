@@ -183,9 +183,7 @@ i18n
                         },
                         related_title: 'Altres Projectes'
                     },
-                    footer: {
-                        made_with: 'Fet amb ❤️ des de Sitges.'
-                    },
+
                     translation: {
                         warning_es: 'Aquest text està escrit en català. Si es tradueix al castellà pot perdre part del sentit i de la ironia.',
                         warning_en: 'Aquest text està escrit en català. Si es tradueix a l\'anglès pot perdre part del sentit i de la ironia.',
@@ -230,7 +228,8 @@ i18n
                         }
                     },
                     footer: {
-                        made_with: "Fet amb ❤️ i IA",
+                        made_with: "Fet amb ❤️ des de Sitges i IA",
+                        description: 'Consultor estratègic en tecnologia i Intel·ligència Artificial. Especialitzat en la creació de solucions digitals que fusionen anàlisi de context, narrativa i execució tècnica avançada.',
                         legal: "Avís Legal",
                         cookies: "Política de Cookies",
                         privacy: "Política de Privacitat"
@@ -444,7 +443,8 @@ i18n
                         related_title: 'Otros Proyectos'
                     },
                     footer: {
-                        made_with: 'Hecho con ❤️ i IA',
+                        made_with: 'Hecho con ❤️ des de Sitges i IA',
+                        description: 'Consultor estratégico en tecnología e Inteligencia Artificial. Especializado en la creación de soluciones digitales que fusionan análisis de contexto, narrativa y ejecución técnica avanzada.',
                         legal: "Aviso Legal",
                         cookies: "Política de Cookies",
                         privacy: "Política de Privacidad"
@@ -701,7 +701,8 @@ i18n
                         related_title: 'Other Projects'
                     },
                     footer: {
-                        made_with: 'Made with ❤️ and AI',
+                        made_with: 'Made with ❤️ from Sitges and AI',
+                        description: 'Strategic Technology and AI Consultant. Specialized in creating digital solutions that merge context analysis, narrative, and advanced technical execution.',
                         legal: "Legal Notice",
                         cookies: "Cookie Policy",
                         privacy: "Privacy Policy"
