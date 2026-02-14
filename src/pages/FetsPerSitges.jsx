@@ -91,13 +91,13 @@ export default function FetsPerSitges() {
             video: "https://www.youtube.com/embed/riKl5denoyU"
         },
         {
-            icon: <Share2 size={24} />,
-            title: t('projects.fetspersitges.strategies.coming_soon.title'),
-            desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
-            isPlaceholder: true
+            icon: <Users size={24} />,
+            title: t('projects.fetspersitges.strategies.honesty.title'),
+            desc: t('projects.fetspersitges.strategies.honesty.desc'),
+            video: "https://www.youtube.com/embed/JTYcu4o0DmM"
         },
         {
-            icon: <Users size={24} />,
+            icon: <Sparkles size={24} />,
             title: t('projects.fetspersitges.strategies.coming_soon.title'),
             desc: t('projects.fetspersitges.strategies.coming_soon.desc'),
             isPlaceholder: true

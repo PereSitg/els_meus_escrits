@@ -158,6 +158,7 @@ i18n
                                 impact: { title: 'Autoritat i Presència Urbana', desc: 'El domini de l\'espai físic com a declaració d\'intencions. Despleguem una lona gegant en un punt estratègic per trencar el soroll electoral, demostrant que la guerrilla també sap jugar fort al carrer.' },
                                 synthesis: { title: 'Enginyeria de Missatge', desc: 'Traducció de conceptes complexos en missatges clars i directes. Utilitzem el format vídeo per explicar la gestió política des de la claredat, eliminant el soroll i centrant-nos en solucions reals per a la ciutadania.' },
                                 commitment: { title: 'Compromís i Valor Humà', desc: 'La política són persones. Integrem la diversitat com un actiu fonamental del projecte, demostrant que una llista inclusiva no només és més justa, sinó que és més forta i representativa de la societat real.' },
+                                honesty: { title: 'Honestedat i Cultura de l\'Esforç', desc: 'La política entesa com un servei de proximitat. Posem cara i ulls a un compromís basat en el treball constant i la transparència, demostrant que l\'honestedat és l\'eina més potent per connectar amb l\'electorat.' },
                                 rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' },
                                 coming_soon: { title: 'Properament', desc: 'Estem treballant en nous continguts per explicar més detalls d\'aquest projecte.' }
                             },
@@ -412,6 +413,7 @@ i18n
                                 impact: { title: 'Autoridad y Presencia Urbana', desc: 'El dominio del espacio físico como declaración de intenciones. Desplegamos una lona gigante en un punto estratégico para romper el ruido electoral, demostrando que la guerrilla también sabe jugar fuerte en la calle.' },
                                 synthesis: { title: 'Ingeniería de Mensaje', desc: 'Traducción de conceptos complejos en mensajes claros y directos. Utilizamos el formato vídeo para explicar la gestión política desde la claridad, eliminando el ruido y centrándonos en soluciones reales para la ciudadanía.' },
                                 commitment: { title: 'Compromiso y Valor Humano', desc: 'La política son personas. Integramos la diversidad como un activo fundamental del proyecto, demostrando que una lista inclusiva no solo es más justa, sino que es más fuerte y representativa de la sociedad real.' },
+                                honesty: { title: 'Honestidad y Cultura del Esfuerzo', desc: 'La política entendida como un servicio de proximidad. Ponemos cara y ojos a un compromiso basado en el trabajo constante y la transparencia, demostrando que la honestidad es la herramienta más potente para conectar con el electorado.' },
                                 rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' },
                                 coming_soon: { title: 'Próximamente', desc: 'Estamos trabajando en nuevos contenidos para explicar más detalles de este proyecto.' }
                             },
@@ -663,6 +665,7 @@ i18n
                                 impact: { title: 'Authority and Urban Presence', desc: 'The dominance of physical space as a statement of intent. We deploy a giant billboard at a strategic point to break electoral noise, proving that guerrilla tactics also know how to play big in the streets.' },
                                 synthesis: { title: 'Message Engineering', desc: 'Translation of complex concepts into clear and direct messages. We use the video format to explain political management with clarity, eliminating noise and focusing on real solutions for citizens.' },
                                 commitment: { title: 'Commitment and Human Value', desc: 'Politics is about people. We integrate diversity as a fundamental asset of the project, proving that an inclusive list is not only fairer, but also stronger and more representative of real society.' },
+                                honesty: { title: 'Honesty and Culture of Effort', desc: 'Politics understood as a proximity service. We put a face and eyes on a commitment based on constant work and transparency, proving that honesty is the most powerful tool to connect with the electorate.' },
                                 rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' },
                                 coming_soon: { title: 'Coming Soon', desc: 'We are working on new content to explain more details of this project.' }
                             },
