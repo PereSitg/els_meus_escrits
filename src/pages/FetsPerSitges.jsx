@@ -154,9 +154,27 @@ export default function FetsPerSitges() {
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                        <div style={{ position: 'relative', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 0 50px rgba(74, 4, 4, 0.4)' }}>
-                            <img src="/portada.png" alt="Fets per Sitges" style={{ width: '100%', display: 'block' }} />
+                        <div style={{ position: 'relative', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 0 50px rgba(74, 4, 4, 0.4)', background: '#000', aspectRatio: '16/9' }}>
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src="https://www.youtube.com/embed/b45yd7vJuU8"
+                                title="Fets per Sitges - Clip Nadales"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </div>
+                        <p style={{
+                            fontSize: '0.9rem',
+                            color: 'rgba(255,255,255,0.5)',
+                            marginTop: '1rem',
+                            fontStyle: 'italic',
+                            lineHeight: '1.4',
+                            textAlign: 'center'
+                        }}>
+                            L'acció que va saltar de les xarxes socials a TV3, generant una notorietat orgànica sense precedents a Sitges.
+                        </p>
                     </motion.div>
                 </div>
 
