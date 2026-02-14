@@ -158,6 +158,64 @@ export default function Dashboard() {
         }
     }
 
+    async function handleBulkSeoUpdate() {
+        if (!window.confirm("Això actualitzarà automàticament el SEO de tots els articles que no en tinguin. Vols continuar?")) {
+            return;
+        }
+
+        setLoading(true);
+        let updatedCount = 0;
+
+        try {
+            const postsSnapshot = await getDocs(collection(db, 'posts'));
+            const updatePromises = postsSnapshot.docs.map(async (docSnapshot) => {
+                const data = docSnapshot.data();
+
+                // Check if SEO data is missing
+                const needsUpdate = !data.seoTitle || !data.seoDescription;
+
+                if (needsUpdate) {
+                    const newSeoTitle = data.seoTitle || data.title || '';
+
+                    // Strip HTML tags and irrelevant characters for description
+                    let plainText = data.content || '';
+                    plainText = plainText.replace(/<[^>]*>/g, ''); // Remove HTML tags
+                    plainText = plainText.replace(/\s+/g, ' ').trim(); // Normalize whitespace
+
+                    const newSeoDescription = data.seoDescription || plainText.substring(0, 155) + (plainText.length > 155 ? '...' : '');
+
+                    await updateDoc(doc(db, 'posts', docSnapshot.id), {
+                        seoTitle: newSeoTitle,
+                        seoDescription: newSeoDescription,
+                        updatedAt: serverTimestamp() // Optional: update timestamp
+                    });
+                    updatedCount++;
+                }
+            });
+
+            await Promise.all(updatePromises);
+
+            // Refresh posts locally
+            const refreshedSnapshot = await getDocs(collection(db, 'posts'));
+            const refreshedPosts = refreshedSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            })).sort((a, b) => {
+                const dateA = a.createdAt?.toDate?.() || 0;
+                const dateB = b.createdAt?.toDate?.() || 0;
+                return dateB - dateA;
+            });
+            setPosts(refreshedPosts);
+
+            alert(`Procés finalitzat! S'han actualitzat ${updatedCount} articles.`);
+        } catch (error) {
+            console.error("Error updating bulk SEO:", error);
+            alert("Hi ha hagut un error durant l'actualització massiva.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     async function handleSaveSeo(pageKey) {
         try {
             await updateDoc(doc(db, 'site_seo', pageKey), {
@@ -395,6 +453,9 @@ export default function Dashboard() {
                     <Link to="/admin/new" className="btn btn-primary">
                         <Plus size={18} /> Nova Publicació
                     </Link>
+                    <button onClick={handleBulkSeoUpdate} className="btn" style={{ border: '1px solid var(--accent-primary)', color: 'var(--accent-primary)', background: 'transparent' }}>
+                        <Sparkles size={18} /> Generar SEO (Tots)
+                    </button>
                     <button onClick={handleLogout} className="btn" style={{ border: '1px solid #ef4444', color: '#ef4444', background: 'transparent' }}>
                         <LogOut size={18} /> Sortir
                     </button>
