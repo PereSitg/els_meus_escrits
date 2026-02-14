@@ -27,7 +27,6 @@ i18n
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
                         strat_pol: 'Estratègia i Consultoria',
-                        social_media: 'Xarxes Socials i Comunicació',
                         consultancy: 'Consultoria Estratègica',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -79,7 +78,8 @@ i18n
                         categories: {
                             all: 'Tots',
                             dev_ia: 'Desenvolupament i IA',
-                            strat_pol: 'Estratègia i Consultoria'
+                            strat_pol: 'Estratègia i Consultoria',
+                            social_media: 'Xarxes Socials i Comunicació'
                         },
                         filter_all: 'Tots',
                         coming_soon: 'Proximament',
@@ -288,7 +288,6 @@ i18n
                         logout: 'Cerrar sesión',
                         dev_ia: 'Desarrollo e IA',
                         strat_pol: 'Estrategia y Consultoría',
-                        social_media: 'Redes Sociales y Comunicación',
                         consultancy: 'Consultoría Estratégica',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -339,7 +338,8 @@ i18n
                         categories: {
                             all: 'Todos',
                             dev_ia: 'Desarrollo e IA',
-                            strat_pol: 'Estrategia y Consultoría'
+                            strat_pol: 'Estrategia y Consultoría',
+                            social_media: 'Redes Sociales y Comunicación'
                         },
                         filter_all: 'Todos',
                         coming_soon: 'Próximamente',
@@ -545,7 +545,6 @@ i18n
                         logout: 'Log out',
                         dev_ia: 'Development & AI',
                         strat_pol: 'Strategy & Consulting',
-                        social_media: 'Social Media & Communication',
                         consultancy: 'Strategic Consultancy',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -596,7 +595,8 @@ i18n
                         categories: {
                             all: 'All',
                             dev_ia: 'Development & AI',
-                            strat_pol: 'Strategy & Consulting'
+                            strat_pol: 'Strategy & Consulting',
+                            social_media: 'Social Media & Communication'
                         },
                         filter_all: 'All',
                         coming_soon: 'Coming Soon',
