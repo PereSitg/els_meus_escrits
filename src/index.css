@@ -96,6 +96,11 @@ a {
   padding: 1.5rem 0;
 }
 
+.header-logo {
+  white-space: nowrap;
+  transition: font-size 0.3s ease;
+}
+
 .nav-link {
   font-size: 1.1rem;
   font-weight: 500;
@@ -232,6 +237,13 @@ a {
     padding-left: 1rem !important;
     flex: 1;
     text-align: left;
+    font-size: 1.5rem !important;
+  }
+
+  @media (max-width: 400px) {
+    .header-logo {
+      font-size: 1.3rem !important;
+    }
   }
 
   .nav-item-dropdown.mobile {
