@@ -65,7 +65,7 @@ export default function Dashboard() {
             }));
         } catch (error) {
             console.error("Error updating page indexing status:", error);
-            if (error.code === 'not-found' || error.name === 'FirebaseError') {
+            if (error.code === 'not-found') {
                 try {
                     await setDoc(doc(db, 'site_seo', pageKey), {
                         isIndexed: !currentStatus,
@@ -73,14 +73,14 @@ export default function Dashboard() {
                     });
                     setPagesSeo(prev => ({
                         ...prev,
-                        [pageKey]: { isIndexed: !currentStatus }
+                        [pageKey]: { ...prev[pageKey], isIndexed: !currentStatus }
                     }));
                 } catch (setErr) {
                     console.error("Error setting page SEO on fallback:", setErr);
-                    alert('Error al canviar l\'estat d\'indexació');
+                    alert(`Error al crear metadades SEO (${setErr.code || setErr.message})`);
                 }
             } else {
-                alert('Error al canviar l\'estat d\'indexació de la pàgina');
+                alert(`Error al canviar l'estat d'indexació (${error.code || error.message})`);
             }
         }
     }
@@ -99,7 +99,7 @@ export default function Dashboard() {
             setEditingPage(null);
         } catch (error) {
             console.error("Error saving SEO data:", error);
-            if (error.code === 'not-found' || error.name === 'FirebaseError') {
+            if (error.code === 'not-found') {
                 try {
                     await setDoc(doc(db, 'site_seo', pageKey), {
                         title: editValues.title,
@@ -109,15 +109,15 @@ export default function Dashboard() {
                     });
                     setPagesSeo(prev => ({
                         ...prev,
-                        [pageKey]: { title: editValues.title, description: editValues.description, isIndexed: true }
+                        [pageKey]: { ...prev[pageKey], title: editValues.title, description: editValues.description, isIndexed: true }
                     }));
                     setEditingPage(null);
                 } catch (setErr) {
                     console.error("Error setting SEO data on fallback:", setErr);
-                    alert('Error al desar les metadades SEO');
+                    alert(`Error al crear metadades SEO (${setErr.code || setErr.message})`);
                 }
             } else {
-                alert('Error al desar les metadades SEO');
+                alert(`Error al desar les metadades SEO (${error.code || error.message})`);
             }
         }
     }
