@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /login/
+Disallow: /avis-legal
+Disallow: /politica-cookies
+Disallow: /politica-privacitat
 
 Sitemap: https://els-meus-escrits.vercel.app/sitemap.xml
 

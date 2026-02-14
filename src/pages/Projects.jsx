@@ -78,7 +78,7 @@ export default function Projects() {
                             transition: 'all 0.3s ease'
                         }}
                     >
-                        IA
+                        {t('nav.dev_ia')}
                     </button>
                     <button
                         onClick={() => setActiveFilter('Politica')}
@@ -93,15 +93,11 @@ export default function Projects() {
                             transition: 'all 0.3s ease'
                         }}
                     >
-                        Política
+                        {t('nav.strat_pol')}
                     </button>
                 </div>
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                    gap: '2.5rem'
-                }}>
+                <div className="projects-grid">
                     <AnimatePresence mode='popLayout'>
                         {filteredProjects.map(project => (
                             <motion.div
@@ -112,22 +108,21 @@ export default function Projects() {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <Link to={`/projects/${project.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <motion.div
-                                        whileHover={{ y: -10 }}
-                                        style={{
-                                            background: 'var(--bg-secondary)',
-                                            borderRadius: '1.5rem',
-                                            overflow: 'hidden',
-                                            border: '1px solid rgba(255,255,255,0.05)',
-                                            cursor: 'pointer',
-                                            height: '100%'
-                                        }}
-                                    >
+                                {project.comingSoon ? (
+                                    <div style={{
+                                        background: 'var(--bg-secondary)',
+                                        borderRadius: '1.5rem',
+                                        overflow: 'hidden',
+                                        border: '1px solid rgba(255,255,255,0.05)',
+                                        height: '100%',
+                                        position: 'relative'
+                                    }}>
                                         <div style={{
                                             width: '100%',
                                             aspectRatio: '16/9',
-                                            overflow: 'hidden'
+                                            overflow: 'hidden',
+                                            filter: 'grayscale(100%) blur(2px)',
+                                            opacity: 0.5
                                         }}>
                                             <img
                                                 src={project.image}
@@ -135,44 +130,109 @@ export default function Projects() {
                                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                             />
                                         </div>
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: '2rem',
+                                            right: '2rem',
+                                            background: 'var(--accent-primary)',
+                                            color: 'white',
+                                            padding: '0.4rem 1rem',
+                                            borderRadius: '2rem',
+                                            fontSize: '0.8rem',
+                                            fontWeight: 'bold',
+                                            boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)'
+                                        }}>
+                                            Coming Soon
+                                        </div>
                                         <div style={{ padding: '2rem' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                                                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                                                    {project.tags.map(tag => (
-                                                        <span
-                                                            key={tag}
-                                                            style={{
-                                                                fontSize: '0.75rem',
-                                                                padding: '0.2rem 0.6rem',
-                                                                background: 'rgba(59, 130, 246, 0.1)',
-                                                                color: 'var(--accent-primary)',
-                                                                borderRadius: '2rem',
-                                                                fontWeight: '600'
-                                                            }}
-                                                        >
-                                                            {tag}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                                <span style={{
-                                                    fontSize: '0.7rem',
-                                                    color: 'var(--text-secondary)',
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '0.05em',
-                                                    fontWeight: '700'
-                                                }}>
-                                                    {t(`projects.categories.${project.category}`)}
-                                                </span>
+                                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                                                {project.tags.map(tag => (
+                                                    <span
+                                                        key={tag}
+                                                        style={{
+                                                            fontSize: '0.75rem',
+                                                            padding: '0.2rem 0.6rem',
+                                                            background: 'rgba(255, 255, 255, 0.05)',
+                                                            color: 'var(--text-secondary)',
+                                                            borderRadius: '2rem',
+                                                            fontWeight: '600'
+                                                        }}
+                                                    >
+                                                        {tag}
+                                                    </span>
+                                                ))}
                                             </div>
-                                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', opacity: 0.8 }}>
                                                 {t(`projects.${project.translationKey}.title`)}
                                             </h3>
-                                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem', opacity: 0.8 }}>
                                                 {t(`projects.${project.translationKey}.desc`)}
                                             </p>
                                         </div>
-                                    </motion.div>
-                                </Link>
+                                    </div>
+                                ) : (
+                                    <Link to={`/projects/${project.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <motion.div
+                                            whileHover={{ y: -10 }}
+                                            style={{
+                                                background: 'var(--bg-secondary)',
+                                                borderRadius: '1.5rem',
+                                                overflow: 'hidden',
+                                                border: '1px solid rgba(255,255,255,0.1)',
+                                                cursor: 'pointer',
+                                                height: '100%'
+                                            }}
+                                        >
+                                            <div style={{
+                                                width: '100%',
+                                                aspectRatio: '16/9',
+                                                overflow: 'hidden'
+                                            }}>
+                                                <img
+                                                    src={project.image}
+                                                    alt={t(`projects.${project.translationKey}.title`)}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                />
+                                            </div>
+                                            <div style={{ padding: '2rem' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                        {project.tags.map(tag => (
+                                                            <span
+                                                                key={tag}
+                                                                style={{
+                                                                    fontSize: '0.75rem',
+                                                                    padding: '0.2rem 0.6rem',
+                                                                    background: 'rgba(59, 130, 246, 0.1)',
+                                                                    color: 'var(--accent-primary)',
+                                                                    borderRadius: '2rem',
+                                                                    fontWeight: '600'
+                                                                }}
+                                                            >
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                    <span style={{
+                                                        fontSize: '0.7rem',
+                                                        color: 'var(--text-secondary)',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.05em',
+                                                        fontWeight: '700'
+                                                    }}>
+                                                        {t(`projects.categories.${project.category}`)}
+                                                    </span>
+                                                </div>
+                                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                                                    {t(`projects.${project.translationKey}.title`)}
+                                                </h3>
+                                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                                    {t(`projects.${project.translationKey}.desc`)}
+                                                </p>
+                                            </div>
+                                        </motion.div>
+                                    </Link>
+                                )}
                             </motion.div>
                         ))}
                     </AnimatePresence>

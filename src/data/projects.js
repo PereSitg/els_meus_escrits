@@ -26,10 +26,19 @@ export const projectsData = [
     {
         id: 'fets-per-sitges',
         slug: 'fets-per-sitges',
-        image: '/portada.png', // Placeholder o demanar imatge
+        image: '/portada.png',
         tags: ['Política', 'Estratègia', 'Consultoria'],
         category: 'strat_pol',
         translationKey: 'fetspersitges'
+    },
+    {
+        id: 'ecosistema-social',
+        slug: 'ecosistema-social',
+        image: '/meus_projectes.png', // Or another appropriate image
+        tags: ['Instagram', 'TikTok', 'Estratègia'],
+        category: 'strat_pol',
+        comingSoon: true,
+        translationKey: 'ecosistema'
     }
 ];
 

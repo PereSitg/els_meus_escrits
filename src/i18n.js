@@ -26,7 +26,7 @@ i18n
                         contact: 'Contacte',
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
-                        strat_pol: 'Estratègia i Consultoria Política'
+                        strat_pol: 'Estratègia i Consultoria'
                     },
                     contact: {
                         title: 'Contacte',
@@ -60,15 +60,15 @@ i18n
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
-                        subtitle: 'Benvinguts al meu portafoli personal. Aquí trobareu els meus projectes, el meu currículum i un recull de reflexions i històries. Una finestra a la meva tasca professional i creativa.'
+                        subtitle: 'Consultor estratègic en tecnologia i Intel·ligència Artificial. Especialitzat en la creació de solucions digitals que fusionen anàlisi de context, narrativa i execució tècnica avançada.'
                     },
                     home: {
-                        latest_posts: 'Darreres publicacions',
-                        read_more: 'Llegir més',
-                        loading: 'Carregant publicacions...',
-                        sitges_desc: 'Explora els meus escrits i històries sobre Sitges.',
-                        projects_desc: 'Descobreix els projectes professionals i creatius en els quals he treballat.',
-                        related_posts: 'Altres històries que et podrien agradar'
+                        latest_posts: 'Projectes i Reflexions Recents',
+                        read_more: 'Explorar detall',
+                        loading: 'Actualitzant continguts...',
+                        sitges_desc: 'Anàlisi i crònica sobre la realitat social i cultural de Sitges.',
+                        projects_desc: 'Solucions d\'alt impacte en Desenvolupament, IA i Estratègia Política.',
+                        related_posts: 'Relats i anàlisis d\'interès'
                     },
                     projects: {
                         title: 'Projectes',
@@ -76,7 +76,7 @@ i18n
                         categories: {
                             all: 'Tots',
                             dev_ia: 'Desenvolupament i IA',
-                            strat_pol: 'Estratègia i Consultoria Política'
+                            strat_pol: 'Estratègia i Consultoria'
                         },
                         filter_all: 'Tots',
                         coming_soon: 'Proximament',
@@ -87,17 +87,17 @@ i18n
                             desc: 'Aplicació intel·ligent de recomanació de vins basada en IA Generativa. La fusió perfecta entre tecnologia moderna i coneixement enològic.',
                             detail_title: 'Sobre el Projecte',
                             detail_desc: 'He desenvolupat un assistent intel·ligent que actua com un sommelier expert. Aquesta eina no només coneix milers de referències, sinó que entén el context de l\'usuari (pressupost, tipus de cuina, preferències personals) per oferir recomanacions precises.',
-                            author_note: 'Aquest projecte és un laboratori viu. Estic treballant constantment en el prompt tuning i en el filtratge de dades de Firebase per reduir el marge d\'error i fer que les recomanacions siguin cada cop més precises.',
+                            author_note: 'Aquest projecte representa un entorn de desenvolupament continu; optimitzo iterativament el prompt engineering i l\'arquitectura de dades en Firebase per maximitzar la precisió del model i l\'encert en les recomanacions.',
                             architecture_title: 'Arquitectura Tecnològica',
-                            architecture_ai: 'Motor d\'IA: Google Gemini API amb configuració de system instructions per a un to expert.',
-                            architecture_data: 'Gestió de Dades: Firebase Realtime Database per emmagatzemar la bodega i l\'historial.',
-                            architecture_dev: 'Desenvolupament: Python per al processament de llenguatge natural i integració de l\'API.',
-                            features_title: 'Característiques Clau',
-                            feature_1: 'Anàlisi de maridatge intel·ligent',
-                            feature_2: 'Interfície de veu i text intuitiva',
-                            feature_3: 'Base de dades dinàmica actualitzada amb IA',
-                            try_button: 'Provar l\'aplicació',
-                            back_button: 'Tornar a projectes'
+                            architecture_ai: 'Motor d\'Intel·ligència Artificial: Google Gemini API amb orquestració de system instructions per a un perfil expert.',
+                            architecture_data: 'Arquitectura de Dades: Firebase Realtime Database per a la gestió d\'inventari i persistència operativa.',
+                            architecture_dev: 'Pipeline de Desenvolupament: Python per a la lògica de processat semàntic i integració d\'APIs.',
+                            features_title: 'Mètriques i Capacitats',
+                            feature_1: 'Anàlisi predictiva de maridatge',
+                            feature_2: 'Interfície comunicativa multicanal (Beu/Text)',
+                            feature_3: 'Sincronització de dades d\'alt rendiment',
+                            try_button: 'Executar Aplicació',
+                            back_button: 'Tornar al catàleg'
                         },
                         sitgesart: {
                             title: 'Sitges Art',
@@ -147,6 +147,10 @@ i18n
                             feature_3: 'Anàlisi de dades i tendències d\'opinió',
                             try_button: 'Veure el projecte',
                             back_button: 'Tornar a projectes'
+                        },
+                        ecosistema: {
+                            title: 'Ecosistema Social',
+                            desc: 'Estratègia de continguts i creuament de plataformes per a Instagram i TikTok. Construint audiència i impacte digital.'
                         },
                         related_title: 'Altres Projectes'
                     },
@@ -254,7 +258,7 @@ i18n
                         contact: 'Contacto',
                         logout: 'Cerrar sesión',
                         dev_ia: 'Desarrollo e IA',
-                        strat_pol: 'Estrategia y Consultoría Política'
+                        strat_pol: 'Estrategia y Consultoría'
                     },
                     contact: {
                         title: 'Contacto',
@@ -287,15 +291,15 @@ i18n
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
-                        subtitle: 'Bienvenidos a mi portafolio personal. Aquí encontraréis mis proyectos, mi currículum y una colección de reflexiones e historias. Una ventana a mi labor profesional y creativa.'
+                        subtitle: 'Consultor estratégico en tecnología e Inteligencia Artificial. Especializado en la creación de soluciones digitales que fusionan análisis de contexto, narrativa y ejecución técnica avanzada.'
                     },
                     home: {
-                        latest_posts: 'Últimas publicaciones',
-                        read_more: 'Leer más',
-                        loading: 'Cargando publicaciones...',
-                        sitges_desc: 'Explora mis escritos e historias sobre Sitges.',
-                        projects_desc: 'Descubre los proyectos profesionales y creativos en los que he trabajado.',
-                        related_posts: 'Otras historias que te podrían gustar'
+                        latest_posts: 'Proyectos y Reflexiones Recientes',
+                        read_more: 'Explorar detalle',
+                        loading: 'Actualizando contenidos...',
+                        sitges_desc: 'Análisis y crónica sobre la realidad social y cultural de Sitges.',
+                        projects_desc: 'Soluciones de alto impacto en Desarrollo, IA y Estrategia Política.',
+                        related_posts: 'Relatos y análisis de interés'
                     },
                     projects: {
                         title: 'Proyectos',
@@ -303,7 +307,7 @@ i18n
                         categories: {
                             all: 'Todos',
                             dev_ia: 'Desarrollo e IA',
-                            strat_pol: 'Estrategia y Consultoría Política'
+                            strat_pol: 'Estrategia y Consultoría'
                         },
                         filter_all: 'Todos',
                         coming_soon: 'Próximamente',
@@ -314,17 +318,17 @@ i18n
                             desc: 'Aplicación inteligente de recomendación de vinos basada en IA Generativa. La fusión perfecta entre tecnología moderna y conocimiento enológico.',
                             detail_title: 'Sobre el Proyecto',
                             detail_desc: 'He desarrollado un asistente inteligente que actúa como un sommelier experto. Esta herramienta no solo conoce miles de referencias, sino que entiende el contexto del usuario (presupuesto, tipo de cocina, preferencias personales) para ofrecer recomendaciones precisas.',
-                            author_note: 'Este proyecto es un laboratorio vivo. Estoy trabajando constantemente en el prompt tuning y en el filtrado de datos de Firebase para reducir el margen de error y hacer que las recomendaciones sean cada vez más precisas.',
+                            author_note: 'Este proyecto representa un entorno de desarrollo continuo; optimizo iterativamente el prompt engineering y la arquitectura de datos en Firebase para maximizar la precisión del modelo y el acierto en las recomendaciones.',
                             architecture_title: 'Arquitectura Tecnológica',
-                            architecture_ai: 'Motor de IA: Google Gemini API con configuración de system instructions para un tono experto.',
-                            architecture_data: 'Gestión de Datos: Firebase Realtime Database para almacenar la bodega y el historial.',
-                            architecture_dev: 'Desarrollo: Python para el procesamiento de lenguaje natural e integración de la API.',
-                            features_title: 'Características Clave',
-                            feature_1: 'Análisis de maridaje inteligente',
-                            feature_2: 'Interfaz de voz y texto intuitiva',
-                            feature_3: 'Base de datos dinámica actualizada con IA',
-                            try_button: 'Probar la aplicación',
-                            back_button: 'Volver a proyectos'
+                            architecture_ai: 'Motor de Inteligencia Artificial: Google Gemini API con orquestación de system instructions para un perfil experto.',
+                            architecture_data: 'Arquitectura de Datos: Firebase Realtime Database para la gestión de inventario y persistencia operativa.',
+                            architecture_dev: 'Pipeline de Desarrollo: Python para la lógica de procesado semántico e integración de APIs.',
+                            features_title: 'Métricas y Capacidades',
+                            feature_1: 'Análisis predictivo de maridaje',
+                            feature_2: 'Interfaz comunicativa multicanal (Voz/Texto)',
+                            feature_3: 'Sincronización de datos de alto rendimiento',
+                            try_button: 'Ejecutar Aplicación',
+                            back_button: 'Volver al catálogo'
                         },
                         sitgesart: {
                             title: 'Sitges Art',
@@ -374,6 +378,10 @@ i18n
                             feature_3: 'Análisis de datos y tendencias de opinión',
                             try_button: 'Ver el proyecto',
                             back_button: 'Volver a proyectos'
+                        },
+                        ecosistema: {
+                            title: 'Ecosistema Social',
+                            desc: 'Estrategia de contenidos y cruce de plataformas para Instagram y TikTok. Construyendo audiencia e impacto digital.'
                         },
                         related_title: 'Otros Proyectos'
                     },
@@ -478,7 +486,7 @@ i18n
                         contact: 'Contact',
                         logout: 'Log out',
                         dev_ia: 'Development & AI',
-                        strat_pol: 'Strategy & Political Consulting'
+                        strat_pol: 'Strategy & Consulting'
                     },
                     contact: {
                         title: 'Contact',
@@ -511,15 +519,15 @@ i18n
                     },
                     hero: {
                         title: 'Pere Badia i Lorenz',
-                        subtitle: 'Welcome to my personal portfolio. Here you will find my projects, my CV, and a collection of reflections and stories. A window into my professional and creative work.'
+                        subtitle: 'Strategic Technology and AI Consultant. Specialized in creating digital solutions that merge context analysis, narrative, and advanced technical execution.'
                     },
                     home: {
-                        latest_posts: 'Latest Posts',
-                        read_more: 'Read more',
-                        loading: 'Loading posts...',
-                        sitges_desc: 'Explore my writings and stories about Sitges.',
-                        projects_desc: 'Discover the professional and creative projects I have worked on.',
-                        related_posts: 'Other stories you might like'
+                        latest_posts: 'Recent Projects & Insights',
+                        read_more: 'Explore details',
+                        loading: 'Updating content...',
+                        sitges_desc: 'Analysis and chronicle of the social and cultural reality of Sitges.',
+                        projects_desc: 'High-impact solutions in Development, AI, and Political Strategy.',
+                        related_posts: 'Curated stories and analysis'
                     },
                     projects: {
                         title: 'Projects',
@@ -527,7 +535,7 @@ i18n
                         categories: {
                             all: 'All',
                             dev_ia: 'Development & AI',
-                            strat_pol: 'Strategy & Political Consulting'
+                            strat_pol: 'Strategy & Consulting'
                         },
                         filter_all: 'All',
                         coming_soon: 'Coming Soon',
@@ -538,17 +546,17 @@ i18n
                             desc: 'Intelligent wine recommendation application based on Generative AI. The perfect fusion between modern technology and enological knowledge.',
                             detail_title: 'About the Project',
                             detail_desc: 'I have developed an intelligent assistant that acts as an expert sommelier. This tool not only knows thousands of references but also understands the user context (budget, type of cuisine, personal preferences) to offer precise recommendations.',
-                            author_note: 'This project is a living laboratory. I am constantly working on prompt tuning and Firebase data filtering to reduce the error margin and make the recommendations increasingly precise.',
-                            architecture_title: 'Technological Architecture',
-                            architecture_ai: 'AI Engine: Google Gemini API with system instructions configured for an expert tone.',
-                            architecture_data: 'Data Management: Firebase Realtime Database to store cellar and history.',
-                            architecture_dev: 'Development: Python for natural language processing and API integration.',
-                            features_title: 'Key Features',
-                            feature_1: 'Intelligent pairing analysis',
-                            feature_2: 'Intuitive voice and text interface',
-                            feature_3: 'Dynamic AI-updated database',
-                            try_button: 'Try the app',
-                            back_button: 'Back to projects'
+                            author_note: 'This project represents a continuous development environment; I iteratively optimize the prompt engineering and data architecture in Firebase to maximize model precision and recommendation accuracy.',
+                            architecture_title: 'Technical Architecture',
+                            architecture_ai: 'Artificial Intelligence Engine: Google Gemini API with system instructions orchestration for an expert profile.',
+                            architecture_data: 'Data Architecture: Firebase Realtime Database for inventory management and operational persistence.',
+                            architecture_dev: 'Development Pipeline: Python for semantic processing logic and API integration.',
+                            features_title: 'Metrics & Capabilities',
+                            feature_1: 'Predictive pairing analysis',
+                            feature_2: 'Multichannel communicative interface (Voice/Text)',
+                            feature_3: 'High-performance data synchronization',
+                            try_button: 'Execute Application',
+                            back_button: 'Back to catalog'
                         },
                         sitgesart: {
                             title: 'Sitges Art',
@@ -598,6 +606,10 @@ i18n
                             feature_3: 'Data analysis and opinion trends',
                             try_button: 'View the project',
                             back_button: 'Back to projects'
+                        },
+                        ecosistema: {
+                            title: 'Social Ecosystem',
+                            desc: 'Content strategy and platform crossing for Instagram and TikTok. Building audience and digital impact.'
                         },
                         related_title: 'Other Projects'
                     },

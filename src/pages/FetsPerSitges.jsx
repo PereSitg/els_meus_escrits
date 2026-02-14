@@ -64,7 +64,7 @@ export default function FetsPerSitges() {
 
                 <div className="project-content-grid" style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '4rem',
                     alignItems: 'start',
                     marginBottom: '4rem'
@@ -113,7 +113,7 @@ export default function FetsPerSitges() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                        {/* Video Embed Placeholder/Example */}
+                        {/* Video Embed with Lazy Loading */}
                         <div style={{
                             width: '100%',
                             aspectRatio: '16/9',
@@ -123,7 +123,6 @@ export default function FetsPerSitges() {
                             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                             marginBottom: '2rem'
                         }}>
-                            {/* Exemple de vídeo de YouTube (es pot canviar per l'ID real) */}
                             <iframe
                                 width="100%"
                                 height="100%"
@@ -132,6 +131,7 @@ export default function FetsPerSitges() {
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
+                                loading="lazy"
                             ></iframe>
                         </div>
                         <p style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
@@ -140,7 +140,12 @@ export default function FetsPerSitges() {
                     </motion.div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', marginBottom: '4rem' }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '4rem',
+                    marginBottom: '4rem'
+                }}>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

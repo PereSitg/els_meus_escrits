@@ -29,6 +29,7 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .app-container {
@@ -117,6 +118,12 @@ a {
 
 .mobile-menu-container {
   display: none;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
 }
 
 /* Glassmorphism */
@@ -222,7 +229,7 @@ a {
 
   /* Logo and Header positioning */
   .header-logo {
-    padding-left: 0 !important;
+    padding-left: 1rem !important;
     flex: 1;
     text-align: left;
   }
@@ -274,6 +281,11 @@ a {
     height: 1px;
     margin: 0.5rem 0;
     background: rgba(255, 255, 255, 0.05);
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
 }
 
@@ -341,6 +353,10 @@ a {
 .btn:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn-primary {
