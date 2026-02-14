@@ -98,7 +98,7 @@ export default function Header() {
     return (
         <header className="header glass">
             <div className="container header-content">
-                <Link to="/" className="header-logo" style={{ fontSize: '1.6rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)' }}>
+                <Link to="/" className="header-logo" style={{ fontSize: '1.6rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)', paddingLeft: '1rem' }}>
                     Pere Badia i Lorenz
                 </Link>
 

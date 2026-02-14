@@ -27,7 +27,6 @@ i18n
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
                         strat_pol: 'Estratègia i Consultoria',
-                        strat_pol: 'Estratègia i Consultoria',
                         consultancy: 'Consultoria Estratègica',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -177,9 +176,9 @@ i18n
                             human_title: 'Inclusivitat Real',
                             human_desc: 'L\'estratègia no va ser només algorítmica. Treballar braç a braç amb persones amb altres capacitats ens va permetre humanitzar el missatge i connectar amb l\'ànima de Sitges de forma genuïna.'
                         },
-                        ecosistema: {
-                            title: 'Ecosistema Social',
-                            desc: 'Estratègia de continguts i creuament de plataformes per a Instagram i TikTok. Construint audiència i impacte digital.'
+                        tal_com_erem_project: {
+                            title: 'Tal com érem',
+                            desc: 'Projecte de rescat del patrimoni visual de Sitges mitjançant Intel·ligència Artificial. Una mirada al passat amb ulls del futur.'
                         },
                         related_title: 'Altres Projectes'
                     },
@@ -287,7 +286,6 @@ i18n
                         contact: 'Contacto',
                         logout: 'Cerrar sesión',
                         dev_ia: 'Desarrollo e IA',
-                        strat_pol: 'Estrategia y Consultoría',
                         strat_pol: 'Estrategia y Consultoría',
                         consultancy: 'Consultoría Estratégica',
                         tal_com_erem: 'Tal com érem'
@@ -437,9 +435,9 @@ i18n
                             human_title: 'Inclusividad Real',
                             human_desc: 'La estrategia no fue solo algorítmica. Trabajar codo con codo con personas con otras capacidades nos permitió humanizar el mensaje y conectar con el alma de Sitges de forma genuina.'
                         },
-                        ecosistema: {
-                            title: 'Ecosistema Social',
-                            desc: 'Estrategia de contenidos y cruce de plataformas para Instagram y TikTok. Construyendo audiencia e impacto digital.'
+                        tal_com_erem_project: {
+                            title: 'Tal com érem',
+                            desc: 'Proyecto de rescate del patrimonio visual de Sitges mediante Inteligencia Artificial. Una mirada al pasado con ojos del futuro.'
                         },
                         related_title: 'Otros Proyectos'
                     },
@@ -544,7 +542,6 @@ i18n
                         contact: 'Contact',
                         logout: 'Log out',
                         dev_ia: 'Development & AI',
-                        strat_pol: 'Strategy & Consulting',
                         strat_pol: 'Strategy & Consulting',
                         consultancy: 'Strategic Consultancy',
                         tal_com_erem: 'Tal com érem'
@@ -694,9 +691,9 @@ i18n
                             human_title: 'Real Inclusivity',
                             human_desc: 'The strategy was not just algorithmic. Working side by side with people with other capabilities allowed us to humanize the message and connect with the soul of Sitges in a genuine way.'
                         },
-                        ecosistema: {
-                            title: 'Social Ecosystem',
-                            desc: 'Content strategy and platform crossing for Instagram and TikTok. Building audience and digital impact.'
+                        tal_com_erem_project: {
+                            title: 'Tal com érem',
+                            desc: 'Project for the rescue of Sitges\' visual heritage through Artificial Intelligence. A look at the past with eyes of the future.'
                         },
                         related_title: 'Other Projects'
                     },

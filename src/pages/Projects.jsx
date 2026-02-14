@@ -23,9 +23,10 @@ export default function Projects() {
     const filteredProjects = activeFilter === 'All'
         ? projectsData
         : projectsData.filter(project => {
-            if (activeFilter === 'IA') return project.category === 'dev_ia';
-            if (activeFilter === 'Consultoria') return project.id === 'fets-per-sitges';
-            return true;
+            if (activeFilter === 'IA') return project.category === 'dev_ia' || project.tags.includes('IA');
+            if (activeFilter === 'Consultoria') return project.id === 'fets-per-sitges' || project.category === 'strat_pol';
+            if (activeFilter === 'XXSS') return project.tags.includes('XXSS');
+            return project.tags.includes(activeFilter);
         });
 
     return (
@@ -96,6 +97,21 @@ export default function Projects() {
                         }}
                     >
                         {t('nav.consultancy')}
+                    </button>
+                    <button
+                        onClick={() => setActiveFilter('XXSS')}
+                        style={{
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '2rem',
+                            border: 'none',
+                            background: activeFilter === 'XXSS' ? 'var(--accent-primary)' : 'transparent',
+                            color: activeFilter === 'XXSS' ? 'white' : 'var(--text-secondary)',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        XXSS
                     </button>
                 </div>
 

@@ -44,16 +44,16 @@ export const projectsData = [
         isIndexed: true
     },
     {
-        id: 'ecosistema-social',
-        slug: 'ecosistema-social',
+        id: 'tal-com-erem',
+        slug: 'tal-com-erem',
         image: '/meus_projectes.png',
-        tags: ['Instagram', 'TikTok', 'Estratègia'],
+        tags: ['XXSS', 'Instagram', 'TikTok', 'Estratègia'],
         category: 'strat_pol',
-        comingSoon: true,
-        translationKey: 'ecosistema',
-        seoTitle: 'Ecosistema Social | Estratègia de Continguts 360°',
-        seoDescription: 'Properament: Com construir una audiència real i amb impacte a Instagram i TikTok.',
-        isIndexed: false
+        comingSoon: false,
+        translationKey: 'tal_com_erem_project',
+        seoTitle: 'Tal com érem | Recuperació del Patrimoni Visual',
+        seoDescription: 'Projecte de rescat del patrimoni visual de Sitges mitjançant Intel·ligència Artificial.',
+        isIndexed: true
     }
 ];
 
