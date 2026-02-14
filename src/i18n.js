@@ -155,7 +155,7 @@ i18n
                             strategy_heading: 'Estratègies d\'Impacte',
                             strategies: {
                                 creativity: { title: 'Creativitat vs Pressupost', desc: 'En un entorn saturat de propaganda clàssica, utilitzem el Pixel Art per explicar propostes complexes com la regeneració de les platges. Una solució estètica de baix cost però d\'alt impacte que connecta amb un públic més jove i digital.' },
-                                impact: { title: 'Impacte', desc: 'Missatges directes que generen reacció i record en l\'electorat.' },
+                                impact: { title: 'Autoritat i Presència Urbana', desc: 'El domini de l\'espai físic com a declaració d\'intencions. Despleguem una lona gegant en un punt estratègic per trencar el soroll electoral, demostrant que la guerrilla també sap jugar fort al carrer.' },
                                 synthesis: { title: 'Síntesi', desc: 'Capacitat de resumir propostes complexes en idees clares i potents.' },
                                 rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' }
                             },
@@ -407,9 +407,8 @@ i18n
                             strategy_heading: 'Estrategias de Impacto',
                             strategies: {
                                 creativity: { title: 'Creatividad vs Presupuesto', desc: 'En un entorno saturado de propaganda clásica, utilizamos el Pixel Art para explicar propuestas complejas como la regeneración de las playas. Una solución estética de bajo coste pero de alto impacto que conecta con un público más joven y digital.' },
-                                impact: { title: 'Impacto', desc: 'Mensajes directos que generan reacción y recuerdo en el electorado.' },
-                                synthesis: { title: 'Síntesis', desc: 'Capacidad de resumir propuestas complejas en ideas claras y potentes.' },
-                                rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' }
+                                impact: { title: 'Autoridad y Presencia Urbana', desc: 'El dominio del espacio físico como declaración de intenciones. Desplegamos una lona gigante en un punto estratégico para romper el ruido electoral, demostrando que la guerrilla también sabe jugar fuerte en la calle.' },
+                                synthesis: { title: 'Síntesis', desc: 'Capacidad de resumir propuestas complejas en ideas claras y potentes.' }, rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' }
                             },
                             roi_label: 'Impacto Total',
                             roi_title: 'ROI Político: Uno de los costes por voto más bajos de la historia electoral de Sitges.',
@@ -656,9 +655,8 @@ i18n
                             strategy_heading: 'Impact Strategies',
                             strategies: {
                                 creativity: { title: 'Creativity vs Budget', desc: 'In an environment saturated with classic propaganda, we use Pixel Art to explain complex proposals like beach regeneration. A low-cost but high-impact aesthetic solution that connects with a younger and more digital audience.' },
-                                impact: { title: 'Impact', desc: 'Direct messages that generate reaction and remembrance in the electorate.' },
-                                synthesis: { title: 'Synthesis', desc: 'Ability to summarize complex proposals into clear and powerful ideas.' },
-                                rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' }
+                                impact: { title: 'Authority and Urban Presence', desc: 'The dominance of physical space as a statement of intent. We deploy a giant billboard at a strategic point to break electoral noise, proving that guerrilla tactics also know how to play big in the streets.' },
+                                synthesis: { title: 'Synthesis', desc: 'Ability to summarize complex proposals into clear and powerful ideas.' }, rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' }
                             },
                             roi_label: 'Total Impact',
                             roi_title: 'Political ROI: One of the lowest costs per vote in Sitges\' electoral history.',

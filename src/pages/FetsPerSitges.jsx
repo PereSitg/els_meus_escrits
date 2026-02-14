@@ -76,7 +76,7 @@ export default function FetsPerSitges() {
             icon: <Target size={24} />,
             title: t('projects.fetspersitges.strategies.impact.title'),
             desc: t('projects.fetspersitges.strategies.impact.desc'),
-            video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            video: "https://www.youtube.com/embed/CMan_RnV9T8"
         },
         {
             icon: <FileText size={24} />,
