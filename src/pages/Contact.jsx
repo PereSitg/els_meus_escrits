@@ -139,7 +139,7 @@ export default function Contact() {
                             </p>
                         </div>
 
-                        <div style={{ marginTop: '2rem' }}>
+                        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
                             <a
                                 href="/assets/cvCat.pdf"
                                 download="cvCat.pdf"
@@ -148,22 +148,21 @@ export default function Contact() {
                                     alignItems: 'center',
                                     gap: '0.75rem',
                                     padding: '1rem 2rem',
-                                    background: 'rgba(255,255,255,0.1)',
+                                    background: 'var(--accent-primary)',
                                     color: 'white',
                                     textDecoration: 'none',
                                     borderRadius: '50px',
                                     fontSize: '1.1rem',
-                                    fontWeight: '500',
-                                    border: '1px solid rgba(255,255,255,0.2)',
-                                    transition: 'all 0.3s ease'
+                                    fontWeight: '600',
+                                    border: 'none',
+                                    transition: 'transform 0.2s',
+                                    boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = 'white';
-                                    e.currentTarget.style.color = 'black';
+                                    e.currentTarget.style.transform = 'scale(1.05)';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                                    e.currentTarget.style.color = 'white';
+                                    e.currentTarget.style.transform = 'scale(1)';
                                 }}
                             >
                                 <Download size={20} />
