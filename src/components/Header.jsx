@@ -30,7 +30,6 @@ export default function Header() {
 
     const professionalItems = [
         { name: t('nav.dev_ia'), path: '/projects?tag=IA' },
-        { name: t('nav.strat_pol'), path: '/projects?tag=Politica' },
         { name: t('nav.consultancy'), path: '/projects?tag=Consultoria' },
     ];
 
