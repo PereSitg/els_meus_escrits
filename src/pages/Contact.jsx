@@ -14,14 +14,19 @@ export default function Contact() {
     const [success, setSuccess] = useState(false);
     const [sending, setSending] = useState(false);
 
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
 
     useEffect(() => {
         const fetchSEO = async () => {
             try {
                 const docSnap = await getDoc(doc(db, 'site_seo', 'contact'));
                 if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
+                    const data = docSnap.data();
+                    setSeoData({
+                        title: data.title || '',
+                        description: data.description || '',
+                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
+                    });
                 }
             } catch (error) {
                 console.error("Error fetching SEO status:", error);
@@ -32,7 +37,7 @@ export default function Contact() {
 
     useEffect(() => {
         // SEO logic
-        document.title = `${t('contact.title')} | Pere Badia i Lorenz`;
+        document.title = seoData.title || `${t('contact.title')} | Pere Badia i Lorenz`;
 
         let metaDescription = document.querySelector('meta[name="description"]');
         if (!metaDescription) {
@@ -40,9 +45,9 @@ export default function Contact() {
             metaDescription.name = 'description';
             document.head.appendChild(metaDescription);
         }
-        metaDescription.content = t('contact.bio_p1');
+        metaDescription.content = seoData.description || t('contact.bio_p1');
 
-        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
 
         let metaRobots = document.querySelector('meta[name="robots"]');
         if (isPageIndexed === false) {
@@ -55,7 +60,7 @@ export default function Contact() {
         } else if (metaRobots) {
             metaRobots.remove();
         }
-    }, [t, isIndexedOverride]);
+    }, [t, seoData]);
 
     useEffect(() => {
         generateCaptcha();

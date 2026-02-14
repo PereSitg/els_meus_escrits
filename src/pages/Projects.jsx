@@ -10,14 +10,19 @@ export default function Projects() {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('All');
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
 
     useEffect(() => {
         const fetchSEO = async () => {
             try {
                 const docSnap = await getDoc(doc(db, 'site_seo', 'projects_list'));
                 if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
+                    const data = docSnap.data();
+                    setSeoData({
+                        title: data.title || '',
+                        description: data.description || '',
+                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
+                    });
                 }
             } catch (error) {
                 console.error("Error fetching SEO status:", error);
@@ -28,7 +33,7 @@ export default function Projects() {
 
     useEffect(() => {
         // SEO logic
-        document.title = `${t('projects.title')} | Pere Badia i Lorenz`;
+        document.title = seoData.title || `${t('projects.title')} | Pere Badia i Lorenz`;
 
         let metaDescription = document.querySelector('meta[name="description"]');
         if (!metaDescription) {
@@ -36,9 +41,9 @@ export default function Projects() {
             metaDescription.name = 'description';
             document.head.appendChild(metaDescription);
         }
-        metaDescription.content = t('projects.description');
+        metaDescription.content = seoData.description || t('projects.description');
 
-        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
 
         let metaRobots = document.querySelector('meta[name="robots"]');
         if (isPageIndexed === false) {
@@ -51,7 +56,7 @@ export default function Projects() {
         } else if (metaRobots) {
             metaRobots.remove();
         }
-    }, [t, isIndexedOverride]);
+    }, [t, seoData]);
 
     useEffect(() => {
         const tag = searchParams.get('tag');

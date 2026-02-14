@@ -10,14 +10,19 @@ import { db } from '../lib/firebase';
 
 export default function Home() {
     const { t } = useTranslation();
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
 
     useEffect(() => {
         const fetchSEO = async () => {
             try {
                 const docSnap = await getDoc(doc(db, 'site_seo', 'home'));
                 if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
+                    const data = docSnap.data();
+                    setSeoData({
+                        title: data.title || '',
+                        description: data.description || '',
+                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
+                    });
                 }
             } catch (error) {
                 console.error("Error fetching SEO status:", error);
@@ -28,7 +33,7 @@ export default function Home() {
 
     useEffect(() => {
         // SEO logic
-        document.title = `Pere Badia i Lorenz | Portafoli Personal`;
+        document.title = seoData.title || `Pere Badia i Lorenz | Portafoli Personal`;
 
         let metaDescription = document.querySelector('meta[name="description"]');
         if (!metaDescription) {
@@ -36,10 +41,9 @@ export default function Home() {
             metaDescription.name = 'description';
             document.head.appendChild(metaDescription);
         }
-        // Use default description or one from translations if needed
-        metaDescription.content = t('hero.subtitle');
+        metaDescription.content = seoData.description || t('hero.subtitle');
 
-        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
 
         let metaRobots = document.querySelector('meta[name="robots"]');
         if (isPageIndexed === false) {
@@ -52,7 +56,7 @@ export default function Home() {
         } else if (metaRobots) {
             metaRobots.remove();
         }
-    }, [t, isIndexedOverride]);
+    }, [t, seoData]);
 
     const navigationCards = [
         {

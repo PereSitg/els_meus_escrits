@@ -54,14 +54,19 @@ const Tool = ({ name, desc, icon, viewBox }) => (
 
 export default function Stack() {
     const { t } = useTranslation();
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
 
     useEffect(() => {
         const fetchSEO = async () => {
             try {
                 const docSnap = await getDoc(doc(db, 'site_seo', 'stack'));
                 if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
+                    const data = docSnap.data();
+                    setSeoData({
+                        title: data.title || '',
+                        description: data.description || '',
+                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
+                    });
                 }
             } catch (error) {
                 console.error("Error fetching SEO status:", error);
@@ -72,7 +77,7 @@ export default function Stack() {
 
     useEffect(() => {
         // SEO logic
-        document.title = `${t('stack.title')} | Pere Badia i Lorenz`;
+        document.title = seoData.title || `${t('stack.title')} | Pere Badia i Lorenz`;
 
         let metaDescription = document.querySelector('meta[name="description"]');
         if (!metaDescription) {
@@ -80,9 +85,9 @@ export default function Stack() {
             metaDescription.name = 'description';
             document.head.appendChild(metaDescription);
         }
-        metaDescription.content = t('stack.intro_p1');
+        metaDescription.content = seoData.description || t('stack.intro_p1');
 
-        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
 
         let metaRobots = document.querySelector('meta[name="robots"]');
         if (isPageIndexed === false) {
@@ -95,7 +100,7 @@ export default function Stack() {
         } else if (metaRobots) {
             metaRobots.remove();
         }
-    }, [t, isIndexedOverride]);
+    }, [t, seoData]);
 
     // Scroll to top on mount
     useEffect(() => {

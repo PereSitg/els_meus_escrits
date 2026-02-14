@@ -10,6 +10,8 @@ export default function Dashboard() {
     const [posts, setPosts] = useState([]);
     const [pagesSeo, setPagesSeo] = useState({});
     const [loading, setLoading] = useState(true);
+    const [editingPage, setEditingPage] = useState(null); // Key of the page being edited
+    const [editValues, setEditValues] = useState({ title: '', description: '' });
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -64,7 +66,6 @@ export default function Dashboard() {
             }));
         } catch (error) {
             console.error("Error updating page indexing status:", error);
-            // Si el document no existeix, el creem
             if (error.code === 'not-found') {
                 const { setDoc, serverTimestamp } = await import('firebase/firestore');
                 await setDoc(doc(db, 'site_seo', pageKey), {
@@ -77,6 +78,40 @@ export default function Dashboard() {
                 }));
             } else {
                 alert('Error al canviar l\'estat d\'indexació de la pàgina');
+            }
+        }
+    }
+
+    async function handleSaveSeo(pageKey) {
+        try {
+            const { serverTimestamp } = await import('firebase/firestore');
+            await updateDoc(doc(db, 'site_seo', pageKey), {
+                title: editValues.title,
+                description: editValues.description,
+                updatedAt: serverTimestamp()
+            });
+            setPagesSeo(prev => ({
+                ...prev,
+                [pageKey]: { ...prev[pageKey], title: editValues.title, description: editValues.description }
+            }));
+            setEditingPage(null);
+        } catch (error) {
+            console.error("Error saving SEO data:", error);
+            if (error.code === 'not-found') {
+                const { setDoc, serverTimestamp } = await import('firebase/firestore');
+                await setDoc(doc(db, 'site_seo', pageKey), {
+                    title: editValues.title,
+                    description: editValues.description,
+                    isIndexed: true,
+                    updatedAt: serverTimestamp()
+                });
+                setPagesSeo(prev => ({
+                    ...prev,
+                    [pageKey]: { title: editValues.title, description: editValues.description, isIndexed: true }
+                }));
+                setEditingPage(null);
+            } else {
+                alert('Error al desar les metadades SEO');
             }
         }
     }
@@ -238,8 +273,8 @@ export default function Dashboard() {
                         <thead>
                             <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}>
                                 <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Pàgina / Ruta</th>
-                                <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Tipus</th>
-                                <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'center' }}>Estat Indexació</th>
+                                <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Metadades (Title / Desc)</th>
+                                <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'center' }}>Indexació</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -258,7 +293,42 @@ export default function Dashboard() {
                                             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{page.path}</div>
                                         </td>
                                         <td style={{ padding: '1rem' }}>
-                                            <span style={{ fontSize: '0.8rem', opacity: 0.6 }}>{page.type}</span>
+                                            {editingPage === page.key ? (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                                    <input
+                                                        type="text"
+                                                        value={editValues.title}
+                                                        onChange={(e) => setEditValues({ ...editValues, title: e.target.value })}
+                                                        placeholder="Títol SEO"
+                                                        style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem', borderRadius: '0.4rem', fontSize: '0.85rem' }}
+                                                    />
+                                                    <textarea
+                                                        value={editValues.description}
+                                                        onChange={(e) => setEditValues({ ...editValues, description: e.target.value })}
+                                                        placeholder="Descripció SEO"
+                                                        style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '60px' }}
+                                                    />
+                                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                        <button onClick={() => handleSaveSeo(page.key)} className="btn btn-primary" style={{ padding: '0.2rem 0.6rem', fontSize: '0.75rem' }}>Desar</button>
+                                                        <button onClick={() => setEditingPage(null)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.2rem 0.6rem', borderRadius: '0.4rem', fontSize: '0.75rem', cursor: 'pointer' }}>Cancel·lar</button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div style={{ cursor: 'pointer' }} onClick={() => {
+                                                    setEditingPage(page.key);
+                                                    setEditValues({
+                                                        title: pagesSeo[page.key]?.title || '',
+                                                        description: pagesSeo[page.key]?.description || ''
+                                                    });
+                                                }}>
+                                                    <div style={{ fontSize: '0.9rem', color: pagesSeo[page.key]?.title ? 'white' : 'rgba(255,255,255,0.3)', marginBottom: '0.25rem' }}>
+                                                        {pagesSeo[page.key]?.title || 'Sense títol personalitzat'}
+                                                    </div>
+                                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                                        {pagesSeo[page.key]?.description || 'Sense descripció personalitzada'}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </td>
                                         <td style={{ padding: '1rem', textAlign: 'center' }}>
                                             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -300,7 +370,42 @@ export default function Dashboard() {
                                             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{proj.path}</div>
                                         </td>
                                         <td style={{ padding: '1rem' }}>
-                                            <span style={{ fontSize: '0.8rem', opacity: 0.6 }}>Projecte</span>
+                                            {editingPage === proj.key ? (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                                    <input
+                                                        type="text"
+                                                        value={editValues.title}
+                                                        onChange={(e) => setEditValues({ ...editValues, title: e.target.value })}
+                                                        placeholder="Títol SEO"
+                                                        style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem', borderRadius: '0.4rem', fontSize: '0.85rem' }}
+                                                    />
+                                                    <textarea
+                                                        value={editValues.description}
+                                                        onChange={(e) => setEditValues({ ...editValues, description: e.target.value })}
+                                                        placeholder="Descripció SEO"
+                                                        style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.4rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '60px' }}
+                                                    />
+                                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                        <button onClick={() => handleSaveSeo(proj.key)} className="btn btn-primary" style={{ padding: '0.2rem 0.6rem', fontSize: '0.75rem' }}>Desar</button>
+                                                        <button onClick={() => setEditingPage(null)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: 'white', padding: '0.2rem 0.6rem', borderRadius: '0.4rem', fontSize: '0.75rem', cursor: 'pointer' }}>Cancel·lar</button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div style={{ cursor: 'pointer' }} onClick={() => {
+                                                    setEditingPage(proj.key);
+                                                    setEditValues({
+                                                        title: pagesSeo[proj.key]?.title || '',
+                                                        description: pagesSeo[proj.key]?.description || ''
+                                                    });
+                                                }}>
+                                                    <div style={{ fontSize: '0.9rem', color: pagesSeo[proj.key]?.title ? 'white' : 'rgba(255,255,255,0.3)', marginBottom: '0.25rem' }}>
+                                                        {pagesSeo[proj.key]?.title || 'Sense títol personalitzat'}
+                                                    </div>
+                                                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                                        {pagesSeo[proj.key]?.description || 'Sense descripció personalitzada'}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </td>
                                         <td style={{ padding: '1rem', textAlign: 'center' }}>
                                             <div style={{ display: 'flex', justifyContent: 'center' }}>
