@@ -46,7 +46,7 @@ export const projectsData = [
     {
         id: 'tal-com-erem',
         slug: 'tal-com-erem',
-        image: '/meus_projectes.png',
+        image: '/talcomerem.jpg',
         tags: ['XXSS', 'Instagram', 'TikTok', 'Estratègia'],
         category: 'social_media',
         comingSoon: false,
