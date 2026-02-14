@@ -170,6 +170,36 @@ export default function Contact() {
                                     <Download size={20} />
                                     Descargar CV (Español)
                                 </a>
+                            ) : (i18n.language === 'en' || i18n.language.startsWith('en-')) ? (
+                                /* CV ANGLÈS */
+                                <a
+                                    href="/assets/cvEng.pdf"
+                                    download="cvEng.pdf"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem',
+                                        padding: '1rem 2rem',
+                                        background: 'var(--accent-primary)',
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        borderRadius: '50px',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: 'none',
+                                        transition: 'transform 0.2s',
+                                        boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.05)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                    }}
+                                >
+                                    <Download size={20} />
+                                    Download CV (English)
+                                </a>
                             ) : (
                                 /* CV CATALÀ (Default) */
                                 <a
