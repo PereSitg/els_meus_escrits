@@ -182,10 +182,7 @@ export default function TalComErem() {
 
                         {/* SOCIAL LINKS - White icons, active hover */}
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
-                            <a
-                                href="#"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <div
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -196,7 +193,8 @@ export default function TalComErem() {
                                     border: '2px solid rgba(255,255,255,0.3)',
                                     color: 'white',
                                     transition: 'all 0.3s ease',
-                                    background: 'transparent'
+                                    background: 'transparent',
+                                    cursor: 'default'
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
@@ -210,11 +208,8 @@ export default function TalComErem() {
                                 }}
                             >
                                 <Instagram size={28} />
-                            </a>
-                            <a
-                                href="#"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            </div>
+                            <div
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -225,7 +220,8 @@ export default function TalComErem() {
                                     border: '2px solid rgba(255,255,255,0.3)',
                                     color: 'white',
                                     transition: 'all 0.3s ease',
-                                    background: 'transparent'
+                                    background: 'transparent',
+                                    cursor: 'default'
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
@@ -239,7 +235,7 @@ export default function TalComErem() {
                                 }}
                             >
                                 <TikTokIcon size={28} />
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </motion.div>

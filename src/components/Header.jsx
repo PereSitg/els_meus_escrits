@@ -76,28 +76,22 @@ export default function Header() {
             >
                 <Linkedin size={20} />
             </a>
-            <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1 }}
+            <div
+                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1, cursor: 'default' }}
                 onMouseEnter={(e) => e.target.style.opacity = '0.8'}
                 onMouseLeave={(e) => e.target.style.opacity = '1'}
             >
                 <Instagram size={20} />
-            </a>
-            <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1, display: 'flex', alignItems: 'center' }}
+            </div>
+            <div
+                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1, display: 'flex', alignItems: 'center', cursor: 'default' }}
                 onMouseEnter={(e) => e.target.style.opacity = '0.8'}
                 onMouseLeave={(e) => e.target.style.opacity = '1'}
             >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                 </svg>
-            </a>
+            </div>
         </div>
     );
 
