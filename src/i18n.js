@@ -26,7 +26,8 @@ i18n
                         contact: 'Contacte',
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
-                        strat_pol: 'Estratègia i Consultoria'
+                        strat_pol: 'Estratègia i Consultoria',
+                        consultancy: 'Consultoria Estratègica'
                     },
                     contact: {
                         title: 'Contacte',
@@ -258,7 +259,8 @@ i18n
                         contact: 'Contacto',
                         logout: 'Cerrar sesión',
                         dev_ia: 'Desarrollo e IA',
-                        strat_pol: 'Estrategia y Consultoría'
+                        strat_pol: 'Estrategia y Consultoría',
+                        consultancy: 'Consultoría Estratégica'
                     },
                     contact: {
                         title: 'Contacto',
@@ -486,7 +488,8 @@ i18n
                         contact: 'Contact',
                         logout: 'Log out',
                         dev_ia: 'Development & AI',
-                        strat_pol: 'Strategy & Consulting'
+                        strat_pol: 'Strategy & Consulting',
+                        consultancy: 'Strategic Consultancy'
                     },
                     contact: {
                         title: 'Contact',

@@ -67,6 +67,7 @@ export default function Projects() {
         : projectsData.filter(project => {
             if (activeFilter === 'IA') return project.category === 'dev_ia';
             if (activeFilter === 'Politica') return project.category === 'strat_pol';
+            if (activeFilter === 'Consultoria') return project.id === 'fets-per-sitges';
             return true;
         });
 
@@ -138,6 +139,21 @@ export default function Projects() {
                         }}
                     >
                         {t('nav.strat_pol')}
+                    </button>
+                    <button
+                        onClick={() => setActiveFilter('Consultoria')}
+                        style={{
+                            padding: '0.6rem 1.5rem',
+                            borderRadius: '2rem',
+                            border: 'none',
+                            background: activeFilter === 'Consultoria' ? 'var(--accent-primary)' : 'transparent',
+                            color: activeFilter === 'Consultoria' ? 'white' : 'var(--text-secondary)',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                        }}
+                    >
+                        {t('nav.consultancy')}
                     </button>
                 </div>
 
