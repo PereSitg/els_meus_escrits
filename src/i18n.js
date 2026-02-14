@@ -147,7 +147,27 @@ i18n
                             feature_2: 'Gestió de la campanya digital 360',
                             feature_3: 'Anàlisi de dades i tendències d\'opinió',
                             try_button: 'Veure el projecte',
-                            back_button: 'Tornar a projectes'
+                            back_button: 'Tornar a projectes',
+                            subtitle: '666 vots amb un pressupost de guerrilla.',
+                            apm_title: 'Eficiència Extrema i l\'Efecte APM.',
+                            apm_desc: 'Amb un pressupost mínim comparat amb els partits tradicionals, vam prioritzar la viralitat. El vídeo de les nadales (estil APM) ens va donar l\'entrada gratuïta als mitjans nacionals (TV3), posant el projecte al mapa de Sitges en temps rècord.',
+                            video_caption: 'L\'acció que va saltar de les xarxes socials a TV3, generant una notorietat orgànica sense precedents a Sitges.',
+                            strategy_heading: 'Estratègies d\'Impacte',
+                            strategies: {
+                                creativity: { title: 'Creativitat vs Pressupost', desc: 'En un entorn saturat de propaganda clàssica, utilitzem el Pixel Art per explicar propostes complexes com la regeneració de les platges. Una solució estètica de baix cost però d\'alt impacte que connecta amb un públic més jove i digital.' },
+                                impact: { title: 'Impacte', desc: 'Missatges directes que generen reacció i record en l\'electorat.' },
+                                synthesis: { title: 'Síntesi', desc: 'Capacitat de resumir propostes complexes en idees clares i potents.' },
+                                rigor: { title: 'Rigor', desc: 'Base de dades i anàlisi darrera de cada afirmació i estratègia.' }
+                            },
+                            roi_label: 'Impacte Total',
+                            roi_title: 'ROI Polític: Un dels costos per vot més baixos de la història electoral de Sitges.',
+                            features: {
+                                narrative: { title: 'Narrativa "APM"', desc: 'Ús intel·ligent de clips virals i humor per desmuntar l\'status quo. Una guerrilla digital on el contingut és el projectil.' },
+                                lona: { title: 'Impacte Físic: La Lona', desc: 'Quan el món digital prem per saltar al carrer. Estratègia mixta on la visibilitat física va retroalimentar l\'abast online.' },
+                                data: { title: 'Data Driven', desc: 'Cada publicació, cada hora de llançament i cada segmentació va ser fruit d\'un anàlisi de dades previ rigorós.' }
+                            },
+                            human_title: 'Inclusivitat Real',
+                            human_desc: 'L\'estratègia no va ser només algorítmica. Treballar braç a braç amb persones amb altres capacitats ens va permetre humanitzar el missatge i connectar amb l\'ànima de Sitges de forma genuïna.'
                         },
                         ecosistema: {
                             title: 'Ecosistema Social',
@@ -379,7 +399,27 @@ i18n
                             feature_2: 'Gestión de la campaña digital 360',
                             feature_3: 'Análisis de datos y tendencias de opinión',
                             try_button: 'Ver el proyecto',
-                            back_button: 'Volver a proyectos'
+                            back_button: 'Volver a proyectos',
+                            subtitle: '666 votos con un presupuesto de guerrilla.',
+                            apm_title: 'Eficiencia Extrema y el Efecto APM.',
+                            apm_desc: 'Con un presupuesto mínimo comparado con los partidos tradicionales, priorizamos la viralidad. El vídeo de los villancicos (estilo APM) nos dio entrada gratuita a los medios nacionales (TV3), poniendo el proyecto en el mapa de Sitges en tiempo récord.',
+                            video_caption: 'La acción que saltó de las redes sociales a TV3, generando una notoriedad orgánica sin precedentes en Sitges.',
+                            strategy_heading: 'Estrategias de Impacto',
+                            strategies: {
+                                creativity: { title: 'Creatividad vs Presupuesto', desc: 'En un entorno saturado de propaganda clásica, utilizamos el Pixel Art para explicar propuestas complejas como la regeneración de las playas. Una solución estética de bajo coste pero de alto impacto que conecta con un público más joven y digital.' },
+                                impact: { title: 'Impacto', desc: 'Mensajes directos que generan reacción y recuerdo en el electorado.' },
+                                synthesis: { title: 'Síntesis', desc: 'Capacidad de resumir propuestas complejas en ideas claras y potentes.' },
+                                rigor: { title: 'Rigor', desc: 'Base de datos y análisis detrás de cada afirmación y estrategia.' }
+                            },
+                            roi_label: 'Impacto Total',
+                            roi_title: 'ROI Político: Uno de los costes por voto más bajos de la historia electoral de Sitges.',
+                            features: {
+                                narrative: { title: 'Narrativa "APM"', desc: 'Uso inteligente de clips virales y humor para desmontar el status quo. Una guerrilla digital donde el contenido es el proyectil.' },
+                                lona: { title: 'Impacto Físico: La Lona', desc: 'Cuando el mundo digital presiona para saltar a la calle. Estrategia mixta donde la visibilidad física retroalimentó el alcance online.' },
+                                data: { title: 'Data Driven', desc: 'Cada publicación, cada hora de lanzamiento y cada segmentación fue fruto de un análisis de datos previo riguroso.' }
+                            },
+                            human_title: 'Inclusividad Real',
+                            human_desc: 'La estrategia no fue solo algorítmica. Trabajar codo con codo con personas con otras capacidades nos permitió humanizar el mensaje y conectar con el alma de Sitges de forma genuina.'
                         },
                         ecosistema: {
                             title: 'Ecosistema Social',
@@ -608,7 +648,27 @@ i18n
                             feature_2: '360 digital campaign management',
                             feature_3: 'Data analysis and opinion trends',
                             try_button: 'View the project',
-                            back_button: 'Back to projects'
+                            back_button: 'Back to projects',
+                            subtitle: '666 votes with a guerrilla budget.',
+                            apm_title: 'Extreme Efficiency and the APM Effect.',
+                            apm_desc: 'With a minimal budget compared to traditional parties, we prioritized virality. The Christmas carols video (APM style) gave us free entry to national media (TV3), putting the project on the Sitges map in record time.',
+                            video_caption: 'The action that jumped from social media to TV3, generating unprecedented organic notoriety in Sitges.',
+                            strategy_heading: 'Impact Strategies',
+                            strategies: {
+                                creativity: { title: 'Creativity vs Budget', desc: 'In an environment saturated with classic propaganda, we use Pixel Art to explain complex proposals like beach regeneration. A low-cost but high-impact aesthetic solution that connects with a younger and more digital audience.' },
+                                impact: { title: 'Impact', desc: 'Direct messages that generate reaction and remembrance in the electorate.' },
+                                synthesis: { title: 'Synthesis', desc: 'Ability to summarize complex proposals into clear and powerful ideas.' },
+                                rigor: { title: 'Rigor', desc: 'Database and analysis behind every claim and strategy.' }
+                            },
+                            roi_label: 'Total Impact',
+                            roi_title: 'Political ROI: One of the lowest costs per vote in Sitges\' electoral history.',
+                            features: {
+                                narrative: { title: ' "APM" Narrative', desc: 'Intelligent use of viral clips and humor to dismantle the status quo. A digital guerrilla where content is the projectile.' },
+                                lona: { title: 'Physical Impact: The Billboard', desc: 'When the digital world pushes to jump to the streets. A mixed strategy where physical visibility fed back into online reach.' },
+                                data: { title: 'Data Driven', desc: 'Every post, every launch time, and every segmentation was the result of rigorous prior data analysis.' }
+                            },
+                            human_title: 'Real Inclusivity',
+                            human_desc: 'The strategy was not just algorithmic. Working side by side with people with other capabilities allowed us to humanize the message and connect with the soul of Sitges in a genuine way.'
                         },
                         ecosistema: {
                             title: 'Social Ecosystem',
