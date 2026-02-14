@@ -110,7 +110,7 @@ export default function FetsPerSitges() {
                             fontWeight: '900',
                             textTransform: 'uppercase'
                         }}>
-                            {t('projects.fetspersitges.title')}
+                            Fets per Sitges: 666 vots amb pressupost de guerrilla.
                         </h1>
                         <p style={{
                             fontSize: '1.5rem',
@@ -119,7 +119,7 @@ export default function FetsPerSitges() {
                             letterSpacing: '0.1em',
                             marginBottom: '3rem'
                         }}>
-                            ESTRATÈGIA DE GUERRILLA DIGITAL
+                            Creativitat estratègica per maximitzar recursos on cada euro compta.
                         </p>
 
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -143,10 +143,10 @@ export default function FetsPerSitges() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', marginBottom: '6rem', alignItems: 'center' }} className="mobile-stack">
                     <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
                         <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#fff', borderLeft: `8px solid ${palette.primary}`, paddingLeft: '1.5rem' }}>
-                            La força de la síntesi
+                            Eficiència Extrema i l'Efecte APM.
                         </h2>
                         <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '2rem' }}>
-                            {t('projects.fetspersitges.detail_desc')}
+                            Amb un pressupost mínim comparat amb els partits tradicionals, vam prioritzar la viralitat. El vídeo de les nadales (estil APM) ens va donar l'entrada gratuïta als mitjans nacionals (TV3), posant el projecte al mapa de Sitges en temps rècord.
                         </p>
                         <div style={{ padding: '2rem', background: palette.card, border: `1px solid ${palette.primary}`, borderRadius: '0.5rem' }}>
                             <p style={{ fontSize: '1.1rem', fontStyle: 'italic', margin: 0 }}>"{t('projects.fetspersitges.author_note')}"</p>
@@ -201,8 +201,8 @@ export default function FetsPerSitges() {
                             Impacte Total
                         </div>
                         <h2 style={{ fontSize: '3.5rem', marginBottom: '2rem', color: '#fff', lineHeight: '1.1' }}>
-                            666 vots. <br />
-                            <span style={{ color: palette.accent }}>0€ de pressupost.</span>
+                            ROI Polític: <br />
+                            <span style={{ color: palette.accent }}>Un dels costos per vot més baixos de la història electoral de Sitges.</span>
                         </h2>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                             <div style={{ display: 'flex', gap: '1.5rem' }}>
