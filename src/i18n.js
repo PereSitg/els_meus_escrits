@@ -18,11 +18,11 @@ i18n
                     nav: {
                         home: 'Inici',
                         projects: 'Projectes',
-                        writings: 'Els meus escrits',
+                        writings: 'Escrits',
                         sitges: 'Sitges',
                         ecos: 'Ecos de Sociedad',
                         altres: 'Altres històries',
-                        stack: 'El meu Stack',
+                        stack: 'Stack',
                         contact: 'Contacte',
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
