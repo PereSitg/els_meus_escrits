@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, ChevronDown, LogOut } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, LogOut, Linkedin, Instagram } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
@@ -55,6 +55,49 @@ export default function Header() {
                     {lng.toUpperCase()}
                 </button>
             ))}
+        </div>
+    );
+
+    const SocialIcons = ({ mobile = false }) => (
+        <div style={{
+            display: 'flex',
+            gap: '1rem',
+            alignItems: 'center',
+            marginTop: mobile ? '1.5rem' : '0',
+            marginLeft: mobile ? '0' : '1.5rem'
+        }}>
+            <a
+                href="https://www.linkedin.com/in/pbadialorenz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1 }}
+                onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+                onMouseLeave={(e) => e.target.style.opacity = '1'}
+            >
+                <Linkedin size={20} />
+            </a>
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1 }}
+                onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+                onMouseLeave={(e) => e.target.style.opacity = '1'}
+            >
+                <Instagram size={20} />
+            </a>
+            <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ffffff', transition: 'opacity 0.2s', opacity: 1, display: 'flex', alignItems: 'center' }}
+                onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+                onMouseLeave={(e) => e.target.style.opacity = '1'}
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                </svg>
+            </a>
         </div>
     );
 
@@ -140,6 +183,7 @@ export default function Header() {
                     </Link>
 
                     <LangSwitcher />
+                    <SocialIcons />
 
                     {currentUser && (
                         <button
@@ -189,6 +233,7 @@ export default function Header() {
                     >
                         <div className="container mobile-nav-content" style={{ display: 'flex', flexDirection: 'column', padding: '1rem 1.5rem' }}>
                             <LangSwitcher mobile />
+                            <SocialIcons mobile />
 
                             <Link
                                 to="/"
