@@ -55,9 +55,9 @@ export default function MediaLibrary() {
             for (const postDoc of snapshot.docs) {
                 const post = postDoc.data();
                 if (post.image) {
-                    // Generem ID consistent basat en la URL
-                    const mediaId = btoa(post.image).substring(0, 50).replace(/\//g, '_');
-                    const mediaRef = doc(db, 'media_library', mediaId);
+                    // Generem ID consistent basat en la URL de forma segura
+                    const urlSafeId = post.image.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 80);
+                    const mediaRef = doc(db, 'media_library', urlSafeId);
 
                     const fileName = post.image.split('/').pop().split('?')[0];
 
@@ -76,7 +76,7 @@ export default function MediaLibrary() {
             fetchMedia(); // Refresquem la graella
         } catch (error) {
             console.error("Error en la migració:", error);
-            alert("Error durant la sincronització masiva.");
+            alert(`Error durant la sincronització: ${error.message || 'Error desconegut'}`);
         }
         setIsMigrating(false);
     };
