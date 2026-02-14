@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Megaphone, Users, LineChart, Zap, Target, FileText, Share2, Sparkles, Heart, Video, Flag, BarChart3 } from 'lucide-react';
 import RelatedProjects from '../components/RelatedProjects';
 import { projectsData } from '../data/projects';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { useSEO } from '../hooks/useSEO';
 
 function Counter({ value, duration = 2, delay = 0 }) {
     const [count, setCount] = useState(0);
@@ -45,53 +44,12 @@ function Counter({ value, duration = 2, delay = 0 }) {
 
 export default function FetsPerSitges() {
     const { t } = useTranslation();
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
     const project = projectsData.find(p => p.id === 'fets-per-sitges');
-
-    useEffect(() => {
-        const fetchSEO = async () => {
-            try {
-                const docSnap = await getDoc(doc(db, 'site_seo', 'fets-per-sitges'));
-                if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
-                }
-            } catch (error) {
-                console.error("Error fetching SEO status:", error);
-            }
-        };
-        fetchSEO();
-    }, []);
+    useSEO('fets-per-sitges', 'projects.fetspersitges.title');
 
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        if (project) {
-            // SEO logic
-            document.title = `${project.seoTitle || t('projects.fetspersitges.title')} | Pere Badia i Lorenz`;
-
-            let metaDescription = document.querySelector('meta[name="description"]');
-            if (!metaDescription) {
-                metaDescription = document.createElement('meta');
-                metaDescription.name = 'description';
-                document.head.appendChild(metaDescription);
-            }
-            metaDescription.content = project.seoDescription || t('projects.fetspersitges.detail_desc');
-
-            const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : (project.isIndexed !== false);
-
-            let metaRobots = document.querySelector('meta[name="robots"]');
-            if (isPageIndexed === false) {
-                if (!metaRobots) {
-                    metaRobots = document.createElement('meta');
-                    metaRobots.name = 'robots';
-                    document.head.appendChild(metaRobots);
-                }
-                metaRobots.content = "noindex, nofollow";
-            } else if (metaRobots) {
-                metaRobots.remove();
-            }
-        }
-    }, [project, t, isIndexedOverride]);
+    }, []);
 
     const palette = {
         primary: '#4a0404', // Burgundy

@@ -1,66 +1,18 @@
 import { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Contact() {
     const { t } = useTranslation();
+    useSEO('contact', 'contact.title');
     const [formData, setFormData] = useState({ name: '', email: '', message: '', captcha: '' });
     const [captchaNums, setCaptchaNums] = useState({ n1: 0, n2: 0 });
     const [error, setError] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
     const [sending, setSending] = useState(false);
-
-    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
-
-    useEffect(() => {
-        const fetchSEO = async () => {
-            try {
-                const docSnap = await getDoc(doc(db, 'site_seo', 'contact'));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    setSeoData({
-                        title: data.title || '',
-                        description: data.description || '',
-                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching SEO status:", error);
-            }
-        };
-        fetchSEO();
-    }, []);
-
-    useEffect(() => {
-        // SEO logic
-        document.title = seoData.title || `${t('contact.title')} | Pere Badia i Lorenz`;
-
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (!metaDescription) {
-            metaDescription = document.createElement('meta');
-            metaDescription.name = 'description';
-            document.head.appendChild(metaDescription);
-        }
-        metaDescription.content = seoData.description || t('contact.bio_p1');
-
-        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
-
-        let metaRobots = document.querySelector('meta[name="robots"]');
-        if (isPageIndexed === false) {
-            if (!metaRobots) {
-                metaRobots = document.createElement('meta');
-                metaRobots.name = 'robots';
-                document.head.appendChild(metaRobots);
-            }
-            metaRobots.content = "noindex, nofollow";
-        } else if (metaRobots) {
-            metaRobots.remove();
-        }
-    }, [t, seoData]);
 
     useEffect(() => {
         generateCaptcha();

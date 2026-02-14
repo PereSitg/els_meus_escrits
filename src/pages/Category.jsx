@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Category() {
     const { slug } = useParams();
+    const { t } = useTranslation();
+
     // Map URL slug to stored Category name (exact match required)
     const categoryMap = {
         'politica': 'Política',
         'ecos': 'Ecos de Sociedad',
         'sitges': 'Sitges',
-        'altres': 'Altres'
+        'altres': 'Altres històries'
     };
 
     const categoryName = categoryMap[slug] || slug;
+    useSEO(`category_${slug}`, null);
+
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 

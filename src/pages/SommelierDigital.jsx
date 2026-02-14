@@ -1,62 +1,20 @@
-import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Code2, Database, Layout } from 'lucide-react';
 import RelatedProjects from '../components/RelatedProjects';
 import { projectsData } from '../data/projects';
+import { useSEO } from '../hooks/useSEO';
 
 export default function SommelierDigital() {
     const { t } = useTranslation();
-    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
     const project = projectsData.find(p => p.id === 'sommelier-digital');
-
-    useEffect(() => {
-        const fetchSEO = async () => {
-            try {
-                const docSnap = await getDoc(doc(db, 'site_seo', 'sommelier-digital'));
-                if (docSnap.exists()) {
-                    setIsIndexedOverride(docSnap.data().isIndexed);
-                }
-            } catch (error) {
-                console.error("Error fetching SEO status:", error);
-            }
-        };
-        fetchSEO();
-    }, []);
+    useSEO('sommelier-digital', 'projects.sommelier.title');
 
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        if (project) {
-            // Lògica SEO
-            document.title = `${project.seoTitle || t('projects.sommelier.title')} | Pere Badia i Lorenz`;
-
-            let metaDescription = document.querySelector('meta[name="description"]');
-            if (!metaDescription) {
-                metaDescription = document.createElement('meta');
-                metaDescription.name = 'description';
-                document.head.appendChild(metaDescription);
-            }
-            metaDescription.content = project.seoDescription || t('projects.sommelier.detail_desc');
-
-            const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : (project.isIndexed !== false);
-
-            let metaRobots = document.querySelector('meta[name="robots"]');
-            if (isPageIndexed === false) {
-                if (!metaRobots) {
-                    metaRobots = document.createElement('meta');
-                    metaRobots.name = 'robots';
-                    document.head.appendChild(metaRobots);
-                }
-                metaRobots.content = "noindex, nofollow";
-            } else if (metaRobots) {
-                metaRobots.remove();
-            }
-        }
-    }, [project, t, isIndexedOverride]);
+    }, []);
 
     const tags = ['IA', 'Python', 'Gemini API', 'LangChain'];
 

@@ -5,37 +5,16 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, CheckCircle2, Cpu, Code2, Search, Database, Layout } from 'lucide-react';
 import RelatedProjects from '../components/RelatedProjects';
 import { projectsData } from '../data/projects';
+import { useSEO } from '../hooks/useSEO';
 
 export default function SitgesArt() {
     const { t } = useTranslation();
     const project = projectsData.find(p => p.id === 'sitges-art');
+    useSEO('sitges-art', 'projects.sitgesart.title');
 
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        if (project) {
-            // SEO logic
-            document.title = `${project.seoTitle || t('projects.sitgesart.title')} | Pere Badia i Lorenz`;
-
-            let metaDescription = document.querySelector('meta[name="description"]');
-            if (!metaDescription) {
-                metaDescription = document.createElement('meta');
-                metaDescription.name = 'description';
-                document.head.appendChild(metaDescription);
-            }
-            metaDescription.content = project.seoDescription || t('projects.sitgesart.detail_desc');
-
-            if (project.isIndexed === false) {
-                let metaRobots = document.querySelector('meta[name="robots"]');
-                if (!metaRobots) {
-                    metaRobots = document.createElement('meta');
-                    metaRobots.name = 'robots';
-                    document.head.appendChild(metaRobots);
-                }
-                metaRobots.content = "noindex, nofollow";
-            }
-        }
-    }, [project, t]);
+    }, []);
 
     const tags = ['Cultura', 'Història', 'IA', 'Python', 'Gemini API'];
 

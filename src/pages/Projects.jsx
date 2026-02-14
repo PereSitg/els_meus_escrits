@@ -3,60 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 import { projectsData, allTags } from '../data/projects';
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { useSEO } from '../hooks/useSEO';
 
 export default function Projects() {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('All');
-    const [seoData, setSeoData] = useState({ title: '', description: '', isIndexed: null });
-
-    useEffect(() => {
-        const fetchSEO = async () => {
-            try {
-                const docSnap = await getDoc(doc(db, 'site_seo', 'projects_list'));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    setSeoData({
-                        title: data.title || '',
-                        description: data.description || '',
-                        isIndexed: data.isIndexed !== undefined ? data.isIndexed : null
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching SEO status:", error);
-            }
-        };
-        fetchSEO();
-    }, []);
-
-    useEffect(() => {
-        // SEO logic
-        document.title = seoData.title || `${t('projects.title')} | Pere Badia i Lorenz`;
-
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (!metaDescription) {
-            metaDescription = document.createElement('meta');
-            metaDescription.name = 'description';
-            document.head.appendChild(metaDescription);
-        }
-        metaDescription.content = seoData.description || t('projects.description');
-
-        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
-
-        let metaRobots = document.querySelector('meta[name="robots"]');
-        if (isPageIndexed === false) {
-            if (!metaRobots) {
-                metaRobots = document.createElement('meta');
-                metaRobots.name = 'robots';
-                document.head.appendChild(metaRobots);
-            }
-            metaRobots.content = "noindex, nofollow";
-        } else if (metaRobots) {
-            metaRobots.remove();
-        }
-    }, [t, seoData]);
+    useSEO('projects_list', 'projects.title');
 
     useEffect(() => {
         const tag = searchParams.get('tag');
