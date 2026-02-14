@@ -48,7 +48,7 @@ export const projectsData = [
         slug: 'tal-com-erem',
         image: '/meus_projectes.png',
         tags: ['XXSS', 'Instagram', 'TikTok', 'Estratègia'],
-        category: 'strat_pol',
+        category: 'social_media',
         comingSoon: false,
         translationKey: 'tal_com_erem_project',
         seoTitle: 'Tal com érem | Recuperació del Patrimoni Visual',
