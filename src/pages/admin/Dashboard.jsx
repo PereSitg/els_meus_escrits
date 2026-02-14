@@ -107,8 +107,8 @@ export default function Dashboard() {
 
         setIsTranslating(true);
         try {
-            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY, { apiVersion: "v1" });
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
             const prompt = `Ets un expert en SEO i traducció. Tradueix el següent contingut SEO del català al castellà i a l'anglès. 
             És molt important mantenir el significat i l'optimització SEO.
