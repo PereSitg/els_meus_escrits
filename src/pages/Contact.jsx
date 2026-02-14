@@ -6,7 +6,7 @@ import { useSEO } from '../hooks/useSEO';
 import { Download } from 'lucide-react';
 
 export default function Contact() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     useSEO('contact', 'contact.title');
     const [formData, setFormData] = useState({ name: '', email: '', message: '', captcha: '' });
     const [captchaNums, setCaptchaNums] = useState({ n1: 0, n2: 0 });
@@ -139,35 +139,68 @@ export default function Contact() {
                             </p>
                         </div>
 
-                        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
-                            <a
-                                href="/assets/cvCat.pdf"
-                                download="cvCat.pdf"
-                                style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '0.75rem',
-                                    padding: '1rem 2rem',
-                                    background: 'var(--accent-primary)',
-                                    color: 'white',
-                                    textDecoration: 'none',
-                                    borderRadius: '50px',
-                                    fontSize: '1.1rem',
-                                    fontWeight: '600',
-                                    border: 'none',
-                                    transition: 'transform 0.2s',
-                                    boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                }}
-                            >
-                                <Download size={20} />
-                                Descarregar CV (Català)
-                            </a>
+                        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                            {(i18n.language === 'es' || i18n.language.startsWith('es-')) ? (
+                                /* CV CASTELLÀ */
+                                <a
+                                    href="/assets/cvEs.pdf"
+                                    download="cvEs.pdf"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem',
+                                        padding: '1rem 2rem',
+                                        background: 'var(--accent-primary)',
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        borderRadius: '50px',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: 'none',
+                                        transition: 'transform 0.2s',
+                                        boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.05)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                    }}
+                                >
+                                    <Download size={20} />
+                                    Descargar CV (Español)
+                                </a>
+                            ) : (
+                                /* CV CATALÀ (Default) */
+                                <a
+                                    href="/assets/cvCat.pdf"
+                                    download="cvCat.pdf"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.75rem',
+                                        padding: '1rem 2rem',
+                                        background: 'var(--accent-primary)',
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                        borderRadius: '50px',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        border: 'none',
+                                        transition: 'transform 0.2s',
+                                        boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.05)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                    }}
+                                >
+                                    <Download size={20} />
+                                    Descarregar CV (Català)
+                                </a>
+                            )}
                         </div>
                     </motion.div>
 
