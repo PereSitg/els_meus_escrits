@@ -35,7 +35,7 @@ export const projectsData = [
     {
         id: 'fets-per-sitges',
         slug: 'fets-per-sitges',
-        image: '/portada.png',
+        image: '/fets_per_sitges_card.png',
         tags: ['Política', 'Estratègia', 'Consultoria'],
         category: 'strat_pol',
         translationKey: 'fetspersitges',
