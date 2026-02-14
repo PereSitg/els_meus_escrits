@@ -101,7 +101,7 @@ export default function Dashboard() {
         }
 
         if (!GEMINI_API_KEY) {
-            alert("Clau de Gemini no configurada.");
+            alert("⚠️ Clau de Gemini (VITE_GEMINI_API_KEY) no trobada a l'entorn.");
             return;
         }
 
@@ -112,12 +112,12 @@ export default function Dashboard() {
 
             const prompt = `Ets un expert en SEO i traducció. Tradueix el següent contingut SEO del català al castellà i a l'anglès. 
             És molt important mantenir el significat i l'optimització SEO.
-            Retorna NOMÉS un objecte JSON amb aquest format exactament, sense Markdown:
+            Retorna NOMÉS un objecte JSON amb aquest format exactament:
             {
-                "title_es": "traducció al castellà",
-                "description_es": "traducció al castellà",
-                "title_en": "traducció a l'anglès",
-                "description_en": "traducció a l'anglès"
+                "title_es": "...",
+                "description_es": "...",
+                "title_en": "...",
+                "description_en": "..."
             }
 
             Contingut a traduir:
@@ -126,8 +126,16 @@ export default function Dashboard() {
 
             const result = await model.generateContent(prompt);
             const response = await result.response;
-            const text = response.text().replace(/```json|```/g, '').trim();
-            const translations = JSON.parse(text);
+            let text = response.text().trim();
+
+            // Extreure JSON robustament (per si la IA posa ```json ... ```)
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) {
+                console.error("No s'ha trobat format JSON en la resposta:", text);
+                throw new Error("La resposta de la IA no té un format vàlid.");
+            }
+
+            const translations = JSON.parse(jsonMatch[0]);
 
             setEditValues(prev => ({
                 ...prev,
@@ -136,7 +144,15 @@ export default function Dashboard() {
             alert("IA: Traducció SEO completada!");
         } catch (error) {
             console.error("Error en la traducció automàtica:", error);
-            alert("Error en la traducció automàtica. Intenta-ho de nou.");
+            const isQuotaExceeded = error.message?.includes('429') || error.message?.toLowerCase().includes('quota');
+            const isAuthError = error.message?.includes('401') || error.message?.toLowerCase().includes('api key');
+
+            let errorMsg = "Error en la traducció automàtica.";
+            if (isQuotaExceeded) errorMsg += "\nS'ha superat la quota de l'API (massa peticions).";
+            else if (isAuthError) errorMsg += "\nLa clau de l'API de Gemini no és vàlida.";
+            else errorMsg += `\nDetalls: ${error.message}`;
+
+            alert(errorMsg);
         } finally {
             setIsTranslating(false);
         }
