@@ -36,7 +36,7 @@ export default function TalComErem() {
             background: '#ffffff', // Clean background
             color: '#333333',
             fontFamily: '"Outfit", sans-serif',
-            paddingTop: '6rem',
+            paddingTop: '2rem',
             paddingBottom: '4rem'
         }}>
             {/* UNDER CONSTRUCTION BANNER - Prominent */}
@@ -45,16 +45,14 @@ export default function TalComErem() {
                 color: 'white',
                 textAlign: 'center',
                 padding: '1rem',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                zIndex: 1000,
+                position: 'relative',
+                zIndex: 10,
                 fontWeight: 'bold',
                 letterSpacing: '0.1em',
                 fontSize: '1rem',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                borderBottom: '2px solid rgba(255,255,255,0.2)'
+                boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                borderBottom: '2px solid rgba(255,255,255,0.1)',
+                marginBottom: '2rem'
             }}>
                 🏗️ PROJECTE EN CONSTRUCCIÓ - DISPONIBLE MOLT AVIAT 🏗️
             </div>

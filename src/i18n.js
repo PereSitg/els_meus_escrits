@@ -27,6 +27,7 @@ i18n
                         logout: 'Tancar sessió',
                         dev_ia: 'Desenvolupament i IA',
                         strat_pol: 'Estratègia i Consultoria',
+                        social_media: 'Xarxes Socials i Comunicació',
                         consultancy: 'Consultoria Estratègica',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -287,6 +288,7 @@ i18n
                         logout: 'Cerrar sesión',
                         dev_ia: 'Desarrollo e IA',
                         strat_pol: 'Estrategia y Consultoría',
+                        social_media: 'Redes Sociales y Comunicación',
                         consultancy: 'Consultoría Estratégica',
                         tal_com_erem: 'Tal com érem'
                     },
@@ -543,6 +545,7 @@ i18n
                         logout: 'Log out',
                         dev_ia: 'Development & AI',
                         strat_pol: 'Strategy & Consulting',
+                        social_media: 'Social Media & Communication',
                         consultancy: 'Strategic Consultancy',
                         tal_com_erem: 'Tal com érem'
                     },
