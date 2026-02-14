@@ -23,6 +23,7 @@ import FetsPerSitges from './pages/FetsPerSitges';
 import LegalNotice from './pages/LegalNotice';
 import CookiePolicy from './pages/CookiePolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TalComErem from './pages/TalComErem';
 
 function App() {
   const { i18n } = useTranslation();
@@ -49,6 +50,7 @@ function App() {
             <Route path="projects/sitges-art" element={<SitgesArt />} />
             <Route path="projects/sitges-walk" element={<SitgesWalk />} />
             <Route path="projects/fets-per-sitges" element={<FetsPerSitges />} />
+            <Route path="projects/tal-com-erem" element={<TalComErem />} />
             <Route path="avis-legal" element={<LegalNotice />} />
             <Route path="politica-cookies" element={<CookiePolicy />} />
             <Route path="politica-privacitat" element={<PrivacyPolicy />} />

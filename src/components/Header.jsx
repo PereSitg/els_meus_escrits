@@ -31,6 +31,7 @@ export default function Header() {
     const professionalItems = [
         { name: t('nav.dev_ia'), path: '/projects?tag=IA' },
         { name: t('nav.consultancy'), path: '/projects?tag=Consultoria' },
+        { name: t('nav.tal_com_erem'), path: '/projects/tal-com-erem' },
     ];
 
     const writingItems = [
