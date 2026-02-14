@@ -1,45 +1,85 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { collection, getDocs, updateDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, serverTimestamp, query, orderBy, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { Image as ImageIcon, Save, ArrowLeft, Loader2, Search, ExternalLink, CheckCircle2 } from 'lucide-react';
+import { Image as ImageIcon, Save, ArrowLeft, Loader2, Search, ExternalLink, CheckCircle2, Sparkles, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MediaLibrary() {
     const [mediaItems, setMediaItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isMigrating, setIsMigrating] = useState(false);
     const [savingId, setSavingId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [savedFeedback, setSavedFeedback] = useState(null);
     const { currentUser } = useAuth();
     const navigate = useNavigate();
 
+    const fetchMedia = async () => {
+        setLoading(true);
+        try {
+            const mediaRef = collection(db, 'media_library');
+            const q = query(mediaRef, orderBy('updatedAt', 'desc'));
+            const snapshot = await getDocs(q);
+            const items = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setMediaItems(items);
+        } catch (error) {
+            console.error("Error fetching media:", error);
+        }
+        setLoading(false);
+    };
+
     useEffect(() => {
         if (!currentUser) {
             navigate('/admin/login');
             return;
         }
-
-        const fetchMedia = async () => {
-            setLoading(true);
-            try {
-                const mediaRef = collection(db, 'media_library');
-                const q = query(mediaRef, orderBy('updatedAt', 'desc'));
-                const snapshot = await getDocs(q);
-                const items = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                setMediaItems(items);
-            } catch (error) {
-                console.error("Error fetching media:", error);
-            }
-            setLoading(false);
-        };
-
         fetchMedia();
     }, [currentUser, navigate]);
+
+    const handleMigration = async () => {
+        if (!window.confirm("Això escanejarà tots els teus articles i afegirà les fotos a la biblioteca si encara no hi són. Vols continuar?")) {
+            return;
+        }
+
+        setIsMigrating(true);
+        try {
+            const postsRef = collection(db, 'posts');
+            const snapshot = await getDocs(postsRef);
+            let addedCount = 0;
+
+            for (const postDoc of snapshot.docs) {
+                const post = postDoc.data();
+                if (post.image) {
+                    // Generem ID consistent basat en la URL
+                    const mediaId = btoa(post.image).substring(0, 50).replace(/\//g, '_');
+                    const mediaRef = doc(db, 'media_library', mediaId);
+
+                    const fileName = post.image.split('/').pop().split('?')[0];
+
+                    await setDoc(mediaRef, {
+                        url_imatge: post.image,
+                        nom_arxiu: fileName || post.title,
+                        alt_text: post.imageAlt || post.title || '',
+                        projecte_associat: post.title || 'Sense títol',
+                        updatedAt: serverTimestamp()
+                    }, { merge: true });
+                    addedCount++;
+                }
+            }
+
+            alert(`Sincronització completada! S'han processat ${addedCount} imatges.`);
+            fetchMedia(); // Refresquem la graella
+        } catch (error) {
+            console.error("Error en la migració:", error);
+            alert("Error durant la sincronització masiva.");
+        }
+        setIsMigrating(false);
+    };
 
     const handleUpdateAlt = async (id, newAlt) => {
         setMediaItems(prev => prev.map(item =>
@@ -64,6 +104,11 @@ export default function MediaLibrary() {
         setSavingId(null);
     };
 
+    const handleIASuggest = async (id) => {
+        // En el futur, aquí connectarem amb Gemini
+        alert("IA: Analitzant la imatge... Proximament podràs generar descripcions automàtiques amb Gemini!");
+    };
+
     const filteredItems = mediaItems.filter(item =>
         (item.nom_arxiu?.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (item.projecte_associat?.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -78,22 +123,40 @@ export default function MediaLibrary() {
                     </Link>
                     <h1>Biblioteca de Mitjans</h1>
                 </div>
-                <div style={{ position: 'relative', width: '300px' }}>
-                    <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)' }} />
-                    <input
-                        type="text"
-                        placeholder="Cerca per nom o projecte..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <button
+                        onClick={handleMigration}
+                        disabled={isMigrating}
+                        className="btn"
                         style={{
-                            width: '100%',
-                            padding: '0.6rem 1rem 0.6rem 2.5rem',
-                            background: 'var(--bg-secondary)',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            color: 'white',
-                            borderRadius: '0.5rem'
+                            background: 'rgba(59, 130, 246, 0.1)',
+                            color: 'var(--accent-primary)',
+                            border: '1px solid var(--accent-primary)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
                         }}
-                    />
+                    >
+                        {isMigrating ? <Loader2 size={18} className="animate-spin" /> : <RefreshCw size={18} />}
+                        Sincronitza fotos antigues
+                    </button>
+                    <div style={{ position: 'relative', width: '300px' }}>
+                        <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)' }} />
+                        <input
+                            type="text"
+                            placeholder="Cerca per nom o projecte..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '0.6rem 1rem 0.6rem 2.5rem',
+                                background: 'var(--bg-secondary)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                color: 'white',
+                                borderRadius: '0.5rem'
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -169,9 +232,29 @@ export default function MediaLibrary() {
                                 </div>
 
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.4rem', fontWeight: 'bold' }}>
-                                        ATRIBUT ALT (SEO)
-                                    </label>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                                        <label style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 'bold' }}>
+                                            ATRIBUT ALT (SEO)
+                                        </label>
+                                        <button
+                                            onClick={() => handleIASuggest(item.id)}
+                                            style={{
+                                                background: 'rgba(59, 130, 246, 0.1)',
+                                                color: 'var(--accent-primary)',
+                                                border: '1px solid var(--accent-primary)',
+                                                borderRadius: '0.3rem',
+                                                padding: '0.2rem 0.5rem',
+                                                fontSize: '0.7rem',
+                                                fontWeight: 'bold',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.3rem',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <Sparkles size={12} /> Suggerir amb IA
+                                        </button>
+                                    </div>
                                     <textarea
                                         value={item.alt_text || ''}
                                         onChange={(e) => handleUpdateAlt(item.id, e.target.value)}
