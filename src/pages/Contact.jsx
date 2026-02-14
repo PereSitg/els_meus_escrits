@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { useSEO } from '../hooks/useSEO';
+import { Download } from 'lucide-react';
 
 export default function Contact() {
     const { t } = useTranslation();
@@ -136,6 +137,38 @@ export default function Contact() {
                             }}>
                                 {t('contact.bio_footer')}
                             </p>
+                        </div>
+
+                        <div style={{ marginTop: '2rem' }}>
+                            <a
+                                href="/assets/cvCat.pdf"
+                                download="cvCat.pdf"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.75rem',
+                                    padding: '1rem 2rem',
+                                    background: 'rgba(255,255,255,0.1)',
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                    borderRadius: '50px',
+                                    fontSize: '1.1rem',
+                                    fontWeight: '500',
+                                    border: '1px solid rgba(255,255,255,0.2)',
+                                    transition: 'all 0.3s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = 'white';
+                                    e.currentTarget.style.color = 'black';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                                    e.currentTarget.style.color = 'white';
+                                }}
+                            >
+                                <Download size={20} />
+                                Descarregar CV (Català)
+                            </a>
                         </div>
                     </motion.div>
 
