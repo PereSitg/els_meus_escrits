@@ -45,6 +45,9 @@ export default function PostEditor() {
     const [socialSummary, setSocialSummary] = useState('');
     const [customDate, setCustomDate] = useState(new Date().toISOString().split('T')[0]);
     const [isPublishedInEco, setIsPublishedInEco] = useState(false);
+    const [seoTitle, setSeoTitle] = useState('');
+    const [seoDescription, setSeoDescription] = useState('');
+    const [isIndexed, setIsIndexed] = useState(true);
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
@@ -127,6 +130,9 @@ export default function PostEditor() {
                         if (data.createdAt?.toDate) {
                             setCustomDate(data.createdAt.toDate().toISOString().split('T')[0]);
                         }
+                        setSeoTitle(data.seoTitle || '');
+                        setSeoDescription(data.seoDescription || '');
+                        setIsIndexed(data.isIndexed !== undefined ? data.isIndexed : true);
                     }
                 } catch (error) {
                     console.error("Error fetching post:", error);
@@ -148,6 +154,9 @@ export default function PostEditor() {
         setSocialSummary('');
         setCustomDate(new Date().toISOString().split('T')[0]);
         setIsPublishedInEco(false);
+        setSeoTitle('');
+        setSeoDescription('');
+        setIsIndexed(true);
         setPublishProgress(0);
         setPublishFinished(false);
         setShowModal(false);
@@ -366,6 +375,9 @@ export default function PostEditor() {
                 content,
                 socialSummary: socialSummary || content.substring(0, 160),
                 publishedInEco: isPublishedInEco,
+                seoTitle,
+                seoDescription,
+                isIndexed,
                 updatedAt: serverTimestamp()
             };
 
@@ -640,7 +652,7 @@ export default function PostEditor() {
                     ></textarea>
                 </div>
 
-                <div style={{ padding: '1.5rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
+                <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '0.75rem', border: '1px dashed rgba(255,255,255,0.1)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', color: 'var(--accent-primary)' }}>
                         <Share2 size={20} />
                         <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Configuració per a Xarxes Socials (XXSS)</h3>
@@ -655,6 +667,71 @@ export default function PostEditor() {
                                 placeholder="Deixa-ho buit per usar un resum automàtic de l'article..."
                                 style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
                             ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div style={{ padding: '1.5rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--accent-primary)' }}>
+                        <Sparkles size={20} />
+                        <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Configuració SEO (Estil Yoast)</h3>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Títol SEO (Meta Title)</label>
+                            <input
+                                type="text"
+                                placeholder="Deixa-ho buit per usar el títol de l'article..."
+                                value={seoTitle}
+                                onChange={e => setSeoTitle(e.target.value)}
+                                style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
+                            />
+                        </div>
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 'bold' }}>Meta Descripció SEO</label>
+                            <textarea
+                                rows="3"
+                                placeholder="Deixa-ho buit per usar el resum automàtic..."
+                                value={seoDescription}
+                                onChange={e => setSeoDescription(e.target.value)}
+                                style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
+                            ></textarea>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                <label style={{ color: 'white', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer' }}>
+                                    Indexar a Google
+                                </label>
+                                <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                                    Activa o desactiva la visibilitat d'aquest article als cercadors (meta robots).
+                                </span>
+                            </div>
+                            <div
+                                onClick={() => setIsIndexed(!isIndexed)}
+                                style={{
+                                    width: '60px',
+                                    height: '32px',
+                                    background: isIndexed ? 'var(--accent-primary)' : 'rgba(255,255,255,0.1)',
+                                    borderRadius: '50px',
+                                    padding: '4px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    position: 'relative',
+                                    boxShadow: isIndexed ? '0 0 15px var(--accent-glow)' : 'none'
+                                }}
+                            >
+                                <motion.div
+                                    animate={{ x: isIndexed ? 28 : 0 }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    style={{
+                                        width: '24px',
+                                        height: '24px',
+                                        background: 'white',
+                                        borderRadius: '50%',
+                                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -749,6 +826,6 @@ export default function PostEditor() {
                     </div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }

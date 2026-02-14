@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import openIALogo from '../assets/logos/openIA.svg';
 
 // Components auxiliars per mantenir el codi net
@@ -52,6 +54,48 @@ const Tool = ({ name, desc, icon, viewBox }) => (
 
 export default function Stack() {
     const { t } = useTranslation();
+    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+
+    useEffect(() => {
+        const fetchSEO = async () => {
+            try {
+                const docSnap = await getDoc(doc(db, 'site_seo', 'stack'));
+                if (docSnap.exists()) {
+                    setIsIndexedOverride(docSnap.data().isIndexed);
+                }
+            } catch (error) {
+                console.error("Error fetching SEO status:", error);
+            }
+        };
+        fetchSEO();
+    }, []);
+
+    useEffect(() => {
+        // SEO logic
+        document.title = `${t('stack.title')} | Pere Badia i Lorenz`;
+
+        let metaDescription = document.querySelector('meta[name="description"]');
+        if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
+        }
+        metaDescription.content = t('stack.intro_p1');
+
+        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+
+        let metaRobots = document.querySelector('meta[name="robots"]');
+        if (isPageIndexed === false) {
+            if (!metaRobots) {
+                metaRobots = document.createElement('meta');
+                metaRobots.name = 'robots';
+                document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "noindex, nofollow";
+        } else if (metaRobots) {
+            metaRobots.remove();
+        }
+    }, [t, isIndexedOverride]);
 
     // Scroll to top on mount
     useEffect(() => {

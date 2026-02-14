@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
@@ -11,6 +13,49 @@ export default function Contact() {
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
     const [sending, setSending] = useState(false);
+
+    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+
+    useEffect(() => {
+        const fetchSEO = async () => {
+            try {
+                const docSnap = await getDoc(doc(db, 'site_seo', 'contact'));
+                if (docSnap.exists()) {
+                    setIsIndexedOverride(docSnap.data().isIndexed);
+                }
+            } catch (error) {
+                console.error("Error fetching SEO status:", error);
+            }
+        };
+        fetchSEO();
+    }, []);
+
+    useEffect(() => {
+        // SEO logic
+        document.title = `${t('contact.title')} | Pere Badia i Lorenz`;
+
+        let metaDescription = document.querySelector('meta[name="description"]');
+        if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
+        }
+        metaDescription.content = t('contact.bio_p1');
+
+        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+
+        let metaRobots = document.querySelector('meta[name="robots"]');
+        if (isPageIndexed === false) {
+            if (!metaRobots) {
+                metaRobots = document.createElement('meta');
+                metaRobots.name = 'robots';
+                document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "noindex, nofollow";
+        } else if (metaRobots) {
+            metaRobots.remove();
+        }
+    }, [t, isIndexedOverride]);
 
     useEffect(() => {
         generateCaptcha();

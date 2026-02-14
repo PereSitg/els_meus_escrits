@@ -4,9 +4,55 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { PenLine, Monitor, ChevronRight } from 'lucide-react';
 import TechLogos from '../components/TechLogos';
+import { useEffect, useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 export default function Home() {
     const { t } = useTranslation();
+    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+
+    useEffect(() => {
+        const fetchSEO = async () => {
+            try {
+                const docSnap = await getDoc(doc(db, 'site_seo', 'home'));
+                if (docSnap.exists()) {
+                    setIsIndexedOverride(docSnap.data().isIndexed);
+                }
+            } catch (error) {
+                console.error("Error fetching SEO status:", error);
+            }
+        };
+        fetchSEO();
+    }, []);
+
+    useEffect(() => {
+        // SEO logic
+        document.title = `Pere Badia i Lorenz | Portafoli Personal`;
+
+        let metaDescription = document.querySelector('meta[name="description"]');
+        if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
+        }
+        // Use default description or one from translations if needed
+        metaDescription.content = t('hero.subtitle');
+
+        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+
+        let metaRobots = document.querySelector('meta[name="robots"]');
+        if (isPageIndexed === false) {
+            if (!metaRobots) {
+                metaRobots = document.createElement('meta');
+                metaRobots.name = 'robots';
+                document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "noindex, nofollow";
+        } else if (metaRobots) {
+            metaRobots.remove();
+        }
+    }, [t, isIndexedOverride]);
 
     const navigationCards = [
         {

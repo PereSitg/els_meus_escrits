@@ -3,11 +3,55 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 import { projectsData, allTags } from '../data/projects';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 export default function Projects() {
     const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const [activeFilter, setActiveFilter] = useState('All');
+    const [isIndexedOverride, setIsIndexedOverride] = useState(null);
+
+    useEffect(() => {
+        const fetchSEO = async () => {
+            try {
+                const docSnap = await getDoc(doc(db, 'site_seo', 'projects_list'));
+                if (docSnap.exists()) {
+                    setIsIndexedOverride(docSnap.data().isIndexed);
+                }
+            } catch (error) {
+                console.error("Error fetching SEO status:", error);
+            }
+        };
+        fetchSEO();
+    }, []);
+
+    useEffect(() => {
+        // SEO logic
+        document.title = `${t('projects.title')} | Pere Badia i Lorenz`;
+
+        let metaDescription = document.querySelector('meta[name="description"]');
+        if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
+        }
+        metaDescription.content = t('projects.description');
+
+        const isPageIndexed = isIndexedOverride !== null ? isIndexedOverride : true;
+
+        let metaRobots = document.querySelector('meta[name="robots"]');
+        if (isPageIndexed === false) {
+            if (!metaRobots) {
+                metaRobots = document.createElement('meta');
+                metaRobots.name = 'robots';
+                document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = "noindex, nofollow";
+        } else if (metaRobots) {
+            metaRobots.remove();
+        }
+    }, [t, isIndexedOverride]);
 
     useEffect(() => {
         const tag = searchParams.get('tag');

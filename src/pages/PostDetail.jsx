@@ -35,16 +35,34 @@ export default function PostDetail() {
                     setPost(data);
 
                     // SEO: Update Title and Meta Description
-                    document.title = `${data.title} | Pere Badia i Lorenz`;
+                    const finalTitle = data.seoTitle || data.title;
+                    document.title = `${finalTitle} | Pere Badia i Lorenz`;
 
-                    const description = data.subtitle || data.content?.substring(0, 160).replace(/\n/g, ' ') || '';
+                    const finalDescription = data.seoDescription || data.subtitle || data.content?.substring(0, 160).replace(/\n/g, ' ') || '';
                     let metaDescription = document.querySelector('meta[name="description"]');
                     if (!metaDescription) {
                         metaDescription = document.createElement('meta');
                         metaDescription.name = 'description';
                         document.head.appendChild(metaDescription);
                     }
-                    metaDescription.content = description;
+                    metaDescription.content = finalDescription;
+
+                    // SEO: Robots Indexing
+                    let metaRobots = document.querySelector('meta[name="robots"]');
+                    if (data.isIndexed === false) {
+                        if (!metaRobots) {
+                            metaRobots = document.createElement('meta');
+                            metaRobots.name = 'robots';
+                            document.head.appendChild(metaRobots);
+                        }
+                        metaRobots.content = "noindex, nofollow";
+                    } else if (metaRobots) {
+                        // If it was there but now we want to index (or it's not a legal page), remove it or set to index
+                        // For now, let's just remove it if it was set to noindex by this logic
+                        if (metaRobots.content === "noindex, nofollow") {
+                            metaRobots.remove();
+                        }
+                    }
                 }
             } catch (error) {
                 console.error("Error fetching post:", error);

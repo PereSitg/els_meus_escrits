@@ -512,3 +512,11 @@ a {
 .footer-link:hover {
   color: var(--accent-primary) !important;
 }
+
+/* Utilities */
+@media (max-width: 768px) {
+  .mobile-stack {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
