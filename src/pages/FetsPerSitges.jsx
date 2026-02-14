@@ -328,7 +328,7 @@ export default function FetsPerSitges() {
                                 { name: 'ERC', votes: 1710, percentage: 15.23, color: 'rgba(255,255,255,0.15)', delay: 0.2, duration: 1.2 },
                                 { name: 'PSC', votes: 1503, percentage: 13.38, color: 'rgba(255,255,255,0.15)', delay: 0.3, duration: 1.2 },
                                 { name: 'FETS PER SITGES', votes: 666, percentage: 5.93, color: '#800020', highlight: true, delay: 0.5, duration: 1.5 },
-                                { name: 'Altres', votes: 5493, percentage: 48.29, color: 'rgba(255,255,255,0.08)', delay: 0.4, duration: 1.2 }
+                                { name: 'Altres', votes: 5493, percentage: 48.29, color: 'rgba(255,255,255,0.15)', delay: 0.4, duration: 1.2 }
                             ].map((result, idx) => (
                                 <div key={idx} style={{ position: 'relative' }}>
                                     <div style={{
@@ -341,15 +341,14 @@ export default function FetsPerSitges() {
                                     }}>
                                         <span>{result.name}</span>
                                         <span>
-                                            {result.highlight ? (
-                                                <motion.span
-                                                    initial={{ opacity: 0 }}
-                                                    whileInView={{ opacity: 1 }}
-                                                    viewport={{ once: true, amount: 0.5 }}
-                                                >
-                                                    <Counter value={666} delay={result.delay} duration={result.duration} />
-                                                </motion.span>
-                                            ) : result.votes.toLocaleString()} {t('projects.fetspersitges.votes_label')} ({result.percentage}%)
+                                            <motion.span
+                                                initial={{ opacity: 0 }}
+                                                whileInView={{ opacity: 1 }}
+                                                viewport={{ once: true, amount: 0.5 }}
+                                            >
+                                                <Counter value={result.votes} delay={result.delay} duration={result.duration} />
+                                            </motion.span>
+                                            {" "}{t('projects.fetspersitges.votes_label')} ({result.percentage}%)
                                         </span>
                                     </div>
                                     <div style={{
@@ -361,7 +360,7 @@ export default function FetsPerSitges() {
                                     }}>
                                         <motion.div
                                             initial={{ width: 0 }}
-                                            whileInView={{ width: `${(result.percentage / 48.29) * 100}%` }}
+                                            whileInView={{ width: `${result.percentage}%` }}
                                             transition={{ duration: result.duration, ease: [0.34, 1.56, 0.64, 1], delay: result.delay }}
                                             viewport={{ once: true, amount: 0.5 }}
                                             style={{
