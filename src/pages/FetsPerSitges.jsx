@@ -66,7 +66,7 @@ export default function FetsPerSitges() {
     };
 
     const strategies = [
-        { icon: <Zap size={24} />, title: "Viralitat", desc: "Contingut dissenyat per ser compartit de forma orgànica i ràpida.", video: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+        { icon: <Zap size={24} />, title: "Creativitat vs Pressupost", desc: "En un entorn saturat de propaganda clàssica, utilitzem el Pixel Art per explicar propostes complexes com la regeneració de les platges. Una solució estètica de baix cost però d'alt impacte que connecta amb un públic més jove i digital.", video: "https://www.youtube.com/embed/rHs7s1ii80c" },
         { icon: <Target size={24} />, title: "Impacte", desc: "Missatges directes que generen reacció i record en l'electorat.", video: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
         { icon: <FileText size={24} />, title: "Síntesi", desc: "Capacitat de resumir propostes complexes en idees clares i potents.", video: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
         { icon: <Sparkles size={24} />, title: "Rigor", desc: "Base de dades i anàlisi darrera de cada afirmació i estratègia.", video: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
