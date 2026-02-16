@@ -133,6 +133,32 @@ export default function SommelierDigital() {
                     </div>
                 </div>
 
+                {/* Capacitats de l'Assistent */}
+                <div style={{ marginBottom: '5rem' }}>
+                    <h3 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '2.5rem', color: '#ffffff' }}>
+                        Capacitats de l'Assistent
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem' }} className="md-grid-2">
+                        {[
+                            { title: "Maridatge Intel·ligent", desc: "Recomanacions basades en el tipus de plat i ingredients." },
+                            { title: "Gestió de Pressupost", desc: "Filtra les millors opcions segons el rang de preu indicat." },
+                            { title: "Perfil Sensorial", desc: "Entén preferències sobre cos, acidesa i varietats de raïm." },
+                            { title: "Aprenentatge Continu", desc: "L'assistent millora les respostes amb cada interacció." }
+                        ].map((item, index) => (
+                            <div key={index} style={{ display: 'flex', alignItems: 'start', gap: '1rem' }}>
+                                <CheckCircle2 size={24} style={{ color: '#10b981', flexShrink: 0, marginTop: '0.2rem' }} />
+                                <div>
+                                    <h4 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff', marginBottom: '0.5rem', fontFamily: 'var(--font-body)' }}>{item.title}</h4>
+                                    <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', fontSize: '1.05rem' }}>{item.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <p style={{ marginTop: '4rem', fontSize: '1.15rem', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8', fontStyle: 'italic', borderLeft: '4px solid var(--accent-primary)', paddingLeft: '2rem', maxWidth: '800px' }}>
+                        "Aquest projecte neix de la unió entre la meva formació com a sommelier i la passió per la intel·ligència artificial, buscant democratitzar l'accés al coneixement enològic."
+                    </p>
+                </div>
+
 
                 {/* Projectes Relacionats */}
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '4rem' }}>
@@ -140,6 +166,9 @@ export default function SommelierDigital() {
                 </div>
             </div>
             <style>{`
+            @media (min-width: 768px) {
+              .md-grid-2 { grid-template-columns: 1fr 1fr !important; }
+            }
             @media (min-width: 1024px) {
               .lg-grid-2 { grid-template-columns: 1fr 1fr !important; }
             }
