@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ChevronRight } from 'lucide-react';
 import { projectsData } from '../data/projects';
 
-export default function RelatedProjects({ currentProjectId }) {
+export default function RelatedProjects({ currentProjectId, noBorder = false }) {
     const { t } = useTranslation();
 
     // Filter out current project and pick random ones (up to 3)
@@ -16,7 +16,11 @@ export default function RelatedProjects({ currentProjectId }) {
     if (related.length === 0) return null;
 
     return (
-        <section style={{ marginTop: '8rem', paddingTop: '4rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <section style={{
+            marginTop: noBorder ? '2rem' : '8rem',
+            paddingTop: '4rem',
+            borderTop: noBorder ? 'none' : '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center', fontWeight: '800' }}>
                 {t('projects.related_title') || 'Altres Projectes'}
             </h2>

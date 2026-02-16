@@ -155,14 +155,14 @@ export default function SommelierDigital() {
                         ))}
                     </div>
                     <p style={{ marginTop: '4rem', fontSize: '1.15rem', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8', fontStyle: 'italic', borderLeft: '4px solid var(--accent-primary)', paddingLeft: '2rem', maxWidth: '800px' }}>
-                        "Aquest projecte neix de la unió entre la meva formació com a sommelier i la passió per la intel·ligència artificial, buscant democratitzar l'accés al coneixement enològic."
+                        "He creat aquest assistent perquè m'agrada el vi i m'apassiona la tecnologia. La idea és senzilla: fer servir la IA per ajudar a qualsevol persona a triar una bona ampolla sense haver de ser un expert."
                     </p>
                 </div>
 
 
                 {/* Projectes Relacionats */}
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '4rem' }}>
-                    <RelatedProjects currentProjectId="sommelier-digital" />
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '6rem' }}>
+                    <RelatedProjects currentProjectId="sommelier-digital" noBorder={true} />
                 </div>
             </div>
             <style>{`
