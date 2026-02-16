@@ -621,7 +621,7 @@ export default function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Pàgines Principals */}
+                                { /* Pàgines Principals */}
                                 <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
                                     <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Pàgines Principals</td>
                                 </tr>
@@ -632,17 +632,20 @@ export default function Dashboard() {
                                     { name: 'Contacte', path: '/contact', key: 'contact' }
                                 ].map(page => renderSeoRow(page))}
 
-                                {/* Categories d'Escrits */}
+                                { /* Categories (Dinàmiques) */}
                                 <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
-                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Seccions d'Escrits</td>
+                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Categories (Dinàmiques)</td>
                                 </tr>
-                                {[
-                                    { name: 'Sitges', path: '/category/sitges', key: 'category_sitges' },
-                                    { name: 'Ecos de Sociedad', path: '/category/ecos', key: 'category_ecos' },
-                                    { name: 'Altres històries', path: '/category/altres', key: 'category_altres' }
-                                ].map(page => renderSeoRow(page))}
+                                {[...new Set(posts.map(p => p.category || 'Altres'))].sort().map(cat => {
+                                    const slug = cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+                                    return renderSeoRow({
+                                        name: cat,
+                                        path: `/category/${slug}`,
+                                        key: `category_${slug}`
+                                    });
+                                })}
 
-                                {/* Projectes Específics */}
+                                { /* Projectes Específics */}
                                 <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
                                     <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Detall de Projectes</td>
                                 </tr>
@@ -650,7 +653,18 @@ export default function Dashboard() {
                                     { name: 'Sommelier Digital', path: '/projects/sommelier', key: 'sommelier-digital' },
                                     { name: 'Sitges Art', path: '/projects/sitges-art', key: 'sitges-art' },
                                     { name: 'Sitges Walk', path: '/projects/sitges-walk', key: 'sitges-walk' },
-                                    { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' }
+                                    { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' },
+                                    { name: 'Tal com érem', path: '/projects/tal-com-erem', key: 'tal-com-erem' }
+                                ].map(page => renderSeoRow(page))}
+
+                                { /* Pàgines Legals */}
+                                <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
+                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Pàgines Legals</td>
+                                </tr>
+                                {[
+                                    { name: 'Avís Legal', path: '/avis-legal', key: 'avis_legal' },
+                                    { name: 'Política de Cookies', path: '/politica-cookies', key: 'politica_cookies' },
+                                    { name: 'Política de Privacitat', path: '/politica-privacitat', key: 'politica_privacitat' }
                                 ].map(page => renderSeoRow(page))}
                             </tbody>
                         </table>
