@@ -133,44 +133,6 @@ export default function SommelierDigital() {
                     </div>
                 </div>
 
-                {/* Història i Solució */}
-                <div style={{ marginBottom: '5rem' }}>
-                    <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '2.5rem', color: '#ffffff' }}>{t('projects.sommelier.detail_title')}</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '4rem' }} className="lg-grid-2">
-                        <div>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: '1.8', marginBottom: '2rem' }}>
-                                {t('projects.sommelier.challenge_text') || t('projects.sommelier.detail_desc')}
-                            </p>
-                            <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {[1, 2, 3].map((i) => (
-                                    <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
-                                        <CheckCircle2 size={24} style={{ color: '#10b981', flexShrink: 0 }} />
-                                        <span style={{ fontSize: '1.1rem' }}>{t(`projects.sommelier.feature_${i}`)}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div style={{ background: 'rgba(59, 130, 246, 0.05)', padding: '2.5rem', borderRadius: '2rem', border: '1px solid rgba(59, 130, 246, 0.1)' }}>
-                            <h3 style={{ color: '#ffffff', fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', display: 'flex', alignItems: 'center' }}>
-                                <Layout size={24} style={{ marginRight: '0.75rem', color: 'var(--accent-primary)' }} />
-                                {t('projects.sommelier.features_title')}
-                            </h3>
-                            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', lineHeight: '1.7', fontStyle: 'italic', marginBottom: '2rem' }}>
-                                "{t('projects.sommelier.author_note')}"
-                            </p>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>Precisió maridatge</span>
-                                    <span style={{ fontWeight: 'bold', color: 'var(--accent-primary)' }}>98%</span>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>Temps de resposta</span>
-                                    <span style={{ fontWeight: 'bold', color: 'var(--accent-primary)' }}>&lt; 1.2s</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Projectes Relacionats */}
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '4rem' }}>
