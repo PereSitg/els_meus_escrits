@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-export function useSEO(pageKey, defaultTitleKey) {
+export function useSEO(pageKey, defaultTitleKey, defaultIndexed = true) {
     const { t, i18n } = useTranslation();
     const [seoData, setSeoData] = useState({
         title: '', description: '',
@@ -49,7 +49,7 @@ export function useSEO(pageKey, defaultTitleKey) {
         }
         metaDescription.content = activeDescription || (defaultTitleKey ? t(`${defaultTitleKey.split('.')[0]}.subtitle`) : '');
 
-        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : true;
+        const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : defaultIndexed;
 
         let metaRobots = document.querySelector('meta[name="robots"]');
         if (isPageIndexed === false) {
@@ -62,7 +62,7 @@ export function useSEO(pageKey, defaultTitleKey) {
         } else if (metaRobots) {
             metaRobots.remove();
         }
-    }, [seoData, i18n.language, t, defaultTitleKey]);
+    }, [seoData, i18n.language, t, defaultTitleKey, defaultIndexed]);
 
     return seoData;
 }

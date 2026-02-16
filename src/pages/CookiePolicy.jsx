@@ -1,17 +1,14 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useSEO } from '../hooks/useSEO';
 
 export default function CookiePolicy() {
     const { t } = useTranslation();
+    useSEO('politica_cookies', 'nav.cookies', false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const meta = document.createElement('meta');
-        meta.name = "robots";
-        meta.content = "noindex, nofollow";
-        document.head.appendChild(meta);
-        return () => document.head.removeChild(meta);
     }, []);
 
     return (
