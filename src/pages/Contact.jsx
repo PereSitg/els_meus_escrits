@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { useSEO } from '../hooks/useSEO';
-import { Download } from 'lucide-react';
+import { Download, Code2, Share2, Target } from 'lucide-react';
 
 export default function Contact() {
     const { t, i18n } = useTranslation();
@@ -116,24 +116,68 @@ export default function Contact() {
                             <p style={{ marginBottom: '1.5rem' }}>{t('contact.bio_p2')}</p>
                             <p style={{ marginBottom: '1.5rem' }}>{t('contact.bio_p3')}</p>
 
-                            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
-                                {[1, 2, 3].map(i => (
-                                    <li key={i} style={{ marginBottom: '1.5rem' }}>
-                                        <strong style={{ color: 'var(--accent-primary)', display: 'block', marginBottom: '0.5rem' }}>
-                                            {t(`contact.bio_f${i}_title`)}
-                                        </strong>
-                                        {t(`contact.bio_f${i}_desc`)}
-                                    </li>
+                            <p style={{ marginBottom: '3rem' }}>{t('contact.bio_p3')}</p>
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                                gap: '2rem',
+                                marginBottom: '4rem'
+                            }}>
+                                {[
+                                    { id: 1, icon: <Code2 size={32} /> },
+                                    { id: 2, icon: <Share2 size={32} /> },
+                                    { id: 3, icon: <Target size={32} /> }
+                                ].map(card => (
+                                    <motion.div
+                                        key={card.id}
+                                        whileHover={{ y: -5 }}
+                                        style={{
+                                            background: 'rgba(255, 255, 255, 0.03)',
+                                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                                            borderRadius: '1.5rem',
+                                            padding: '2rem',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '1rem',
+                                            transition: 'background 0.3s'
+                                        }}
+                                        onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; }}
+                                    >
+                                        <div style={{ color: 'var(--accent-primary)' }}>
+                                            {card.icon}
+                                        </div>
+                                        <h3 style={{
+                                            fontSize: '1.25rem',
+                                            fontWeight: '700',
+                                            margin: 0,
+                                            color: '#ffffff'
+                                        }}>
+                                            {t(`contact.bio_f${card.id}_title`)}
+                                        </h3>
+                                        <p style={{
+                                            fontSize: '1rem',
+                                            lineHeight: '1.6',
+                                            margin: 0,
+                                            opacity: 0.8
+                                        }}>
+                                            {t(`contact.bio_f${card.id}_desc`)}
+                                        </p>
+                                    </motion.div>
                                 ))}
-                            </ul>
+                            </div>
 
                             <p style={{
                                 fontStyle: 'italic',
                                 borderTop: '1px solid rgba(255,255,255,0.1)',
-                                paddingTop: '2rem',
+                                paddingTop: '2.5rem',
                                 color: '#ffffff',
                                 fontSize: '1.2rem',
-                                opacity: 0.9
+                                opacity: 0.9,
+                                textAlign: 'center',
+                                maxWidth: '700px',
+                                margin: '0 auto'
                             }}>
                                 {t('contact.bio_footer')}
                             </p>

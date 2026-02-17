@@ -40,10 +40,10 @@ i18n
                         bio_f1_title: 'Programació & IA:',
                         bio_f1_desc: 'Desenvolupo solucions on el codi (React, Python) i la IA (Gemini, OpenIA) treballen al servei d\'una estratègia.',
                         bio_f2_title: 'Narrativa Digital:',
-                        bio_f2_desc: 'Domino les Xarxes Socials i la creació de contingut visual amb DaVinci Resolve, entenent que cada projecte necessita una voç pròpia per arribar a la gent.',
+                        bio_f2_desc: 'Domino les Xarxes Socials i la creació de contingut visual amb DaVinci Resolve, entenent que cada projecte necessita una veu pròpia per arribar a la gent.',
                         bio_f3_title: 'Visió de Negoci:',
                         bio_f3_desc: 'Gràcies al meu passat comercial, no construeixo només eines; construeixo solucions que aporten valor real i són entenedores per a l\'usuari final.',
-                        bio_footer: 'No sóc només un programador. Sóc un tècnic que comunica i un comunicador que entén la tecnologia.',
+                        bio_footer: 'He creat aquest assistent perquè m\'agrada el vi i m\'apassiona la tecnologia. La idea és senzilla: fer servir la IA per ajudar a qualsevol persona a triar una bona ampolla sense haver de ser un expert.',
                         form: {
                             name: 'Nom',
                             email: 'Email',
@@ -303,7 +303,7 @@ i18n
                         bio_f2_desc: 'Domino las Redes Sociales y la creación de contenido visual con DaVinci Resolve, entendiendo que cada proyecto necesita una voz propia para llegar a la gente.',
                         bio_f3_title: 'Visión de Negocio:',
                         bio_f3_desc: 'Gracias a mi pasado comercial, no construyo solo herramientas; construyo soluciones que aportan valor real y son comprensibles para el usuario final.',
-                        bio_footer: 'No soy solo un programador. Soy un técnico que comunica y un comunicador que entiende la tecnología.',
+                        bio_footer: 'He creado este asistente porque me gusta el vino y me apasiona la tecnología. La idea es sencilla: usar la IA para ayudar a cualquier persona a elegir una buena botella sin tener que ser un experto.',
                         form: {
                             name: 'Nombre',
                             email: 'Email',
@@ -561,7 +561,7 @@ i18n
                         bio_f2_desc: 'I master Social Media and visual content creation with DaVinci Resolve, understanding that every project needs its own voice to reach people.',
                         bio_f3_title: 'Business Vision:',
                         bio_f3_desc: 'Thanks to my sales background, I don\'t just build tools; I build solutions that provide real value and are understandable for the end user.',
-                        bio_footer: 'I am not just a programmer. I am a technician who communicates and a communicator who understands technology.',
+                        bio_footer: 'I created this assistant because I love wine and I\'m passionate about technology. The idea is simple: using AI to help anyone choose a great bottle without needing to be an expert.',
                         form: {
                             name: 'Name',
                             email: 'Email',
