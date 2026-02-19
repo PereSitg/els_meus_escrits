@@ -48,11 +48,13 @@ async function fetchCollection(collectionId) {
 
 export default async function handler(req, res) {
     try {
-        const host = req.headers.host || 'cercavins.vercel.app';
-        const protocol = host.includes('localhost') ? 'http' : 'https';
-        const BASE_URL = `${protocol}://${host}`;
+        const host = req.headers.host || '';
+        // Use hardcoded canonical URL for production to match Search Console property
+        const BASE_URL = host.includes('localhost')
+            ? `http://${host}`
+            : 'https://cercavins.vercel.app';
 
-        console.log(`Sitemap request for ${BASE_URL}`);
+        console.log(`Sitemap request received for host: ${host}. Serving URLs for: ${BASE_URL}`);
 
         // 1. Fetch posts and SEO data (with fallback to empty arrays)
         let postsDocs = [];
