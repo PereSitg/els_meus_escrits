@@ -35,111 +35,125 @@ async function fetchCollection(collectionId) {
 }
 
 export default async function handler(req, res) {
-    if (!PROJECT_ID || !API_KEY) {
-        return res.status(500).send('Missing configuration');
-    }
+    try {
+        console.log('Sitemap request received');
 
-    // 1. Fetch all posts and SEO data
-    const [postsDocs, seoDocs] = await Promise.all([
-        fetchCollection('posts'),
-        fetchCollection('site_seo')
-    ]);
+        // 1. Fetch posts and SEO data (with fallback to empty arrays)
+        let postsDocs = [];
+        let seoDocs = [];
 
-    // 2. Process Page SEO map
-    const seoMap = {};
-    seoDocs.forEach(doc => {
-        const id = doc.name.split('/').pop();
-        const fields = doc.fields || {};
-        seoMap[id] = {
-            isIndexed: fields.isIndexed?.booleanValue !== false,
-            updatedAt: doc.updateTime
-        };
-    });
+        if (PROJECT_ID && API_KEY) {
+            try {
+                [postsDocs, seoDocs] = await Promise.all([
+                    fetchCollection('posts'),
+                    fetchCollection('site_seo')
+                ]);
+            } catch (fetchError) {
+                console.error('Error fetching data from Firestore:', fetchError);
+            }
+        } else {
+            console.warn('Missing PROJECT_ID or API_KEY env vars. Falling back to static pages only.');
+        }
 
-    // 3. Define Static Pages
-    const staticPages = [
-        { url: '/', key: 'home', priority: '1.0', changefreq: 'daily' },
-        { url: '/projects', key: 'projects_list', priority: '0.9', changefreq: 'weekly' },
-        { url: '/stack', key: 'stack', priority: '0.7', changefreq: 'monthly' },
-        { url: '/contact', key: 'contact', priority: '0.7', changefreq: 'monthly' },
-        { url: '/projects/sommelier', key: 'sommelier-digital', priority: '0.8', changefreq: 'monthly' },
-        { url: '/projects/sitges-art', key: 'sitges-art', priority: '0.8', changefreq: 'monthly' },
-        { url: '/projects/sitges-walk', key: 'sitges-walk', priority: '0.8', changefreq: 'monthly' },
-        { url: '/projects/fets-per-sitges', key: 'fets-per-sitges', priority: '0.8', changefreq: 'monthly' },
-        { url: '/projects/tal-com-erem', key: 'tal-com-erem', priority: '0.8', changefreq: 'monthly' },
-        { url: '/avis-legal', key: 'avis_legal', priority: '0.3', changefreq: 'yearly' },
-        { url: '/politica-cookies', key: 'politica_cookies', priority: '0.3', changefreq: 'yearly' },
-        { url: '/politica-privacitat', key: 'politica_privacitat', priority: '0.3', changefreq: 'yearly' },
-    ];
+        // 2. Process Page SEO map
+        const seoMap = {};
+        seoDocs.forEach(doc => {
+            const id = doc.name.split('/').pop();
+            const fields = doc.fields || {};
+            seoMap[id] = {
+                isIndexed: fields.isIndexed?.booleanValue !== false,
+                updatedAt: doc.updateTime
+            };
+        });
 
-    // 4. Process Posts
-    const indexedPosts = postsDocs.map(doc => {
-        const fields = doc.fields || {};
-        const id = doc.name.split('/').pop();
-        return {
-            id,
-            image: fields.image?.stringValue,
-            imageAlt: fields.imageAlt?.stringValue,
-            isIndexed: fields.isIndexed?.booleanValue !== false,
-            updatedAt: doc.updateTime
-        };
-    }).filter(p => p.isIndexed);
+        // 3. Define Static Pages
+        const staticPages = [
+            { url: '/', key: 'home', priority: '1.0', changefreq: 'daily' },
+            { url: '/projects', key: 'projects_list', priority: '0.9', changefreq: 'weekly' },
+            { url: '/stack', key: 'stack', priority: '0.7', changefreq: 'monthly' },
+            { url: '/contact', key: 'contact', priority: '0.7', changefreq: 'monthly' },
+            { url: '/projects/sommelier', key: 'sommelier-digital', priority: '0.8', changefreq: 'monthly' },
+            { url: '/projects/sitges-art', key: 'sitges-art', priority: '0.8', changefreq: 'monthly' },
+            { url: '/projects/sitges-walk', key: 'sitges-walk', priority: '0.8', changefreq: 'monthly' },
+            { url: '/projects/fets-per-sitges', key: 'fets-per-sitges', priority: '0.8', changefreq: 'monthly' },
+            { url: '/projects/tal-com-erem', key: 'tal-com-erem', priority: '0.8', changefreq: 'monthly' },
+            { url: '/avis-legal', key: 'avis_legal', priority: '0.3', changefreq: 'yearly' },
+            { url: '/politica-cookies', key: 'politica_cookies', priority: '0.3', changefreq: 'yearly' },
+            { url: '/politica-privacitat', key: 'politica_privacitat', priority: '0.3', changefreq: 'yearly' },
+        ];
 
-    // 5. Aggregate Categories
-    // (In our current system, categories are hardcoded in i18n/App but let's extract them from posts for dynamic safety)
-    const categories = [...new Set(indexedPosts.map(p => {
-        // Find category in original doc if needed, but here we'll just use the ones we know
-        return null; // For now we'll skip dynamic category URL generation to avoid complexity if not needed
-    }).filter(Boolean))];
+        // 4. Process Posts
+        const indexedPosts = postsDocs.map(doc => {
+            const fields = doc.fields || {};
+            const id = doc.name.split('/').pop();
+            return {
+                id,
+                image: fields.image?.stringValue,
+                imageAlt: fields.imageAlt?.stringValue,
+                isIndexed: fields.isIndexed?.booleanValue !== false,
+                updatedAt: doc.updateTime
+            };
+        }).filter(p => p.isIndexed);
 
-    // Build the XML
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+        // Build the XML
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`;
 
-    // Static Pages (Respecting indexing)
-    staticPages.forEach(page => {
-        const seoInfo = seoMap[page.key];
-        const isIndexed = seoInfo ? seoInfo.isIndexed : true; // Default to true if not set
+        // Static Pages (Respecting indexing)
+        staticPages.forEach(page => {
+            const seoInfo = seoMap[page.key];
+            const isIndexed = seoInfo ? seoInfo.isIndexed : true;
 
-        if (isIndexed) {
-            const lastmod = seoInfo?.updatedAt ? seoInfo.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
-            xml += `
+            if (isIndexed) {
+                const lastmod = seoInfo?.updatedAt ? seoInfo.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
+                xml += `
   <url>
     <loc>${BASE_URL}${page.url}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`;
-        }
-    });
+            }
+        });
 
-    // Posts with Image SEO
-    indexedPosts.forEach(post => {
-        const lastmod = post.updatedAt ? post.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
-        xml += `
+        // Posts with Image SEO
+        indexedPosts.forEach(post => {
+            const lastmod = post.updatedAt ? post.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
+            xml += `
   <url>
     <loc>${BASE_URL}/post/${post.id}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>`;
 
-        if (post.image) {
-            xml += `
+            if (post.image) {
+                xml += `
     <image:image>
       <image:loc>${post.image}</image:loc>
       <image:caption>${post.imageAlt || ''}</image:caption>
     </image:image>`;
-        }
+            }
+
+            xml += `
+  </url>`;
+        });
 
         xml += `
-  </url>`;
-    });
-
-    xml += `
 </urlset>`;
 
-    res.setHeader('Content-Type', 'text/xml');
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=1800');
-    return res.status(200).send(xml);
+        res.setHeader('Content-Type', 'text/xml');
+        res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=1800');
+        console.log('Sitemap generated successfully');
+        return res.status(200).send(xml);
+    } catch (error) {
+        console.error('Critical sitemap generator error:', error);
+        // Fallback to minimal sitemap instead of 500
+        const fallbackXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${BASE_URL}/</loc></url>
+</urlset>`;
+        res.setHeader('Content-Type', 'text/xml');
+        return res.status(200).send(fallbackXml);
+    }
 }
