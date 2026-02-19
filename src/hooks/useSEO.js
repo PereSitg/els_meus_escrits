@@ -30,13 +30,16 @@ export function useSEO(pageKey, defaultTitleKey, defaultIndexed = true) {
         const currentLang = i18n.language;
         let activeTitle = seoData.title;
         let activeDescription = seoData.description;
+        let activeKeywords = seoData.keywords;
 
         if (currentLang === 'es') {
             activeTitle = seoData.title_es || activeTitle;
             activeDescription = seoData.description_es || activeDescription;
+            activeKeywords = seoData.keywords_es || activeKeywords;
         } else if (currentLang === 'en') {
             activeTitle = seoData.title_en || activeTitle;
             activeDescription = seoData.description_en || activeDescription;
+            activeKeywords = seoData.keywords_en || activeKeywords;
         }
 
         document.title = activeTitle || (defaultTitleKey ? t(defaultTitleKey) : 'Pere Badia i Lorenz');
@@ -48,6 +51,19 @@ export function useSEO(pageKey, defaultTitleKey, defaultIndexed = true) {
             document.head.appendChild(metaDescription);
         }
         metaDescription.content = activeDescription || (defaultTitleKey ? t(`${defaultTitleKey.split('.')[0]}.subtitle`) : '');
+
+        // Handle Keywords
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (activeKeywords) {
+            if (!metaKeywords) {
+                metaKeywords = document.createElement('meta');
+                metaKeywords.name = 'keywords';
+                document.head.appendChild(metaKeywords);
+            }
+            metaKeywords.content = activeKeywords;
+        } else if (metaKeywords) {
+            metaKeywords.remove();
+        }
 
         const isPageIndexed = seoData.isIndexed !== null ? seoData.isIndexed : defaultIndexed;
 

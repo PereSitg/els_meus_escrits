@@ -6,5 +6,5 @@ Disallow: /avis-legal
 Disallow: /politica-cookies
 Disallow: /politica-privacitat
 
-Sitemap: https://els-meus-escrits.vercel.app/sitemap.xml
+Sitemap: https://cercavins.vercel.app/sitemap.xml
 

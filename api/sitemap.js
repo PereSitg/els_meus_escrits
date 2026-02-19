@@ -5,7 +5,7 @@
 
 const PROJECT_ID = process.env.VITE_PROJECT_ID;
 const API_KEY = process.env.VITE_API_KEY;
-const BASE_URL = 'https://els-meus-escrits.vercel.app';
+const BASE_URL = 'https://cercavins.vercel.app';
 
 async function fetchCollection(collectionId) {
     let allDocuments = [];
