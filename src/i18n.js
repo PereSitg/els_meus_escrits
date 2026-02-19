@@ -100,7 +100,23 @@ i18n
                             feature_2: 'Interfície comunicativa multicanal (Beu/Text)',
                             feature_3: 'Sincronització de dades d\'alt rendiment',
                             try_button: 'Executar Aplicació',
-                            back_button: 'Tornar al catàleg'
+                            back_button: 'Tornar al catàleg',
+                            seo_section: {
+                                title: '🚀 Com funciona el SEO Intel·ligent de Cercavins',
+                                subtitle: 'En lloc de dependre d\'un SEO estàtic, hem desenvolupat un ecosistema dinàmic i multilingüe que connecta directament la nostra base de dades amb els cercadors globals.',
+                                point1_title: '1. El Cervell: Firestore (La Base de Dades Centralitzada)',
+                                point1_desc1: 'Gestió Flexible: Totes les paraules clau, títols i descripcions SEO es gestionen des d\'una col·lecció específica a Firestore anomenada site_seo.',
+                                point1_desc2: 'Multilingüe per Defecte: El sistema detecta l\'idioma de l\'usuari i ofereix les metadades més rellevants en el seu idioma.',
+                                point1_desc3: 'IDs Específics: Cada pàgina té un document dedicat a Firestore amb el seu ID exacte per a una recuperació de dades precisa.',
+                                point2_title: '2. El Cor: useSEO.js (El Hook de React Personalitzat)',
+                                point2_desc1: 'Automatització Intel·ligent: Aquest hook s\'activa cada vegada que un usuari visita una pàgina del web.',
+                                point2_desc2: 'Connexió en Temps Real: useSEO.js es comunica directament amb Firestore per obtenir la informació SEO corresponent.',
+                                point2_desc3: 'Injecció Dinàmica: El hook insereix automàticament els títols, les descripcions i les paraules clau a la secció <head>.',
+                                point3_title: '3. El Resultat: Visibilitat Òptima i Manteniment Simplificat',
+                                point3_desc1: 'Amigable amb Google: Els robots troben un codi HTML ric en informació rellevant i perfectament estructurada.',
+                                point3_desc2: 'Actualització Sense Desenvolupament: Podem modificar informació SEO directament des de la consola de Firebase, sense tornar a publicar el web.',
+                                diagram_title: 'Diagrama Visual del Sistema SEO Dinàmic'
+                            }
                         },
                         sitgesart: {
                             title: 'Sitges Art',
@@ -359,7 +375,23 @@ i18n
                             feature_2: 'Interfaz comunicativa multicanal (Voz/Texto)',
                             feature_3: 'Sincronización de datos de alto rendimiento',
                             try_button: 'Ejecutar Aplicación',
-                            back_button: 'Volver al catálogo'
+                            back_button: 'Volver al catálogo',
+                            seo_section: {
+                                title: '🚀 Cómo funciona el SEO Inteligente de Cercavins',
+                                subtitle: 'En lugar de depender de un SEO estático, hemos desarrollado un ecosistema dinámico y multilingüe que conecta directamente nuestra base de datos con los buscadores globales.',
+                                point1_title: '1. El Cerebro: Firestore (La Base de Datos Centralizada)',
+                                point1_desc1: 'Gestión Flexible: Todas las palabras clave, títulos y descripciones SEO se gestionan desde una colección específica en Firestore llamada site_seo.',
+                                point1_desc2: 'Multilingüe por Defecto: El sistema detecta el idioma del usuario y ofrece los metadatos más relevantes en su idioma.',
+                                point1_desc3: 'IDs Específicos: Cada página tiene un documento dedicado en Firestore con su ID exacto para una recuperación de datos precisa.',
+                                point2_title: '2. El Corazón: useSEO.js (El Hook de React Personalizado)',
+                                point2_desc1: 'Automatización Inteligente: Este hook se activa cada vez que un usuario visita una página de la web.',
+                                point2_desc2: 'Conexión en Tiempo Real: useSEO.js se comunica directamente con Firestore para obtener la información SEO correspondiente.',
+                                point2_desc3: 'Inyección Dinámica: El hook inserta automáticamente los títulos, las descripciones y las palabras clave en la sección <head>.',
+                                point3_title: '3. El Resultado: Visibilidad Óptima y Mantenimiento Simplificado',
+                                point3_desc1: 'Amigable con Google: Los robots encuentran un código HTML rico en información relevante y perfectamente estructurada.',
+                                point3_desc2: 'Actualización Sin Desarrollo: Podemos modificar información SEO directamente desde la consola de Firebase, sin volver a publicar la web.',
+                                diagram_title: 'Diagrama Visual del Sistema SEO Dinámico'
+                            }
                         },
                         sitgesart: {
                             title: 'Sitges Art',
@@ -617,7 +649,23 @@ i18n
                             feature_2: 'Multichannel communicative interface (Voice/Text)',
                             feature_3: 'High-performance data synchronization',
                             try_button: 'Execute Application',
-                            back_button: 'Back to catalog'
+                            back_button: 'Back to catalog',
+                            seo_section: {
+                                title: '🚀 How Cercavins Intelligent SEO Works',
+                                subtitle: 'Instead of depending on static SEO, we have developed a dynamic and multilingual ecosystem that connects our database directly with global search engines.',
+                                point1_title: '1. The Brain: Firestore (Centralized Database)',
+                                point1_desc1: 'Flexible Management: All keywords, titles, and SEO descriptions are managed from a specific Firestore collection called site_seo.',
+                                point1_desc2: 'Multilingual by Default: The system detects the user\'s language and provides the most relevant metadata in their language.',
+                                point1_desc3: 'Specific IDs: Each page has a dedicated Firestore document with its exact ID for precise data retrieval.',
+                                point2_title: '2. The Heart: useSEO.js (Custom React Hook)',
+                                point2_desc1: 'Intelligent Automation: This hook activates every time a user visits a page on the website.',
+                                point2_desc2: 'Real-Time Connection: useSEO.js communicates directly with Firestore to retrieve the corresponding SEO information.',
+                                point2_desc3: 'Dynamic Injection: The hook automatically inserts titles, descriptions, and keywords into the <head> section.',
+                                point3_title: '3. The Result: Optimal Visibility and Simplified Maintenance',
+                                point3_desc1: 'Google Friendly: Robots find an HTML code rich in relevant and perfectly structured information.',
+                                point3_desc2: 'Update Without Development: We can modify SEO information directly from the Firebase console, without republishing the website.',
+                                diagram_title: 'Visual Diagram of the Dynamic SEO System'
+                            }
                         },
                         sitgesart: {
                             title: 'Sitges Art',

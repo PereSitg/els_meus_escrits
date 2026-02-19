@@ -160,6 +160,99 @@ export default function SommelierDigital() {
                 </div>
 
 
+                {/* SEO Inteligente Section */}
+                <div style={{ padding: '4rem 2rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '2rem', border: '1px solid rgba(59, 130, 246, 0.2)', marginBottom: '5rem' }}>
+                    <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1.5rem', color: '#ffffff', textAlign: 'center' }}>
+                        {t('projects.sommelier.seo_section.title')}
+                    </h2>
+                    <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '4rem', textAlign: 'center', maxWidth: '900px', margin: '0 auto 4rem auto', lineHeight: '1.7' }}>
+                        {t('projects.sommelier.seo_section.subtitle')}
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <Database size={24} style={{ color: 'var(--accent-primary)' }} />
+                                <h4 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>{t('projects.sommelier.seo_section.point1_title')}</h4>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                                <p>• {t('projects.sommelier.seo_section.point1_desc1')}</p>
+                                <p>• {t('projects.sommelier.seo_section.point1_desc2')}</p>
+                                <p>• {t('projects.sommelier.seo_section.point1_desc3')}</p>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <Code2 size={24} style={{ color: 'var(--accent-primary)' }} />
+                                <h4 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>{t('projects.sommelier.seo_section.point2_title')}</h4>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                                <p>• {t('projects.sommelier.seo_section.point2_desc1')}</p>
+                                <p>• {t('projects.sommelier.seo_section.point2_desc2')}</p>
+                                <p>• {t('projects.sommelier.seo_section.point2_desc3')}</p>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <Layout size={24} style={{ color: 'var(--accent-primary)' }} />
+                                <h4 style={{ fontSize: '1.3rem', fontWeight: '800', color: '#ffffff' }}>{t('projects.sommelier.seo_section.point3_title')}</h4>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                                <p>• {t('projects.sommelier.seo_section.point3_desc1')}</p>
+                                <p>• {t('projects.sommelier.seo_section.point3_desc2')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Visual Diagram */}
+                    <div style={{ marginTop: '5rem', padding: '3rem', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+                        <h4 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#ffffff', marginBottom: '3rem', textAlign: 'center' }}>
+                            {t('projects.sommelier.seo_section.diagram_title')}
+                        </h4>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
+                            {/* Firestore Node */}
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '1.5rem', background: 'rgba(255,166,0,0.1)', border: '1px solid rgba(255,166,0,0.3)', borderRadius: '1rem', minWidth: '150px' }}
+                            >
+                                <Database size={40} color="#ffa600" />
+                                <span style={{ fontWeight: 'bold', color: 'white' }}>Firestore</span>
+                            </motion.div>
+
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ repeat: Infinity, duration: 1.5 }}>
+                                <ArrowLeft size={24} style={{ color: 'var(--accent-primary)', transform: 'rotate(180deg)' }} />
+                            </motion.div>
+
+                            {/* useSEO Node */}
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '1.5rem', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)', borderRadius: '1rem', minWidth: '150px' }}
+                            >
+                                <Cpu size={40} color="var(--accent-primary)" />
+                                <span style={{ fontWeight: 'bold', color: 'white' }}>useSEO.js</span>
+                            </motion.div>
+
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.5 }}>
+                                <ArrowLeft size={24} style={{ color: 'var(--accent-primary)', transform: 'rotate(180deg)' }} />
+                            </motion.div>
+
+                            {/* Result Node */}
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', padding: '1.5rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '1rem', minWidth: '150px' }}
+                            >
+                                <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+                                    <Layout size={40} color="#10b981" />
+                                </motion.div>
+                                <span style={{ fontWeight: 'bold', color: 'white' }}>SEO Head Index</span>
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Projectes Relacionats */}
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '6rem' }}>
                     <RelatedProjects currentProjectId="sommelier-digital" noBorder={true} />
