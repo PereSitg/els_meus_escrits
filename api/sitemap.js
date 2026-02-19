@@ -52,7 +52,7 @@ export default async function handler(req, res) {
         // Use hardcoded canonical URL for production to match Search Console property
         const BASE_URL = host.includes('localhost')
             ? `http://${host}`
-            : 'https://cercavins.vercel.app';
+            : 'https://els-meus-escrits.vercel.app';
 
         console.log(`Sitemap request received for host: ${host}. Serving URLs for: ${BASE_URL}`);
 
@@ -166,7 +166,7 @@ export default async function handler(req, res) {
         return res.status(200).send(xml);
     } catch (error) {
         console.error('Critical sitemap generator error:', error);
-        const host = req.headers.host || 'cercavins.vercel.app';
+        const host = req.headers.host || 'els-meus-escrits.vercel.app';
         const fallbackXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://${host}/</loc></url>
