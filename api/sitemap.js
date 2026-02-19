@@ -5,7 +5,19 @@
 
 const PROJECT_ID = process.env.VITE_PROJECT_ID;
 const API_KEY = process.env.VITE_API_KEY;
-const BASE_URL = 'https://cercavins.vercel.app';
+
+function escapeXml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+}
 
 async function fetchCollection(collectionId) {
     let allDocuments = [];
@@ -36,7 +48,11 @@ async function fetchCollection(collectionId) {
 
 export default async function handler(req, res) {
     try {
-        console.log('Sitemap request received');
+        const host = req.headers.host || 'cercavins.vercel.app';
+        const protocol = host.includes('localhost') ? 'http' : 'https';
+        const BASE_URL = `${protocol}://${host}`;
+
+        console.log(`Sitemap request for ${BASE_URL}`);
 
         // 1. Fetch posts and SEO data (with fallback to empty arrays)
         let postsDocs = [];
@@ -109,7 +125,7 @@ export default async function handler(req, res) {
                 const lastmod = seoInfo?.updatedAt ? seoInfo.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
                 xml += `
   <url>
-    <loc>${BASE_URL}${page.url}</loc>
+    <loc>${BASE_URL}${escapeXml(page.url)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
@@ -122,7 +138,7 @@ export default async function handler(req, res) {
             const lastmod = post.updatedAt ? post.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
             xml += `
   <url>
-    <loc>${BASE_URL}/post/${post.id}</loc>
+    <loc>${BASE_URL}/post/${escapeXml(post.id)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>`;
@@ -130,8 +146,8 @@ export default async function handler(req, res) {
             if (post.image) {
                 xml += `
     <image:image>
-      <image:loc>${post.image}</image:loc>
-      <image:caption>${post.imageAlt || ''}</image:caption>
+      <image:loc>${escapeXml(post.image)}</image:loc>
+      <image:caption>${escapeXml(post.imageAlt || '')}</image:caption>
     </image:image>`;
             }
 
@@ -142,18 +158,18 @@ export default async function handler(req, res) {
         xml += `
 </urlset>`;
 
-        res.setHeader('Content-Type', 'text/xml');
+        res.setHeader('Content-Type', 'text/xml; charset=utf-8');
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=1800');
         console.log('Sitemap generated successfully');
         return res.status(200).send(xml);
     } catch (error) {
         console.error('Critical sitemap generator error:', error);
-        // Fallback to minimal sitemap instead of 500
+        const host = req.headers.host || 'cercavins.vercel.app';
         const fallbackXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${BASE_URL}/</loc></url>
+  <url><loc>https://${host}/</loc></url>
 </urlset>`;
-        res.setHeader('Content-Type', 'text/xml');
+        res.setHeader('Content-Type', 'text/xml; charset=utf-8');
         return res.status(200).send(fallbackXml);
     }
 }
