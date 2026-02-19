@@ -102,7 +102,7 @@ i18n
                             try_button: 'Executar Aplicació',
                             back_button: 'Tornar al catàleg',
                             seo_section: {
-                                title: '🚀 Com funciona el SEO Intel·ligent de Cercavins',
+                                title: '🚀 Com funciona el SEO Intel·ligent de Sommelier Digital',
                                 subtitle: 'En lloc de dependre d\'un SEO estàtic, hem desenvolupat un ecosistema dinàmic i multilingüe que connecta directament la nostra base de dades amb els cercadors globals.',
                                 point1_title: '1. El Cervell: Firestore (La Base de Dades Centralitzada)',
                                 point1_desc1: 'Gestió Flexible: Totes les paraules clau, títols i descripcions SEO es gestionen des d\'una col·lecció específica a Firestore anomenada site_seo.',
@@ -377,7 +377,7 @@ i18n
                             try_button: 'Ejecutar Aplicación',
                             back_button: 'Volver al catálogo',
                             seo_section: {
-                                title: '🚀 Cómo funciona el SEO Inteligente de Cercavins',
+                                title: '🚀 Cómo funciona el SEO Inteligente de Sommelier Digital',
                                 subtitle: 'En lugar de depender de un SEO estático, hemos desarrollado un ecosistema dinámico y multilingüe que conecta directamente nuestra base de datos con los buscadores globales.',
                                 point1_title: '1. El Cerebro: Firestore (La Base de Datos Centralizada)',
                                 point1_desc1: 'Gestión Flexible: Todas las palabras clave, títulos y descripciones SEO se gestionan desde una colección específica en Firestore llamada site_seo.',
@@ -651,7 +651,7 @@ i18n
                             try_button: 'Execute Application',
                             back_button: 'Back to catalog',
                             seo_section: {
-                                title: '🚀 How Cercavins Intelligent SEO Works',
+                                title: '🚀 How Sommelier Digital Intelligent SEO Works',
                                 subtitle: 'Instead of depending on static SEO, we have developed a dynamic and multilingual ecosystem that connects our database directly with global search engines.',
                                 point1_title: '1. The Brain: Firestore (Centralized Database)',
                                 point1_desc1: 'Flexible Management: All keywords, titles, and SEO descriptions are managed from a specific Firestore collection called site_seo.',
