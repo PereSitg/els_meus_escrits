@@ -31,7 +31,7 @@ export default function Header() {
     const professionalItems = [
         { name: t('nav.dev_ia'), path: '/projects?tag=IA' },
         { name: t('nav.consultancy'), path: '/projects?tag=Consultoria' },
-        { name: t('nav.tal_com_erem'), path: '/projects/tal-com-erem' },
+        { name: 'Més enllà d\'Orió', path: 'https://mesenlladorio-c8gr.vercel.app/', external: true },
     ];
 
     const writingItems = [
@@ -122,13 +122,25 @@ export default function Header() {
                         </Link>
                         <div className="dropdown-content">
                             {professionalItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    to={item.path}
-                                    className="dropdown-link"
-                                >
-                                    {item.name}
-                                </Link>
+                                item.external ? (
+                                    <a
+                                        key={item.path}
+                                        href={item.path}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="dropdown-link"
+                                    >
+                                        {item.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={item.path}
+                                        to={item.path}
+                                        className="dropdown-link"
+                                    >
+                                        {item.name}
+                                    </Link>
+                                )
                             ))}
                         </div>
                     </div>
@@ -275,19 +287,37 @@ export default function Header() {
                                 </div>
                                 <div className="dropdown-content">
                                     {professionalItems.map((item) => (
-                                        <Link
-                                            key={item.path}
-                                            to={item.path}
-                                            style={{
-                                                display: 'block',
-                                                padding: '0.75rem 0',
-                                                fontSize: '1.1rem',
-                                                color: isActive(item.path) ? 'var(--accent-primary)' : 'var(--text-secondary)'
-                                            }}
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            {item.name}
-                                        </Link>
+                                        item.external ? (
+                                            <a
+                                                key={item.path}
+                                                href={item.path}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{
+                                                    display: 'block',
+                                                    padding: '0.75rem 0',
+                                                    fontSize: '1.1rem',
+                                                    color: 'var(--text-secondary)'
+                                                }}
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ) : (
+                                            <Link
+                                                key={item.path}
+                                                to={item.path}
+                                                style={{
+                                                    display: 'block',
+                                                    padding: '0.75rem 0',
+                                                    fontSize: '1.1rem',
+                                                    color: isActive(item.path) ? 'var(--accent-primary)' : 'var(--text-secondary)'
+                                                }}
+                                                onClick={() => setIsOpen(false)}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        )
                                     ))}
                                 </div>
                             </div>

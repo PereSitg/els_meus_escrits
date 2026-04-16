@@ -42,18 +42,6 @@ export const projectsData = [
         seoTitle: 'Fets per Sitges | Estratègia Digital de Guerrilla',
         seoDescription: 'L\'èxit de Fets per Sitges: 666 vots amb pressupost zero gràcies a una estratègia digital puntera.',
         isIndexed: true
-    },
-    {
-        id: 'tal-com-erem',
-        slug: 'tal-com-erem',
-        image: '/talcomerem.jpg',
-        tags: ['XXSS', 'Instagram', 'TikTok', 'Estratègia'],
-        category: 'social_media',
-        comingSoon: false,
-        translationKey: 'tal_com_erem_project',
-        seoTitle: 'Tal com érem | Recuperació del Patrimoni Visual',
-        seoDescription: 'Projecte de rescat del patrimoni visual de Sitges mitjançant Intel·ligència Artificial.',
-        isIndexed: true
     }
 ];
 

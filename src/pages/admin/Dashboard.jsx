@@ -653,8 +653,7 @@ export default function Dashboard() {
                                     { name: 'Sommelier Digital', path: '/projects/sommelier', key: 'sommelier-digital' },
                                     { name: 'Sitges Art', path: '/projects/sitges-art', key: 'sitges-art' },
                                     { name: 'Sitges Walk', path: '/projects/sitges-walk', key: 'sitges-walk' },
-                                    { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' },
-                                    { name: 'Tal com érem', path: '/projects/tal-com-erem', key: 'tal-com-erem' }
+                                    { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' }
                                 ].map(page => renderSeoRow(page))}
 
                                 { /* Pàgines Legals */}
