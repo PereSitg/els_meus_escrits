@@ -42,6 +42,18 @@ export const projectsData = [
         seoTitle: 'Fets per Sitges | Estratègia Digital de Guerrilla',
         seoDescription: 'L\'èxit de Fets per Sitges: 666 vots amb pressupost zero gràcies a una estratègia digital puntera.',
         isIndexed: true
+    },
+    {
+        id: 'mes-enlla-d-orio',
+        slug: 'mes-enlla-d-orio',
+        image: '/els_escrits.png',
+        tags: ['Web', 'IA', 'Tecnologia', 'Blog'],
+        category: 'dev_ia',
+        translationKey: 'mes_enlla',
+        externalLink: 'https://mesenlladorio-c8gr.vercel.app/',
+        seoTitle: 'Més enllà d\'Orió',
+        seoDescription: 'Blog sobre tecnologia i Intel·ligència Artificial.',
+        isIndexed: true
     }
 ];
 

@@ -188,6 +188,68 @@ export default function Projects() {
                                             </p>
                                         </div>
                                     </div>
+                                ) : project.externalLink ? (
+                                    <a href={project.externalLink} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <motion.div
+                                            whileHover={{ y: -10 }}
+                                            style={{
+                                                background: 'var(--bg-secondary)',
+                                                borderRadius: '1.5rem',
+                                                overflow: 'hidden',
+                                                border: '1px solid rgba(255,255,255,0.1)',
+                                                cursor: 'pointer',
+                                                height: '100%'
+                                            }}
+                                        >
+                                            <div style={{
+                                                width: '100%',
+                                                aspectRatio: '16/9',
+                                                overflow: 'hidden'
+                                            }}>
+                                                <img
+                                                    src={project.image}
+                                                    alt={t(`projects.${project.translationKey}.title`)}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                />
+                                            </div>
+                                            <div style={{ padding: '2rem' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                                                        {project.tags.map(tag => (
+                                                            <span
+                                                                key={tag}
+                                                                style={{
+                                                                    fontSize: '0.75rem',
+                                                                    padding: '0.2rem 0.6rem',
+                                                                    background: 'rgba(59, 130, 246, 0.1)',
+                                                                    color: 'var(--accent-primary)',
+                                                                    borderRadius: '2rem',
+                                                                    fontWeight: '600'
+                                                                }}
+                                                            >
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                    <span style={{
+                                                        fontSize: '0.7rem',
+                                                        color: 'var(--text-secondary)',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.05em',
+                                                        fontWeight: '700'
+                                                    }}>
+                                                        {t(`projects.categories.${project.category}`)}
+                                                    </span>
+                                                </div>
+                                                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
+                                                    {t(`projects.${project.translationKey}.title`)}
+                                                </h2>
+                                                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                                                    {t(`projects.${project.translationKey}.desc`)}
+                                                </p>
+                                            </div>
+                                        </motion.div>
+                                    </a>
                                 ) : (
                                     <Link to={`/projects/${project.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <motion.div
