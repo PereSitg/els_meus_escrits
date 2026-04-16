@@ -195,7 +195,7 @@ i18n
                         },
                         mes_enlla: {
                             title: 'Més enllà d\'Orió',
-                            desc: 'Blog sobre tecnologia i Intel·ligència Artificial.'
+                            desc: 'Vídeos, escrits sobre tecnologia i més coses random.'
                         },
                         related_title: 'Altres Projectes'
                     },
@@ -470,7 +470,7 @@ i18n
                         },
                         mes_enlla: {
                             title: 'Més enllà d\'Orió',
-                            desc: 'Blog sobre tecnología e Inteligencia Artificial.'
+                            desc: 'Vídeos, escritos sobre tecnología y más cosas random.'
                         },
                         related_title: 'Otros Proyectos'
                     },
@@ -744,7 +744,7 @@ i18n
                         },
                         mes_enlla: {
                             title: 'Més enllà d\'Orió',
-                            desc: 'Blog about technology and Artificial Intelligence.'
+                            desc: 'Videos, writings about technology and more random stuff.'
                         },
                         related_title: 'Other Projects'
                     },

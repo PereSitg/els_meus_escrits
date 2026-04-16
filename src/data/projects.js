@@ -46,7 +46,7 @@ export const projectsData = [
     {
         id: 'mes-enlla-d-orio',
         slug: 'mes-enlla-d-orio',
-        image: '/els_escrits.png',
+        image: '/mes_enlla_card.jpg',
         tags: ['Web', 'IA', 'Tecnologia', 'Blog'],
         category: 'dev_ia',
         translationKey: 'mes_enlla',
