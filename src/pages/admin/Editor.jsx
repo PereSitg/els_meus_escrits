@@ -65,7 +65,7 @@ export default function PostEditor() {
         setIsCorrecting(true);
         try {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
             const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 

@@ -1,10 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, limit, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
 import { Calendar, Tag, ChevronLeft, ChevronRight, Share2, Clock, BookOpen, Languages, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { collection, query, limit, getDocs } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import { translateText } from '../lib/translateService';
 
