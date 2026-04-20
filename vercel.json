@@ -5,6 +5,10 @@
             "destination": "/api/sitemap"
         },
         {
+            "source": "/post/:id",
+            "destination": "/api/og"
+        },
+        {
             "source": "/(.*)",
             "destination": "/"
         }

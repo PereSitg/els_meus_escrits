@@ -38,14 +38,24 @@ export default function PostDetail() {
                     const finalTitle = data.seoTitle || data.title;
                     document.title = `${finalTitle} | Pere Badia i Lorenz`;
 
-                    const finalDescription = data.seoDescription || data.subtitle || data.content?.substring(0, 160).replace(/\n/g, ' ') || '';
-                    let metaDescription = document.querySelector('meta[name="description"]');
-                    if (!metaDescription) {
-                        metaDescription = document.createElement('meta');
-                        metaDescription.name = 'description';
-                        document.head.appendChild(metaDescription);
+                    // SEO: Open Graph Image
+                    let metaOgImage = document.querySelector('meta[property="og:image"]');
+                    if (!metaOgImage) {
+                        metaOgImage = document.createElement('meta');
+                        metaOgImage.setAttribute('property', 'og:image');
+                        document.head.appendChild(metaOgImage);
                     }
-                    metaDescription.content = finalDescription;
+                    metaOgImage.setAttribute('content', data.image || 'https://els-meus-escrits.vercel.app/default-og-image.jpg');
+
+                    // SEO: Twitter Image
+                    let metaTwitterImage = document.querySelector('meta[name="twitter:image"]');
+                    if (!metaTwitterImage) {
+                        metaTwitterImage = document.createElement('meta');
+                        metaTwitterImage.setAttribute('name', 'twitter:image');
+                        document.head.appendChild(metaTwitterImage);
+                    }
+                    metaTwitterImage.setAttribute('content', data.image || 'https://els-meus-escrits.vercel.app/default-og-image.jpg');
+                    
 
                     // SEO: Robots Indexing
                     let metaRobots = document.querySelector('meta[name="robots"]');
