@@ -48,6 +48,7 @@ export default function PostEditor() {
     const [seoTitle, setSeoTitle] = useState('');
     const [seoDescription, setSeoDescription] = useState('');
     const [isIndexed, setIsIndexed] = useState(true);
+    const [slug, setSlug] = useState('');
     const [loading, setLoading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [isCorrecting, setIsCorrecting] = useState(false);
@@ -133,6 +134,7 @@ export default function PostEditor() {
                         setSeoTitle(data.seoTitle || '');
                         setSeoDescription(data.seoDescription || '');
                         setIsIndexed(data.isIndexed !== undefined ? data.isIndexed : true);
+                        setSlug(data.slug || '');
                     }
                 } catch (error) {
                     console.error("Error fetching post:", error);
@@ -157,6 +159,7 @@ export default function PostEditor() {
         setSeoTitle('');
         setSeoDescription('');
         setIsIndexed(true);
+        setSlug('');
         setPublishProgress(0);
         setPublishFinished(false);
         setShowModal(false);
@@ -284,6 +287,16 @@ export default function PostEditor() {
             setTitle(paragraphs[0]);
             setSubtitle('');
 
+            // Generar slug automàticament des del títol si és nou
+            if (!isEditing) {
+                const generatedSlug = paragraphs[0]
+                    .toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/(^-|-$)/g, '');
+                setSlug(generatedSlug);
+            }
+
             if (paragraphs.length > 1) {
                 // Tota la resta es junta mantenint els salts de línia dobles (\n\n)
                 // per tal que PostDetail.jsx els pugui renderitzar com a paràgrafs separats.
@@ -400,6 +413,7 @@ export default function PostEditor() {
                 seoTitle,
                 seoDescription,
                 isIndexed,
+                slug: slug.trim().toLowerCase(),
                 updatedAt: serverTimestamp()
             };
 
@@ -551,6 +565,35 @@ export default function PostEditor() {
                                 onChange={e => setSubtitle(e.target.value)}
                                 style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem' }}
                             />
+                        </div>
+
+                        <div>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>Enllaç de l'Article (Slug)</label>
+                            <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.5rem', padding: '0 0.75rem' }}>
+                                <span style={{ opacity: 0.5, fontSize: '0.9rem' }}>/</span>
+                                <input
+                                    type="text"
+                                    required
+                                    value={slug}
+                                    onChange={e => setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))}
+                                    placeholder="titol-article"
+                                    style={{ flex: 1, padding: '0.75rem 0.25rem', background: 'transparent', border: 'none', color: 'white', fontSize: '0.9rem' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const generated = title
+                                            .toLowerCase()
+                                            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                            .replace(/[^a-z0-9]+/g, '-')
+                                            .replace(/(^-|-$)/g, '');
+                                        setSlug(generated);
+                                    }}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--accent-primary)', cursor: 'pointer', fontSize: '0.8rem' }}
+                                >
+                                    Generar
+                                </button>
+                            </div>
                         </div>
                     </div>
 

@@ -29,9 +29,23 @@ export default function PostDetail() {
 
         async function fetchPost() {
             try {
-                const docSnap = await getDoc(doc(db, "posts", id));
+                // 1. Intentar carregar per ID (compatibilitat enrere)
+                let docSnap = await getDoc(doc(db, "posts", id));
+                let data = null;
+
                 if (docSnap.exists()) {
-                    const data = docSnap.id ? { id: docSnap.id, ...docSnap.data() } : docSnap.data();
+                    data = { id: docSnap.id, ...docSnap.data() };
+                } else {
+                    // 2. Fallback: Cercar per Slug si no es troba l'ID
+                    const q = query(collection(db, "posts"), where("slug", "==", id), limit(1));
+                    const querySnapshot = await getDocs(q);
+                    if (!querySnapshot.empty) {
+                        const foundDoc = querySnapshot.docs[0];
+                        data = { id: foundDoc.id, ...foundDoc.data() };
+                    }
+                }
+
+                if (data) {
                     setPost(data);
 
                     // SEO: Update Title and Meta Description
@@ -526,7 +540,7 @@ export default function PostDetail() {
                                         transition={{ delay: idx * 0.1 }}
                                         viewport={{ once: true }}
                                     >
-                                        <Link to={`/post/${rPost.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Link to={`/${rPost.slug || rPost.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                                             <div style={{
                                                 background: 'rgba(255, 255, 255, 0.03)',
                                                 borderRadius: '1.25rem',

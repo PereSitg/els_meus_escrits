@@ -45,7 +45,6 @@ function App() {
             <Route path="stack" element={<Stack />} />
             <Route path="category/:slug" element={<Category />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="post/:id" element={<PostDetail />} />
             <Route path="projects/sommelier" element={<SommelierDigital />} />
             <Route path="projects/sitges-art" element={<SitgesArt />} />
             <Route path="projects/sitges-walk" element={<SitgesWalk />} />
@@ -53,6 +52,7 @@ function App() {
             <Route path="avis-legal" element={<LegalNotice />} />
             <Route path="politica-cookies" element={<CookiePolicy />} />
             <Route path="politica-privacitat" element={<PrivacyPolicy />} />
+            <Route path=":id" element={<PostDetail />} />
           </Route>
 
           {/* Admin Routes */}

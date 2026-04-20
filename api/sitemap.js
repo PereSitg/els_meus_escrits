@@ -106,6 +106,7 @@ export default async function handler(req, res) {
             const id = doc.name.split('/').pop();
             return {
                 id,
+                slug: fields.slug?.stringValue,
                 image: fields.image?.stringValue,
                 imageAlt: fields.imageAlt?.stringValue,
                 isIndexed: fields.isIndexed?.booleanValue !== false,
@@ -138,9 +139,10 @@ export default async function handler(req, res) {
         // Posts with Image SEO
         indexedPosts.forEach(post => {
             const lastmod = post.updatedAt ? post.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
+            const postUrl = `/${post.slug || post.id}`;
             xml += `
   <url>
-    <loc>${BASE_URL}/post/${escapeXml(post.id)}</loc>
+    <loc>${BASE_URL}${escapeXml(postUrl)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>`;

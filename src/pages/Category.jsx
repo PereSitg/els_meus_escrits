@@ -83,7 +83,7 @@ export default function Category() {
                             </div>
                             <div style={{ padding: '1.5rem' }}>
                                 <h2 style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>{post.title}</h2>
-                                <Link to={`/post/${post.id}`} style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>
+                                <Link to={`/${post.slug || post.id}`} style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>
                                     Llegir més
                                 </Link>
                             </div>

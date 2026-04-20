@@ -5,7 +5,7 @@
             "destination": "/api/sitemap"
         },
         {
-            "source": "/post/:id",
+            "source": "/:id",
             "destination": "/api/og"
         },
         {
