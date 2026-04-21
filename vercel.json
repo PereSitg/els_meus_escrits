@@ -5,12 +5,8 @@
             "destination": "/api/sitemap"
         },
         {
-            "source": "/:id",
-            "destination": "/api/og"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/"
+            "source": "/((?!api|assets|admin|login|favicon.ico|robots.txt|sitemap.xml|social-preview.png).*)",
+            "destination": "/api/og?path=$1"
         }
     ]
 }

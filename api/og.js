@@ -9,10 +9,12 @@ const API_KEY = process.env.VITE_API_KEY;
 
 export default async function handler(req, res) {
     try {
-        const { id } = req.query; // This captures the 'id' part of /:id
+        const { id, path } = req.query; 
+        const fullPath = path || id || '';
         const host = req.headers.host || 'els-meus-escrits.vercel.app';
         const protocol = host.includes('localhost') ? 'http' : 'https';
         const baseUrl = `${protocol}://${host}`;
+        const currentUrl = `${baseUrl}/${fullPath}`.replace(/\/+$/, '') || baseUrl;
 
         // 1. Fetch the base index.html
         const response = await fetch(`${baseUrl}/`);
@@ -27,49 +29,55 @@ export default async function handler(req, res) {
         let metadata = null;
 
         // 2. Determine what we are looking at
-        // A. Check if it's a post (by ID first, then by Slug)
-        const postByIdUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/posts/${id}?key=${API_KEY}`;
-        const postByIdRes = await fetch(postByIdUrl);
-        const postByIdData = await postByIdRes.json();
+        // Extract the last segment if it's a potential post ID/Slug
+        const segments = fullPath.split('/').filter(Boolean);
+        const lastSegment = segments[segments.length - 1];
 
-        if (postByIdData && postByIdData.fields) {
-            const fields = postByIdData.fields;
-            metadata = {
-                title: fields.seoTitle?.stringValue || fields.title?.stringValue,
-                description: fields.seoDescription?.stringValue || fields.subtitle?.stringValue,
-                image: fields.image?.stringValue,
-                url: `${baseUrl}/${id}`
-            };
-        } else {
-            // B. Try searching by Slug
-            const slugQueryUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents:runQuery?key=${API_KEY}`;
-            const slugQueryBody = {
-                structuredQuery: {
-                    from: [{ collectionId: 'posts' }],
-                    where: {
-                        fieldFilter: {
-                            field: { fieldPath: 'slug' },
-                            op: 'EQUAL',
-                            value: { stringValue: id }
-                        }
-                    },
-                    limit: 1
-                }
-            };
-            const slugRes = await fetch(slugQueryUrl, {
-                method: 'POST',
-                body: JSON.stringify(slugQueryBody)
-            });
-            const slugData = await slugRes.json();
+        if (lastSegment) {
+            // A. Check if it's a post (by ID first, then by Slug)
+            const postByIdUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/posts/${lastSegment}?key=${API_KEY}`;
+            const postByIdRes = await fetch(postByIdUrl);
+            const postByIdData = await postByIdRes.json();
 
-            if (slugData && slugData[0] && slugData[0].document) {
-                const fields = slugData[0].document.fields;
+            if (postByIdData && postByIdData.fields) {
+                const fields = postByIdData.fields;
                 metadata = {
                     title: fields.seoTitle?.stringValue || fields.title?.stringValue,
                     description: fields.seoDescription?.stringValue || fields.subtitle?.stringValue,
                     image: fields.image?.stringValue,
-                    url: `${baseUrl}/${id}`
+                    url: currentUrl
                 };
+            } else {
+                // B. Try searching by Slug
+                const slugQueryUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents:runQuery?key=${API_KEY}`;
+                const slugQueryBody = {
+                    structuredQuery: {
+                        from: [{ collectionId: 'posts' }],
+                        where: {
+                            fieldFilter: {
+                                field: { fieldPath: 'slug' },
+                                op: 'EQUAL',
+                                value: { stringValue: lastSegment }
+                            }
+                        },
+                        limit: 1
+                    }
+                };
+                const slugRes = await fetch(slugQueryUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(slugQueryBody)
+                });
+                const slugData = await slugRes.json();
+
+                if (slugData && slugData[0] && slugData[0].document) {
+                    const fields = slugData[0].document.fields;
+                    metadata = {
+                        title: fields.seoTitle?.stringValue || fields.title?.stringValue,
+                        description: fields.seoDescription?.stringValue || fields.subtitle?.stringValue,
+                        image: fields.image?.stringValue,
+                        url: currentUrl
+                    };
+                }
             }
         }
 
@@ -77,15 +85,21 @@ export default async function handler(req, res) {
         if (!metadata) {
             // Map common paths to SEO document IDs
             const pageMap = {
+                'home': 'home',
                 'projects': 'projects_list',
                 'stack': 'stack',
                 'contact': 'contact',
                 'avis-legal': 'avis_legal',
                 'politica-cookies': 'politica_cookies',
-                'politica-privacitat': 'politica_privacitat'
+                'politica-privacitat': 'politica_privacitat',
+                'projects/sommelier': 'sommelier-digital',
+                'projects/sitges-art': 'sitges-art',
+                'projects/sitges-walk': 'sitges-walk',
+                'projects/fets-per-sitges': 'fets-per-sitges',
+                'projects/tal-com-erem': 'tal-com-erem'
             };
             
-            const seoId = pageMap[id];
+            const seoId = pageMap[fullPath] || (fullPath === '' ? 'home' : null);
             if (seoId) {
                 const seoUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/site_seo/${seoId}?key=${API_KEY}`;
                 const seoRes = await fetch(seoUrl);
@@ -97,7 +111,7 @@ export default async function handler(req, res) {
                         title: fields.title?.stringValue,
                         description: fields.description?.stringValue,
                         image: fields.image?.stringValue,
-                        url: `${baseUrl}/${id}`
+                        url: currentUrl
                     };
                 }
             }
@@ -117,17 +131,32 @@ export default async function handler(req, res) {
                 return htmlContent.replace(regex, replacement);
             };
 
+            const replaceCanonical = (htmlContent, value) => {
+                const regex = /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i;
+                const replacement = `<link rel="canonical" href="${value}" />`;
+                return htmlContent.replace(regex, replacement);
+            };
+
             html = html.replace(/<title>.*?<\/title>/i, `<title>${fullTitle}</title>`);
             html = replaceMeta(html, 'og:title', fullTitle);
             html = replaceMeta(html, 'og:description', description);
             html = replaceMeta(html, 'og:image', image);
             html = replaceMeta(html, 'og:image:secure_url', image);
             html = replaceMeta(html, 'og:url', metadata.url);
+            html = replaceCanonical(html, metadata.url);
             
             html = replaceMeta(html, 'twitter:title', fullTitle, true);
             html = replaceMeta(html, 'twitter:description', description, true);
             html = replaceMeta(html, 'twitter:image', image, true);
             html = replaceMeta(html, 'twitter:url', metadata.url, true);
+        } else {
+            // Even if no specific metadata, inject the current canonical URL
+            const replaceCanonical = (htmlContent, value) => {
+                const regex = /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i;
+                const replacement = `<link rel="canonical" href="${value}" />`;
+                return htmlContent.replace(regex, replacement);
+            };
+            html = replaceCanonical(html, currentUrl);
         }
 
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
