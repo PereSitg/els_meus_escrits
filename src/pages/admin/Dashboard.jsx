@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { collection, getDocs, deleteDoc, doc, query, orderBy, updateDoc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { Edit2, Trash2, Plus, LogOut, ChevronRight, Globe, GlobeLock, Check, X, AlertCircle, Sparkles, Languages, Loader2 } from 'lucide-react';
+import { Edit2, Trash2, Plus, LogOut, ChevronRight, Globe, GlobeLock, Check, X, AlertCircle, Sparkles, Languages, Loader2, Image as ImageIcon } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
@@ -14,7 +14,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [editingPage, setEditingPage] = useState(null); // Key of the page being edited
     const [editValues, setEditValues] = useState({
-        title: '', description: '',
+        title: '', description: '', image: '',
         title_es: '', description_es: '',
         title_en: '', description_en: ''
     });
@@ -108,7 +108,7 @@ export default function Dashboard() {
         setIsTranslating(true);
         try {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
             const prompt = `Ets un expert en SEO i traducció. Tradueix el següent contingut SEO del català al castellà i a l'anglès. 
             És molt important mantenir el significat i l'optimització SEO.
@@ -221,6 +221,7 @@ export default function Dashboard() {
             await updateDoc(doc(db, 'site_seo', pageKey), {
                 title: editValues.title,
                 description: editValues.description,
+                image: editValues.image || '',
                 title_es: editValues.title_es || '',
                 description_es: editValues.description_es || '',
                 title_en: editValues.title_en || '',
@@ -231,9 +232,13 @@ export default function Dashboard() {
                 ...prev,
                 [pageKey]: {
                     ...prev[pageKey],
-                    title: editValues.title, description: editValues.description,
-                    title_es: editValues.title_es, description_es: editValues.description_es,
-                    title_en: editValues.title_en, description_en: editValues.description_en
+                    title: editValues.title, 
+                    description: editValues.description,
+                    image: editValues.image,
+                    title_es: editValues.title_es, 
+                    description_es: editValues.description_es,
+                    title_en: editValues.title_en, 
+                    description_en: editValues.description_en
                 }
             }));
             setEditingPage(null);
@@ -244,6 +249,7 @@ export default function Dashboard() {
                     await setDoc(doc(db, 'site_seo', pageKey), {
                         title: editValues.title,
                         description: editValues.description,
+                        image: editValues.image || '',
                         title_es: editValues.title_es || '',
                         description_es: editValues.description_es || '',
                         title_en: editValues.title_en || '',
@@ -255,9 +261,13 @@ export default function Dashboard() {
                         ...prev,
                         [pageKey]: {
                             ...prev[pageKey],
-                            title: editValues.title, description: editValues.description,
-                            title_es: editValues.title_es, description_es: editValues.description_es,
-                            title_en: editValues.title_en, description_en: editValues.description_en,
+                            title: editValues.title, 
+                            description: editValues.description,
+                            image: editValues.image,
+                            title_es: editValues.title_es, 
+                            description_es: editValues.description_es,
+                            title_en: editValues.title_en, 
+                            description_en: editValues.description_en,
                             isIndexed: true
                         }
                     }));
@@ -334,6 +344,16 @@ export default function Dashboard() {
                                     placeholder="Descripció SEO"
                                     style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '60px' }}
                                 />
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.05)', padding: '0.4rem', borderRadius: '0.4rem' }}>
+                                    <ImageIcon size={14} style={{ color: 'var(--accent-primary)' }} />
+                                    <input
+                                        type="text"
+                                        value={editValues.image}
+                                        onChange={(e) => setEditValues({ ...editValues, image: e.target.value })}
+                                        placeholder="URL de la Imatge SEO (https://...)"
+                                        style={{ background: 'transparent', border: 'none', color: 'white', padding: '0', flex: 1, fontSize: '0.8rem' }}
+                                    />
+                                </div>
                             </div>
 
                             <button
@@ -396,6 +416,7 @@ export default function Dashboard() {
                             setEditValues({
                                 title: pagesSeo[page.key]?.title || '',
                                 description: pagesSeo[page.key]?.description || '',
+                                image: pagesSeo[page.key]?.image || '',
                                 title_es: pagesSeo[page.key]?.title_es || '',
                                 description_es: pagesSeo[page.key]?.description_es || '',
                                 title_en: pagesSeo[page.key]?.title_en || '',
@@ -408,6 +429,11 @@ export default function Dashboard() {
                             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                                 {pagesSeo[page.key]?.description || 'Sense descripció'}
                             </div>
+                            {pagesSeo[page.key]?.image && (
+                                <div style={{ fontSize: '0.7rem', color: 'var(--accent-primary)', marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                    <ImageIcon size={10} /> Foto personalitzada activa
+                                </div>
+                            )}
                             {(pagesSeo[page.key]?.title_es || pagesSeo[page.key]?.title_en) && (
                                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.4rem' }}>
                                     {pagesSeo[page.key]?.title_es && <span style={{ fontSize: '0.65rem', border: '1px solid rgba(255,255,255,0.2)', padding: '0.1rem 0.3rem', borderRadius: '0.2rem', color: 'var(--text-secondary)' }}>ES</span>}
