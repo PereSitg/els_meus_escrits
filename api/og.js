@@ -10,11 +10,19 @@ const API_KEY = process.env.VITE_API_KEY;
 export default async function handler(req, res) {
     try {
         const { id, path } = req.query; 
-        const fullPath = path || id || '';
+        // Normalize path: remove trailing slashes
+        const fullPath = (path || id || '').replace(/\/+$/, '');
         const host = req.headers.host || 'els-meus-escrits.vercel.app';
         const protocol = host.includes('localhost') ? 'http' : 'https';
         const baseUrl = `${protocol}://${host}`;
         const currentUrl = `${baseUrl}/${fullPath}`.replace(/\/+$/, '') || baseUrl;
+
+        // Helper to ensure absolute URLs for images
+        const ensureAbsolute = (url) => {
+            if (!url) return null;
+            if (url.startsWith('http')) return url;
+            return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+        };
 
         // 1. Fetch the base index.html
         const response = await fetch(`${baseUrl}/`);
@@ -44,7 +52,7 @@ export default async function handler(req, res) {
                 metadata = {
                     title: fields.seoTitle?.stringValue || fields.title?.stringValue,
                     description: fields.seoDescription?.stringValue || fields.subtitle?.stringValue,
-                    image: fields.image?.stringValue,
+                    image: ensureAbsolute(fields.image?.stringValue),
                     url: currentUrl
                 };
             } else {
@@ -74,45 +82,84 @@ export default async function handler(req, res) {
                     metadata = {
                         title: fields.seoTitle?.stringValue || fields.title?.stringValue,
                         description: fields.seoDescription?.stringValue || fields.subtitle?.stringValue,
-                        image: fields.image?.stringValue,
+                        image: ensureAbsolute(fields.image?.stringValue),
                         url: currentUrl
                     };
                 }
             }
         }
 
-        // C. If not a post, check if it's a known Page in site_seo
+        // C. If not a post, check if it's a known Page or Project
         if (!metadata) {
-            // Map common paths to SEO document IDs
-            const pageMap = {
-                'home': 'home',
-                'projects': 'projects_list',
-                'stack': 'stack',
-                'contact': 'contact',
-                'avis-legal': 'avis_legal',
-                'politica-cookies': 'politica_cookies',
-                'politica-privacitat': 'politica_privacitat',
-                'projects/sommelier': 'sommelier-digital',
-                'projects/sitges-art': 'sitges-art',
-                'projects/sitges-walk': 'sitges-walk',
-                'projects/fets-per-sitges': 'fets-per-sitges',
-                'projects/tal-com-erem': 'tal-com-erem'
+            // Hardcoded fallbacks for projects and static pages
+            const projectFallbacks = {
+                'projects/sommelier': {
+                    title: 'Sommelier Digital IA | Recomanador de Vins Personalitzat',
+                    description: 'Descobreix el Sommelier Digital basat en IA: recomanacions de vins precises segons el teu pressupost i gustos.',
+                    image: '/sommelier_digital.png'
+                },
+                'projects/sitges-art': {
+                    title: 'Sitges Art | Patrimoni Artístic en Realitat Augmentada',
+                    description: 'Plataforma per descobrir l\'art urbà de Sitges mitjançant geolocalització i IA.',
+                    image: '/sitges_art.png'
+                },
+                'projects/sitges-walk': {
+                    title: 'Sitges Walk | Rutes Històriques Digitals',
+                    description: 'Explora Sitges amb guies digitals immersives per a rutes culturals i històriques.',
+                    image: '/sitges_walk.png'
+                },
+                'projects/fets-per-sitges': {
+                    title: 'Fets per Sitges | Estratègia Digital de Guerrilla',
+                    description: 'L\'èxit de Fets per Sitges: 666 vots amb pressupost zero gràcies a una estratègia digital puntera.',
+                    image: '/fets_per_sitges_card.png'
+                },
+                'projects/tal-com-erem': {
+                    title: 'Tal Com Érem | Arxiu Històric Digital',
+                    description: 'Projecte de recuperació de memòria històrica mitjançant la digitalització d\'arxius fotogràfics.',
+                    image: '/talcomerem.jpg'
+                },
+                'projects/mes-enlla-d-orio': {
+                    title: 'Més enllà d\'Orió | Blog de Tecnologia i IA',
+                    description: 'Blog personal sobre tecnologia, intel·ligència artificial i futurisme.',
+                    image: '/mes_enlla_card.jpg'
+                }
             };
-            
-            const seoId = pageMap[fullPath] || (fullPath === '' ? 'home' : null);
-            if (seoId) {
-                const seoUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/site_seo/${seoId}?key=${API_KEY}`;
-                const seoRes = await fetch(seoUrl);
-                const seoData = await seoRes.json();
 
-                if (seoData && seoData.fields) {
-                    const fields = seoData.fields;
-                    metadata = {
-                        title: fields.title?.stringValue,
-                        description: fields.description?.stringValue,
-                        image: fields.image?.stringValue,
-                        url: currentUrl
-                    };
+            const fallback = projectFallbacks[fullPath];
+            if (fallback) {
+                metadata = {
+                    title: fallback.title,
+                    description: fallback.description,
+                    image: ensureAbsolute(fallback.image),
+                    url: currentUrl
+                };
+            } else {
+                // Try Firestore site_seo collection
+                const pageMap = {
+                    'home': 'home',
+                    'projects': 'projects_list',
+                    'stack': 'stack',
+                    'contact': 'contact',
+                    'avis-legal': 'avis_legal',
+                    'politica-cookies': 'politica_cookies',
+                    'politica-privacitat': 'politica_privacitat'
+                };
+                
+                const seoId = pageMap[fullPath] || (fullPath === '' ? 'home' : null);
+                if (seoId) {
+                    const seoUrl = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/site_seo/${seoId}?key=${API_KEY}`;
+                    const seoRes = await fetch(seoUrl);
+                    const seoData = await seoRes.json();
+
+                    if (seoData && seoData.fields) {
+                        const fields = seoData.fields;
+                        metadata = {
+                            title: fields.title?.stringValue,
+                            description: fields.description?.stringValue,
+                            image: ensureAbsolute(fields.image?.stringValue),
+                            url: currentUrl
+                        };
+                    }
                 }
             }
         }
@@ -126,9 +173,16 @@ export default async function handler(req, res) {
 
             const replaceMeta = (htmlContent, nameOrProperty, value, isName = false) => {
                 const attr = isName ? 'name' : 'property';
+                // Use a more robust regex that can handle existing tags or add them if missing
                 const regex = new RegExp(`<meta\\s+${attr}="${nameOrProperty}"[^>]*>`, 'i');
-                const replacement = `<meta ${attr}="${nameOrProperty}" content="${value}" />`;
-                return htmlContent.replace(regex, replacement);
+                if (regex.test(htmlContent)) {
+                    const replacement = `<meta ${attr}="${nameOrProperty}" content="${value}" />`;
+                    return htmlContent.replace(regex, replacement);
+                } else {
+                    // If not found, inject it before </head>
+                    const replacement = `<meta ${attr}="${nameOrProperty}" content="${value}" />\n  `;
+                    return htmlContent.replace('</head>', `${replacement}</head>`);
+                }
             };
 
             const replaceCanonical = (htmlContent, value) => {
@@ -145,12 +199,18 @@ export default async function handler(req, res) {
             html = replaceMeta(html, 'og:url', metadata.url);
             html = replaceCanonical(html, metadata.url);
             
+            // Twitter specific tags
+            html = replaceMeta(html, 'twitter:card', 'summary_large_image', true);
             html = replaceMeta(html, 'twitter:title', fullTitle, true);
             html = replaceMeta(html, 'twitter:description', description, true);
             html = replaceMeta(html, 'twitter:image', image, true);
             html = replaceMeta(html, 'twitter:url', metadata.url, true);
+
+            // Ensure dimensions for large previews
+            html = replaceMeta(html, 'og:image:width', '1200');
+            html = replaceMeta(html, 'og:image:height', '630');
         } else {
-            // Even if no specific metadata, inject the current canonical URL
+            // Fallback for unknown pages
             const replaceCanonical = (htmlContent, value) => {
                 const regex = /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i;
                 const replacement = `<link rel="canonical" href="${value}" />`;
