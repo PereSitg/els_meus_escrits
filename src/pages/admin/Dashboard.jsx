@@ -232,6 +232,19 @@ export default function Dashboard() {
         }
     }
 
+    async function handleToggleIndex(id, currentStatus) {
+        try {
+            await updateDoc(doc(db, 'posts', id), {
+                isIndexed: !currentStatus
+            });
+            setPosts(posts.map(post =>
+                post.id === id ? { ...post, isIndexed: !currentStatus } : post
+            ));
+        } catch (error) {
+            console.error("Error updating indexing status:", error);
+        }
+    }
+
     function renderSeoRow(page) {
         const isPageIndexed = pagesSeo[page.key]?.isIndexed !== false;
         return (
@@ -319,6 +332,7 @@ export default function Dashboard() {
             <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                 <button onClick={() => setActiveTab('posts')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'posts' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'posts' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>Publicacions</button>
                 <button onClick={() => setActiveTab('seo')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'seo' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'seo' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>SEO & Pàgines</button>
+                <button onClick={() => navigate('/admin/media')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer' }}>Mitjans (SEO)</button>
             </div>
 
             {activeTab === 'posts' ? (
@@ -335,12 +349,22 @@ export default function Dashboard() {
             ) : (
                 <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', padding: '1.5rem' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem' }}>Pàgina</th><th style={{ padding: '1rem' }}>Metadades</th><th style={{ padding: '1rem', textAlign: 'center' }}>Index</th></tr></thead>
+                        <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem' }}>Pàgina / Secció</th><th style={{ padding: '1rem' }}>Metadades SEO</th><th style={{ padding: '1rem', textAlign: 'center' }}>Indexació</th></tr></thead>
                         <tbody>
-                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', color: 'var(--accent-primary)' }}>PÀGINES PRINCIPALS</td></tr>
-                            {[{ name: 'Inici', path: '/', key: 'home' }, { name: 'Projectes', path: '/projects', key: 'projects_list' }, { name: 'Stack', path: '/stack', key: 'stack' }, { name: 'Contacte', path: '/contact', key: 'contact' }].map(p => renderSeoRow(p))}
-                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', color: 'var(--accent-primary)' }}>PROJECTES ESPECÍFICS</td></tr>
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>PÀGINES PRINCIPALS</td></tr>
+                            {[{ name: 'Inici (Home)', path: '/', key: 'home' }, { name: 'Catàleg de Projectes', path: '/projects', key: 'projects_list' }, { name: 'El meu Stack', path: '/stack', key: 'stack' }, { name: 'Contacte', path: '/contact', key: 'contact' }].map(p => renderSeoRow(p))}
+                            
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>CATEGORIES (DINÀMIQUES)</td></tr>
+                            {[...new Set(posts.map(p => p.category || 'Altres'))].sort().map(cat => {
+                                const slug = cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
+                                return renderSeoRow({ name: cat, path: `/category/${slug}`, key: `category_${slug}` });
+                            })}
+
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>DETALL DE PROJECTES</td></tr>
                             {[{ name: 'Sommelier Digital', path: '/projects/sommelier', key: 'sommelier-digital' }, { name: 'Sitges Art', path: '/projects/sitges-art', key: 'sitges-art' }, { name: 'Sitges Walk', path: '/projects/sitges-walk', key: 'sitges-walk' }, { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' }].map(p => renderSeoRow(p))}
+
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>PÀGINES LEGALS</td></tr>
+                            {[{ name: 'Avís Legal', path: '/avis-legal', key: 'avis_legal' }, { name: 'Política de Cookies', path: '/politica-cookies', key: 'politica_cookies' }, { name: 'Política de Privacitat', path: '/politica-privacitat', key: 'politica_privacitat' }].map(p => renderSeoRow(p))}
                         </tbody>
                     </table>
                 </div>
