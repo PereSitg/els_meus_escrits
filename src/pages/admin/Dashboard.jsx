@@ -272,7 +272,7 @@ export default function Dashboard() {
                                             {uploadingImage ? 'Pujant...' : 'Pujar imatge de previsualització'}
                                         </button>
                                         <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '0.4rem' }}>
-                                            Aquesta foto és la que sortirà a LinkedIn i Twitter.
+                                            Aquesta foto és la que sortirà a LinkedIn, Facebook, WhatsApp i la resta de xarxes socials.
                                         </div>
                                     </div>
                                     {editValues.image && <button onClick={() => setEditValues({ ...editValues, image: '' })} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}><X size={16}/></button>}
