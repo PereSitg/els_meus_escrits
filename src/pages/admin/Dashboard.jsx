@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { collection, getDocs, deleteDoc, doc, query, orderBy, updateDoc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { Edit2, Trash2, Plus, LogOut, ChevronRight, Globe, GlobeLock, Check, X, AlertCircle, Sparkles, Languages, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Edit2, Trash2, Plus, LogOut, ChevronRight, Globe, GlobeLock, Check, X, AlertCircle, Sparkles, Languages, Loader2, Image as ImageIcon, Upload } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
 export default function Dashboard() {
     const [posts, setPosts] = useState([]);
@@ -20,8 +22,10 @@ export default function Dashboard() {
     });
     const [activeTab, setActiveTab] = useState('posts'); // 'posts', 'seo', or 'media'
     const [isTranslating, setIsTranslating] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
+    const imageInputRef = useRef(null);
 
     useEffect(() => {
         if (!currentUser) {
@@ -61,6 +65,37 @@ export default function Dashboard() {
 
         fetchDashboardData();
     }, [currentUser, navigate]);
+
+    async function handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+            alert("Error: Cloudinary not configured.");
+            return;
+        }
+
+        setUploadingImage(true);
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                { method: 'POST', body: formData }
+            );
+
+            if (!response.ok) throw new Error('Upload failed');
+            const data = await response.json();
+            setEditValues(prev => ({ ...prev, image: data.secure_url }));
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Error al pujar la imatge.");
+        } finally {
+            setUploadingImage(false);
+        }
+    }
 
     async function handleTogglePageIndex(pageKey, currentStatus) {
         try {
@@ -128,89 +163,42 @@ export default function Dashboard() {
             const response = await result.response;
             let text = response.text().trim();
 
-            // Extreure JSON robustament (per si la IA posa ```json ... ```)
             const jsonMatch = text.match(/\{[\s\S]*\}/);
-            if (!jsonMatch) {
-                console.error("No s'ha trobat format JSON en la resposta:", text);
-                throw new Error("La resposta de la IA no té un format vàlid.");
-            }
-
+            if (!jsonMatch) throw new Error("La resposta de la IA no té un format vàlid.");
             const translations = JSON.parse(jsonMatch[0]);
 
-            setEditValues(prev => ({
-                ...prev,
-                ...translations
-            }));
+            setEditValues(prev => ({ ...prev, ...translations }));
             alert("IA: Traducció SEO completada!");
         } catch (error) {
             console.error("Error en la traducció automàtica:", error);
-            const isQuotaExceeded = error.message?.includes('429') || error.message?.toLowerCase().includes('quota');
-            const isAuthError = error.message?.includes('401') || error.message?.toLowerCase().includes('api key');
-
-            let errorMsg = "Error en la traducció automàtica.";
-            if (isQuotaExceeded) errorMsg += "\nS'ha superat la quota de l'API (massa peticions).";
-            else if (isAuthError) errorMsg += "\nLa clau de l'API de Gemini no és vàlida.";
-            else errorMsg += `\nDetalls: ${error.message}`;
-
-            alert(errorMsg);
+            alert("Error en la traducció automàtica.");
         } finally {
             setIsTranslating(false);
         }
     }
 
     async function handleBulkSeoUpdate() {
-        if (!window.confirm("Això actualitzarà automàticament el SEO de tots els articles que no en tinguin. Vols continuar?")) {
-            return;
-        }
-
+        if (!window.confirm("Això actualitzarà automàticament el SEO de tots els articles que no en tinguin. Vols continuar?")) return;
         setLoading(true);
-        let updatedCount = 0;
-
         try {
             const postsSnapshot = await getDocs(collection(db, 'posts'));
             const updatePromises = postsSnapshot.docs.map(async (docSnapshot) => {
                 const data = docSnapshot.data();
-
-                // Check if SEO data is missing
-                const needsUpdate = !data.seoTitle || !data.seoDescription;
-
-                if (needsUpdate) {
+                if (!data.seoTitle || !data.seoDescription) {
                     const newSeoTitle = data.seoTitle || data.title || '';
-
-                    // Strip HTML tags and irrelevant characters for description
-                    let plainText = data.content || '';
-                    plainText = plainText.replace(/<[^>]*>/g, ''); // Remove HTML tags
-                    plainText = plainText.replace(/\s+/g, ' ').trim(); // Normalize whitespace
-
+                    let plainText = (data.content || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
                     const newSeoDescription = data.seoDescription || plainText.substring(0, 155) + (plainText.length > 155 ? '...' : '');
-
                     await updateDoc(doc(db, 'posts', docSnapshot.id), {
-                        seoTitle: newSeoTitle,
-                        seoDescription: newSeoDescription,
-                        updatedAt: serverTimestamp() // Optional: update timestamp
+                        seoTitle: newSeoTitle, seoDescription: newSeoDescription, updatedAt: serverTimestamp()
                     });
-                    updatedCount++;
                 }
             });
-
             await Promise.all(updatePromises);
-
-            // Refresh posts locally
             const refreshedSnapshot = await getDocs(collection(db, 'posts'));
-            const refreshedPosts = refreshedSnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            })).sort((a, b) => {
-                const dateA = a.createdAt?.toDate?.() || 0;
-                const dateB = b.createdAt?.toDate?.() || 0;
-                return dateB - dateA;
-            });
-            setPosts(refreshedPosts);
-
-            alert(`Procés finalitzat! S'han actualitzat ${updatedCount} articles.`);
+            setPosts(refreshedSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => (b.createdAt?.toDate?.() || 0) - (a.createdAt?.toDate?.() || 0)));
+            alert("Procés finalitzat!");
         } catch (error) {
             console.error("Error updating bulk SEO:", error);
-            alert("Hi ha hagut un error durant l'actualització massiva.");
         } finally {
             setLoading(false);
         }
@@ -219,101 +207,28 @@ export default function Dashboard() {
     async function handleSaveSeo(pageKey) {
         try {
             await updateDoc(doc(db, 'site_seo', pageKey), {
-                title: editValues.title,
-                description: editValues.description,
-                image: editValues.image || '',
-                title_es: editValues.title_es || '',
-                description_es: editValues.description_es || '',
-                title_en: editValues.title_en || '',
-                description_en: editValues.description_en || '',
+                title: editValues.title, description: editValues.description, image: editValues.image || '',
+                title_es: editValues.title_es || '', description_es: editValues.description_es || '',
+                title_en: editValues.title_en || '', description_en: editValues.description_en || '',
                 updatedAt: serverTimestamp()
             });
             setPagesSeo(prev => ({
                 ...prev,
-                [pageKey]: {
-                    ...prev[pageKey],
-                    title: editValues.title, 
-                    description: editValues.description,
-                    image: editValues.image,
-                    title_es: editValues.title_es, 
-                    description_es: editValues.description_es,
-                    title_en: editValues.title_en, 
-                    description_en: editValues.description_en
-                }
+                [pageKey]: { ...prev[pageKey], ...editValues }
             }));
             setEditingPage(null);
         } catch (error) {
             console.error("Error saving SEO data:", error);
-            if (error.code === 'not-found') {
-                try {
-                    await setDoc(doc(db, 'site_seo', pageKey), {
-                        title: editValues.title,
-                        description: editValues.description,
-                        image: editValues.image || '',
-                        title_es: editValues.title_es || '',
-                        description_es: editValues.description_es || '',
-                        title_en: editValues.title_en || '',
-                        description_en: editValues.description_en || '',
-                        isIndexed: true,
-                        updatedAt: serverTimestamp()
-                    });
-                    setPagesSeo(prev => ({
-                        ...prev,
-                        [pageKey]: {
-                            ...prev[pageKey],
-                            title: editValues.title, 
-                            description: editValues.description,
-                            image: editValues.image,
-                            title_es: editValues.title_es, 
-                            description_es: editValues.description_es,
-                            title_en: editValues.title_en, 
-                            description_en: editValues.description_en,
-                            isIndexed: true
-                        }
-                    }));
-                    setEditingPage(null);
-                } catch (setErr) {
-                    console.error("Error setting SEO data on fallback:", setErr);
-                    alert(`Error al crear metadades SEO (${setErr.code || setErr.message})`);
-                }
-            } else {
-                alert(`Error al desar les metadades SEO (${error.code || error.message})`);
-            }
-        }
-    }
-
-    async function handleToggleIndex(id, currentStatus) {
-        try {
-            await updateDoc(doc(db, 'posts', id), {
-                isIndexed: !currentStatus
-            });
-            setPosts(posts.map(post =>
-                post.id === id ? { ...post, isIndexed: !currentStatus } : post
-            ));
-        } catch (error) {
-            console.error("Error updating indexing status:", error);
-            alert('Error al canviar l\'estat d\'indexació');
         }
     }
 
     async function handleLogout() {
-        try {
-            await logout();
-            navigate('/admin/login');
-        } catch {
-            console.error("Failed to log out");
-        }
+        try { await logout(); navigate('/admin/login'); } catch { console.error("Failed to log out"); }
     }
 
     async function handleDelete(id) {
-        if (window.confirm('Estàs segur que vols eliminar aquesta publicació?')) {
-            try {
-                await deleteDoc(doc(db, 'posts', id));
-                setPosts(posts.filter(post => post.id !== id));
-            } catch (error) {
-                console.error("Error deleting post:", error);
-                alert('Error al eliminar la publicació');
-            }
+        if (window.confirm('Vols eliminar aquesta publicació?')) {
+            try { await deleteDoc(doc(db, 'posts', id)); setPosts(posts.filter(p => p.id !== id)); } catch (error) { console.error("Error deleting post:", error); }
         }
     }
 
@@ -328,82 +243,33 @@ export default function Dashboard() {
                 <td style={{ padding: '1rem' }}>
                     {editingPage === page.key ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '0.5rem' }}>
-                            {/* CA */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                                 <label style={{ fontSize: '0.7rem', color: 'var(--accent-primary)', fontWeight: 'bold' }}>CATALÀ</label>
-                                <input
-                                    type="text"
-                                    value={editValues.title}
-                                    onChange={(e) => setEditValues({ ...editValues, title: e.target.value })}
-                                    placeholder="Títol SEO"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem' }}
-                                />
-                                <textarea
-                                    value={editValues.description}
-                                    onChange={(e) => setEditValues({ ...editValues, description: e.target.value })}
-                                    placeholder="Descripció SEO"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '60px' }}
-                                />
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.05)', padding: '0.4rem', borderRadius: '0.4rem' }}>
-                                    <ImageIcon size={14} style={{ color: 'var(--accent-primary)' }} />
-                                    <input
-                                        type="text"
-                                        value={editValues.image}
-                                        onChange={(e) => setEditValues({ ...editValues, image: e.target.value })}
-                                        placeholder="URL de la Imatge SEO (https://...)"
-                                        style={{ background: 'transparent', border: 'none', color: 'white', padding: '0', flex: 1, fontSize: '0.8rem' }}
-                                    />
+                                <input type="text" value={editValues.title} onChange={(e) => setEditValues({ ...editValues, title: e.target.value })} placeholder="Títol SEO" style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem' }} />
+                                <textarea value={editValues.description} onChange={(e) => setEditValues({ ...editValues, description: e.target.value })} placeholder="Descripció SEO" style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '60px' }} />
+                                
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginTop: '0.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '0.5rem' }}>
+                                    <div style={{ width: '80px', height: '45px', background: 'var(--bg-primary)', borderRadius: '0.3rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                        {editValues.image ? <img src={editValues.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.2 }}><ImageIcon size={20}/></div>}
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <input type="file" ref={imageInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleImageUpload} />
+                                        <button onClick={() => imageInputRef.current.click()} disabled={uploadingImage} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.8rem', background: 'var(--bg-primary)', border: '1px solid var(--accent-primary)', color: 'var(--accent-primary)', borderRadius: '0.4rem', fontSize: '0.8rem', cursor: 'pointer' }}>
+                                            {uploadingImage ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                                            {uploadingImage ? 'Pujant...' : 'Pujar imatge de previsualització'}
+                                        </button>
+                                        <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '0.4rem' }}>
+                                            Aquesta foto és la que sortirà a LinkedIn i Twitter.
+                                        </div>
+                                    </div>
+                                    {editValues.image && <button onClick={() => setEditValues({ ...editValues, image: '' })} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}><X size={16}/></button>}
                                 </div>
                             </div>
 
-                            <button
-                                onClick={handleAutoTranslate}
-                                disabled={isTranslating}
-                                style={{
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                                    padding: '0.5rem', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-primary)',
-                                    border: '1px solid var(--accent-primary)', borderRadius: '0.4rem', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold'
-                                }}
-                            >
+                            <button onClick={handleAutoTranslate} disabled={isTranslating} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.5rem', background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-primary)', border: '1px solid var(--accent-primary)', borderRadius: '0.4rem', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>
                                 {isTranslating ? <Loader2 size={16} className="animate-spin" /> : <Languages size={16} />}
                                 {isTranslating ? 'Traduint...' : 'Auto-tradueix a ES i EN'}
                             </button>
-
-                            {/* ES */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                                <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 'bold' }}>CASTELLÀ</label>
-                                <input
-                                    type="text"
-                                    value={editValues.title_es}
-                                    onChange={(e) => setEditValues({ ...editValues, title_es: e.target.value })}
-                                    placeholder="Títol SEO ES"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.05)', color: '#ccc', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem' }}
-                                />
-                                <textarea
-                                    value={editValues.description_es}
-                                    onChange={(e) => setEditValues({ ...editValues, description_es: e.target.value })}
-                                    placeholder="Descripció SEO ES"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.05)', color: '#ccc', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '40px' }}
-                                />
-                            </div>
-
-                            {/* EN */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                                <label style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 'bold' }}>ANGLÈS</label>
-                                <input
-                                    type="text"
-                                    value={editValues.title_en}
-                                    onChange={(e) => setEditValues({ ...editValues, title_en: e.target.value })}
-                                    placeholder="Títol SEO EN"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.05)', color: '#ccc', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem' }}
-                                />
-                                <textarea
-                                    value={editValues.description_en}
-                                    onChange={(e) => setEditValues({ ...editValues, description_en: e.target.value })}
-                                    placeholder="Descripció SEO EN"
-                                    style={{ background: 'var(--bg-primary)', border: '1px solid rgba(255,255,255,0.05)', color: '#ccc', padding: '0.5rem', borderRadius: '0.4rem', fontSize: '0.85rem', minHeight: '40px' }}
-                                />
-                            </div>
 
                             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
                                 <button onClick={() => handleSaveSeo(page.key)} className="btn btn-primary" style={{ flex: 1 }}>Desar</button>
@@ -414,30 +280,19 @@ export default function Dashboard() {
                         <div style={{ cursor: 'pointer' }} onClick={() => {
                             setEditingPage(page.key);
                             setEditValues({
-                                title: pagesSeo[page.key]?.title || '',
-                                description: pagesSeo[page.key]?.description || '',
-                                image: pagesSeo[page.key]?.image || '',
-                                title_es: pagesSeo[page.key]?.title_es || '',
-                                description_es: pagesSeo[page.key]?.description_es || '',
-                                title_en: pagesSeo[page.key]?.title_en || '',
-                                description_en: pagesSeo[page.key]?.description_en || ''
+                                title: pagesSeo[page.key]?.title || '', description: pagesSeo[page.key]?.description || '', image: pagesSeo[page.key]?.image || '',
+                                title_es: pagesSeo[page.key]?.title_es || '', description_es: pagesSeo[page.key]?.description_es || '',
+                                title_en: pagesSeo[page.key]?.title_en || '', description_en: pagesSeo[page.key]?.description_en || ''
                             });
                         }}>
-                            <div style={{ fontSize: '0.9rem', color: pagesSeo[page.key]?.title ? 'white' : 'rgba(255,255,255,0.3)', marginBottom: '0.25rem' }}>
-                                {pagesSeo[page.key]?.title || 'Sense títol'}
-                            </div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                                {pagesSeo[page.key]?.description || 'Sense descripció'}
-                            </div>
+                            <div style={{ fontSize: '0.9rem', color: pagesSeo[page.key]?.title ? 'white' : 'rgba(255,255,255,0.3)', marginBottom: '0.25rem' }}>{pagesSeo[page.key]?.title || 'Sense títol'}</div>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{pagesSeo[page.key]?.description || 'Sense descripció'}</div>
                             {pagesSeo[page.key]?.image && (
-                                <div style={{ fontSize: '0.7rem', color: 'var(--accent-primary)', marginTop: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                    <ImageIcon size={10} /> Foto personalitzada activa
-                                </div>
-                            )}
-                            {(pagesSeo[page.key]?.title_es || pagesSeo[page.key]?.title_en) && (
-                                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.4rem' }}>
-                                    {pagesSeo[page.key]?.title_es && <span style={{ fontSize: '0.65rem', border: '1px solid rgba(255,255,255,0.2)', padding: '0.1rem 0.3rem', borderRadius: '0.2rem', color: 'var(--text-secondary)' }}>ES</span>}
-                                    {pagesSeo[page.key]?.title_en && <span style={{ fontSize: '0.65rem', border: '1px solid rgba(255,255,255,0.2)', padding: '0.1rem 0.3rem', borderRadius: '0.2rem', color: 'var(--text-secondary)' }}>EN</span>}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+                                    <div style={{ width: '40px', height: '25px', borderRadius: '0.2rem', overflow: 'hidden' }}>
+                                        <img src={pagesSeo[page.key].image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
+                                    <span style={{ fontSize: '0.65rem', color: 'var(--accent-primary)' }}>Imatge activa</span>
                                 </div>
                             )}
                         </div>
@@ -445,21 +300,7 @@ export default function Dashboard() {
                 </td>
                 <td style={{ padding: '1rem', textAlign: 'center' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div
-                            onClick={() => handleTogglePageIndex(page.key, isPageIndexed)}
-                            style={{
-                                width: '50px',
-                                height: '24px',
-                                background: isPageIndexed ? 'var(--accent-primary)' : 'rgba(255,255,255,0.1)',
-                                borderRadius: '50px',
-                                padding: '3px',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: isPageIndexed ? 'flex-end' : 'flex-start',
-                                transition: 'all 0.3s ease'
-                            }}
-                        >
+                        <div onClick={() => handleTogglePageIndex(page.key, isPageIndexed)} style={{ width: '50px', height: '24px', background: isPageIndexed ? 'var(--accent-primary)' : 'rgba(255,255,255,0.1)', borderRadius: '50px', padding: '3px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: isPageIndexed ? 'flex-end' : 'flex-start', transition: 'all 0.3s ease' }}>
                             <div style={{ width: '18px', height: '18px', background: 'white', borderRadius: '50%' }} />
                         </div>
                     </div>
@@ -471,236 +312,37 @@ export default function Dashboard() {
     return (
         <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <div>
-                    <h1>Tauler d'Administració</h1>
-                    <p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser?.email || 'Usuari'}</p>
-                </div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <Link to="/admin/new" className="btn btn-primary">
-                        <Plus size={18} /> Nova Publicació
-                    </Link>
-                    <button onClick={handleBulkSeoUpdate} className="btn" style={{ border: '1px solid var(--accent-primary)', color: 'var(--accent-primary)', background: 'transparent' }}>
-                        <Sparkles size={18} /> Generar SEO (Tots)
-                    </button>
-                    <button onClick={handleLogout} className="btn" style={{ border: '1px solid #ef4444', color: '#ef4444', background: 'transparent' }}>
-                        <LogOut size={18} /> Sortir
-                    </button>
-                </div>
+                <div><h1>Tauler d'Administració</h1><p style={{ color: 'var(--text-secondary)' }}>Benvingut, {currentUser?.email || 'Usuari'}</p></div>
+                <div style={{ display: 'flex', gap: '1rem' }}><Link to="/admin/new" className="btn btn-primary"><Plus size={18} /> Nova Publicació</Link><button onClick={handleLogout} className="btn" style={{ border: '1px solid #ef4444', color: '#ef4444', background: 'transparent' }}><LogOut size={18} /> Sortir</button></div>
             </div>
 
-            {/* Tabs Navigation */}
             <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                <button
-                    onClick={() => setActiveTab('posts')}
-                    style={{
-                        padding: '1rem 0.5rem',
-                        background: 'transparent',
-                        border: 'none',
-                        borderBottom: activeTab === 'posts' ? '2px solid var(--accent-primary)' : '2px solid transparent',
-                        color: activeTab === 'posts' ? 'white' : 'var(--text-secondary)',
-                        fontSize: '1.1rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s'
-                    }}
-                >
-                    Publicacions
-                </button>
-                <button
-                    onClick={() => setActiveTab('seo')}
-                    style={{
-                        padding: '1rem 0.5rem',
-                        background: 'transparent',
-                        border: 'none',
-                        borderBottom: activeTab === 'seo' ? '2px solid var(--accent-primary)' : '2px solid transparent',
-                        color: activeTab === 'seo' ? 'white' : 'var(--text-secondary)',
-                        fontSize: '1.1rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s'
-                    }}
-                >
-                    SEO & Pàgines
-                </button>
-                <button
-                    onClick={() => navigate('/admin/media')}
-                    style={{
-                        padding: '1rem 0.5rem',
-                        background: 'transparent',
-                        border: 'none',
-                        borderBottom: '2px solid transparent',
-                        color: 'var(--text-secondary)',
-                        fontSize: '1.1rem',
-                        fontWeight: '600',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s'
-                    }}
-                >
-                    Mitjans (SEO)
-                </button>
+                <button onClick={() => setActiveTab('posts')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'posts' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'posts' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>Publicacions</button>
+                <button onClick={() => setActiveTab('seo')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'seo' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'seo' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>SEO & Pàgines</button>
             </div>
 
             {activeTab === 'posts' ? (
                 <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    {loading ? (
-                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '4rem' }}>Carregant publicacions...</p>
-                    ) : posts.length === 0 ? (
-                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '4rem' }}>
-                            Encara no hi ha publicacions.
-                        </p>
-                    ) : (
-                        <div style={{ width: '100%', overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <thead>
-                                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}>
-                                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Títol</th>
-                                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Categoria</th>
-                                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Indexat</th>
-                                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Data</th>
-                                        <th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'right' }}>Accions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {posts.map(post => (
-                                        <tr key={post.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', transition: 'background 0.2s' }}>
-                                            <td style={{ padding: '1rem 1.5rem', fontWeight: '500' }}>{post.title || 'Sense títol'}</td>
-                                            <td style={{ padding: '1rem 1.5rem' }}>
-                                                <span style={{
-                                                    padding: '0.25rem 0.75rem',
-                                                    background: 'rgba(59, 130, 246, 0.1)',
-                                                    color: 'var(--accent-primary)',
-                                                    borderRadius: '1rem',
-                                                    fontSize: '0.8rem'
-                                                }}>
-                                                    {post.category || 'Altres'}
-                                                </span>
-                                            </td>
-                                            <td style={{ padding: '1rem 1.5rem' }}>
-                                                <button
-                                                    onClick={() => handleToggleIndex(post.id, post.isIndexed !== false)}
-                                                    style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: '0.4rem',
-                                                        padding: '0.25rem 0.6rem',
-                                                        background: post.isIndexed !== false ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                                                        color: post.isIndexed !== false ? '#10b981' : '#ef4444',
-                                                        border: 'none',
-                                                        borderRadius: '0.5rem',
-                                                        fontSize: '0.75rem',
-                                                        fontWeight: '600',
-                                                        cursor: 'pointer'
-                                                    }}
-                                                >
-                                                    {post.isIndexed !== false ? <Globe size={14} /> : <GlobeLock size={14} />}
-                                                    {post.isIndexed !== false ? 'SÍ' : 'NO'}
-                                                </button>
-                                            </td>
-                                            <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                                {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('ca-ES') : 'Sense data'}
-                                            </td>
-                                            <td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}>
-                                                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                                    <button
-                                                        onClick={() => navigate(`/admin/edit/${post.id}`)}
-                                                        style={{ padding: '0.5rem', background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', borderRadius: '0.5rem', cursor: 'pointer' }}
-                                                        title="Editar"
-                                                    >
-                                                        <Edit2 size={18} />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(post.id)}
-                                                        style={{ padding: '0.5rem', background: 'rgba(239, 68, 68, 0.1)', border: 'none', color: '#ef4444', borderRadius: '0.5rem', cursor: 'pointer' }}
-                                                        title="Eliminar"
-                                                    >
-                                                        <Trash2 size={18} />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-                </div>
-            ) : (
-                /* SECCIÓ CONTROL SEO */
-                <div style={{
-                    background: 'var(--bg-secondary)',
-                    borderRadius: '1rem',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    padding: '1.5rem'
-                }}>
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1rem' }}>
-                        Gestiona la visibilitat de totes les pàgines. Els cercadors com Google seguiran aquestes instruccions.
-                    </p>
-
-                    <div style={{ overflowX: 'auto' }}>
+                    <div style={{ width: '100%', overflowX: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead>
-                                <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}>
-                                    <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Pàgina / Secció</th>
-                                    <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Metadades SEO</th>
-                                    <th style={{ padding: '1rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'center' }}>Indexació</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                { /* Pàgines Principals */}
-                                <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
-                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Pàgines Principals</td>
-                                </tr>
-                                {[
-                                    { name: 'Inici (Home)', path: '/', key: 'home' },
-                                    { name: 'Catàleg de Projectes', path: '/projects', key: 'projects_list' },
-                                    { name: 'El meu Stack', path: '/stack', key: 'stack' },
-                                    { name: 'Contacte', path: '/contact', key: 'contact' }
-                                ].map(page => renderSeoRow(page))}
-
-                                { /* Categories (Dinàmiques) */}
-                                <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
-                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Categories (Dinàmiques)</td>
-                                </tr>
-                                {[...new Set(posts.map(p => p.category || 'Altres'))].sort().map(cat => {
-                                    const slug = cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-');
-                                    return renderSeoRow({
-                                        name: cat,
-                                        path: `/category/${slug}`,
-                                        key: `category_${slug}`
-                                    });
-                                })}
-
-                                { /* Projectes Específics */}
-                                <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
-                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Detall de Projectes</td>
-                                </tr>
-                                {[
-                                    { name: 'Sommelier Digital', path: '/projects/sommelier', key: 'sommelier-digital' },
-                                    { name: 'Sitges Art', path: '/projects/sitges-art', key: 'sitges-art' },
-                                    { name: 'Sitges Walk', path: '/projects/sitges-walk', key: 'sitges-walk' },
-                                    { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' }
-                                ].map(page => renderSeoRow(page))}
-
-                                { /* Pàgines Legals */}
-                                <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
-                                    <td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-primary)', textTransform: 'uppercase' }}>Pàgines Legals</td>
-                                </tr>
-                                {[
-                                    { name: 'Avís Legal', path: '/avis-legal', key: 'avis_legal' },
-                                    { name: 'Política de Cookies', path: '/politica-cookies', key: 'politica_cookies' },
-                                    { name: 'Política de Privacitat', path: '/politica-privacitat', key: 'politica_privacitat' }
-                                ].map(page => renderSeoRow(page))}
-                            </tbody>
+                            <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Títol</th><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Indexat</th><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500', textAlign: 'right' }}>Accions</th></tr></thead>
+                            <tbody>{posts.map(post => (
+                                <tr key={post.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}><td style={{ padding: '1rem 1.5rem' }}>{post.title}</td><td><button onClick={() => handleToggleIndex(post.id, post.isIndexed !== false)} style={{ background: 'transparent', border: 'none', color: post.isIndexed !== false ? '#10b981' : '#ef4444', cursor: 'pointer' }}>{post.isIndexed !== false ? 'SÍ' : 'NO'}</button></td><td style={{ padding: '1rem 1.5rem', textAlign: 'right' }}><button onClick={() => navigate(`/admin/edit/${post.id}`)} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', marginRight: '1rem' }}><Edit2 size={18}/></button><button onClick={() => handleDelete(post.id)} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer' }}><Trash2 size={18}/></button></td></tr>
+                            ))}</tbody>
                         </table>
                     </div>
-
-                    <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.5rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
-                        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <AlertCircle size={16} style={{ color: 'var(--accent-primary)' }} />
-                            Aquesta taula mostra l'estat global de les pàgines. Per canviar l'indexació d'articles individuals, utilitza la pestanya "Publicacions".
-                        </p>
-                    </div>
+                </div>
+            ) : (
+                <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', padding: '1.5rem' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem' }}>Pàgina</th><th style={{ padding: '1rem' }}>Metadades</th><th style={{ padding: '1rem', textAlign: 'center' }}>Index</th></tr></thead>
+                        <tbody>
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', color: 'var(--accent-primary)' }}>PÀGINES PRINCIPALS</td></tr>
+                            {[{ name: 'Inici', path: '/', key: 'home' }, { name: 'Projectes', path: '/projects', key: 'projects_list' }, { name: 'Stack', path: '/stack', key: 'stack' }, { name: 'Contacte', path: '/contact', key: 'contact' }].map(p => renderSeoRow(p))}
+                            <tr style={{ background: 'rgba(255,255,255,0.02)' }}><td colSpan="3" style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', color: 'var(--accent-primary)' }}>PROJECTES ESPECÍFICS</td></tr>
+                            {[{ name: 'Sommelier Digital', path: '/projects/sommelier', key: 'sommelier-digital' }, { name: 'Sitges Art', path: '/projects/sitges-art', key: 'sitges-art' }, { name: 'Sitges Walk', path: '/projects/sitges-walk', key: 'sitges-walk' }, { name: 'Fets per Sitges', path: '/projects/fets-per-sitges', key: 'fets-per-sitges' }].map(p => renderSeoRow(p))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>
