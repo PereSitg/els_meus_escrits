@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 export default function ReaderEngagement() {
@@ -39,11 +39,16 @@ export default function ReaderEngagement() {
 
     setStatus('loading');
     try {
-      await addDoc(collection(db, 'subscribers'), {
-        email,
-        subscribedAt: serverTimestamp(),
-        source: window.location.pathname
-      });
+      const emailLower = email.toLowerCase().trim();
+      // Utilitzem l'email com a ID del document per garantir que no hi hagi duplicats
+      await setDoc(doc(db, 'subscribers', emailLower), {
+        email: emailLower,
+        updatedAt: serverTimestamp(), // Utilitzem updatedAt per saber si s'ha tornat a subscriure
+        source: window.location.pathname,
+        // subscribedAt només es posarà si és nou gràcies al merge o ho gestionem així:
+        // de moment guardem la darrera vegada que ho han demanat
+      }, { merge: true });
+      
       setStatus('success');
       localStorage.setItem('newsletter_subscribed', 'true');
       
