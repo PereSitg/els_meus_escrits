@@ -361,7 +361,7 @@ export default function Dashboard() {
                         </table>
                     </div>
                 </div>
-            ) : (
+            ) : activeTab === 'seo' ? (
                 <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', padding: '1.5rem' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem' }}>Pàgina / Secció</th><th style={{ padding: '1rem' }}>Metadades SEO</th><th style={{ padding: '1rem', textAlign: 'center' }}>Indexació</th></tr></thead>
