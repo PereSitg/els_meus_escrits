@@ -13,6 +13,7 @@ const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 export default function Dashboard() {
     const [posts, setPosts] = useState([]);
     const [pagesSeo, setPagesSeo] = useState({});
+    const [subscribers, setSubscribers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editingPage, setEditingPage] = useState(null); // Key of the page being edited
     const [editValues, setEditValues] = useState({
@@ -57,6 +58,19 @@ export default function Dashboard() {
                     seoData[doc.id] = doc.data();
                 });
                 setPagesSeo(seoData);
+
+                // Fetch Subscribers
+                const subsSnapshot = await getDocs(collection(db, 'subscribers'));
+                const subsData = subsSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                const sortedSubs = subsData.sort((a, b) => {
+                    const dateA = a.subscribedAt?.toDate?.() || 0;
+                    const dateB = b.subscribedAt?.toDate?.() || 0;
+                    return dateB - dateA;
+                });
+                setSubscribers(sortedSubs);
             } catch (error) {
                 console.error("Error fetching dashboard data:", error);
             }
@@ -333,6 +347,7 @@ export default function Dashboard() {
                 <button onClick={() => setActiveTab('posts')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'posts' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'posts' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>Publicacions</button>
                 <button onClick={() => setActiveTab('seo')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'seo' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'seo' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>SEO & Pàgines</button>
                 <button onClick={() => navigate('/admin/media')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer' }}>Mitjans (SEO)</button>
+                <button onClick={() => setActiveTab('subscribers')} style={{ padding: '1rem 0.5rem', background: 'transparent', border: 'none', borderBottom: activeTab === 'subscribers' ? '2px solid var(--accent-primary)' : '2px solid transparent', color: activeTab === 'subscribers' ? 'white' : 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '600', cursor: 'pointer', transition: 'all 0.3s' }}>Subscriptors</button>
             </div>
 
             {activeTab === 'posts' ? (
@@ -368,7 +383,43 @@ export default function Dashboard() {
                         </tbody>
                     </table>
                 </div>
-            )}
+            ) : activeTab === 'subscribers' ? (
+                <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Llista de Subscriptors ({subscribers.length})</h2>
+                        <button onClick={() => {
+                            const csvContent = "data:text/csv;charset=utf-8," + "Correu,Data,Pàgina d'origen\n" + subscribers.map(s => `${s.email},${s.subscribedAt?.toDate ? s.subscribedAt.toDate().toLocaleString('ca-ES') : 'N/A'},${s.source || 'N/A'}`).join("\n");
+                            const encodedUri = encodeURI(csvContent);
+                            const link = document.createElement("a");
+                            link.setAttribute("href", encodedUri);
+                            link.setAttribute("download", "subscriptors_elsmeusescrits.csv");
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+                            Descarregar llista (CSV)
+                        </button>
+                    </div>
+                    <div style={{ width: '100%', overflowX: 'auto' }}>
+                        {subscribers.length === 0 ? (
+                            <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+                                Encara no hi ha cap subscriptor.
+                            </div>
+                        ) : (
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Correu Electrònic</th><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Data de subscripció</th><th style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)', fontWeight: '500' }}>Des d'on s'ha subscrit</th></tr></thead>
+                                <tbody>{subscribers.map(sub => (
+                                    <tr key={sub.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <td style={{ padding: '1rem 1.5rem', fontWeight: '500', color: 'white' }}>{sub.email}</td>
+                                        <td style={{ padding: '1rem 1.5rem', color: 'var(--text-secondary)' }}>{sub.subscribedAt?.toDate ? sub.subscribedAt.toDate().toLocaleDateString('ca-ES', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Data desconeguda'}</td>
+                                        <td style={{ padding: '1rem 1.5rem', color: 'var(--accent-primary)', fontSize: '0.9rem' }}>{sub.source || 'Desconegut'}</td>
+                                    </tr>
+                                ))}</tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 }
