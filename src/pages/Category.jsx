@@ -94,7 +94,7 @@ export default function Category() {
             </div>
 
             {/* Renderitzar el Widget de Newsletter només en certes categories */}
-            {['Sitges', 'Ecos de Sociedad', 'Altres històries'].includes(categoryName) && (
+            {['sitges', 'ecos de sociedad', 'altres històries'].includes((categoryName || '').toLowerCase().trim()) && (
                 <ReaderEngagement />
             )}
         </div>

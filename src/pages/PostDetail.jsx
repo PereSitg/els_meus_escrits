@@ -600,7 +600,7 @@ export default function PostDetail() {
             `}</style>
             
             {/* Renderitzar el Widget de Newsletter només en certes categories */}
-            {post && ['Sitges', 'Ecos de Sociedad', 'Altres històries'].includes(post.category) && (
+            {post && ['sitges', 'ecos de sociedad', 'altres històries'].includes((post.category || '').toLowerCase().trim()) && (
                 <ReaderEngagement />
             )}
         </motion.div>
