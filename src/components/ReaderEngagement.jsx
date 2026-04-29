@@ -11,11 +11,35 @@ export default function ReaderEngagement() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Comprovar si l'usuari ja l'ha tancat o s'ha subscrit previament
-    const hasDismissed = localStorage.getItem('newsletter_dismissed');
+    // Comprovar si s'ha subscrit
     const hasSubscribed = localStorage.getItem('newsletter_subscribed');
+    if (hasSubscribed) return;
 
-    if (!hasDismissed && !hasSubscribed) {
+    // Comprovar si l'ha tancat abans
+    let shouldShow = true;
+    const dismissedAt = localStorage.getItem('newsletter_dismissed_at');
+    const legacyDismissed = localStorage.getItem('newsletter_dismissed'); // per retrocompatibilitat amb la versió anterior
+    
+    if (legacyDismissed) {
+      // Si tenia la versió vella, l'actualitzem a la nova amb la data d'avui
+      localStorage.removeItem('newsletter_dismissed');
+      localStorage.setItem('newsletter_dismissed_at', Date.now().toString());
+      shouldShow = false;
+    } else if (dismissedAt) {
+      const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000; // 7 dies en mil·lisegons
+      const timeSinceDismissed = Date.now() - parseInt(dismissedAt, 10);
+      
+      if (timeSinceDismissed > ONE_WEEK_MS) {
+        // Ha passat una setmana, el tornem a mostrar i netejem la dada
+        localStorage.removeItem('newsletter_dismissed_at');
+        shouldShow = true;
+      } else {
+        // Encara no ha passat una setmana
+        shouldShow = false;
+      }
+    }
+
+    if (shouldShow) {
       // Mostrar després de 4 segons perquè no sigui intrusiu
       const timer = setTimeout(() => {
         setIsVisible(true);
@@ -26,7 +50,7 @@ export default function ReaderEngagement() {
 
   const handleClose = () => {
     setIsVisible(false);
-    localStorage.setItem('newsletter_dismissed', 'true');
+    localStorage.setItem('newsletter_dismissed_at', Date.now().toString());
   };
 
   const handleSubmit = async (e) => {
