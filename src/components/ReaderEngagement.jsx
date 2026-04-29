@@ -4,7 +4,7 @@ import { X, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
-export default function NewsletterWidget() {
+export default function ReaderEngagement() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
@@ -80,7 +80,7 @@ export default function NewsletterWidget() {
             padding: '1.5rem',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
           }}
-          className="newsletter-widget"
+          className="reader-engagement-box"
         >
           <button
             onClick={handleClose}
@@ -226,7 +226,7 @@ export default function NewsletterWidget() {
           {/* Media query pel mòbil injectada directament */}
           <style>{`
             @media (max-width: 640px) {
-              .newsletter-widget {
+              .reader-engagement-box {
                 bottom: 1rem !important;
                 right: 1rem !important;
                 width: calc(100% - 2rem) !important;

@@ -5,7 +5,7 @@ import { db } from '../lib/firebase';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSEO } from '../hooks/useSEO';
-import NewsletterWidget from '../components/NewsletterWidget';
+import ReaderEngagement from '../components/ReaderEngagement';
 
 export default function Category() {
     const { slug } = useParams();
@@ -95,7 +95,7 @@ export default function Category() {
 
             {/* Renderitzar el Widget de Newsletter només en certes categories */}
             {['Sitges', 'Ecos de Sociedad', 'Altres històries'].includes(categoryName) && (
-                <NewsletterWidget />
+                <ReaderEngagement />
             )}
         </div>
     );

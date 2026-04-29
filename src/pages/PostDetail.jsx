@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Tag, ChevronLeft, ChevronRight, Share2, Clock, BookOpen, Languages, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { translateText } from '../lib/translateService';
-import NewsletterWidget from '../components/NewsletterWidget';
+import ReaderEngagement from '../components/ReaderEngagement';
 
 export default function PostDetail() {
     const { id } = useParams();
@@ -601,7 +601,7 @@ export default function PostDetail() {
             
             {/* Renderitzar el Widget de Newsletter només en certes categories */}
             {post && ['Sitges', 'Ecos de Sociedad', 'Altres històries'].includes(post.category) && (
-                <NewsletterWidget />
+                <ReaderEngagement />
             )}
         </motion.div>
     );
