@@ -386,19 +386,29 @@ export default function Dashboard() {
             ) : activeTab === 'subscribers' ? (
                 <div style={{ background: 'var(--bg-secondary)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Llista de Subscriptors ({subscribers.length})</h2>
-                        <button onClick={() => {
-                            const csvContent = "data:text/csv;charset=utf-8," + "Correu,Data,Pàgina d'origen\n" + subscribers.map(s => `${s.email},${s.subscribedAt?.toDate ? s.subscribedAt.toDate().toLocaleString('ca-ES') : 'N/A'},${s.source || 'N/A'}`).join("\n");
-                            const encodedUri = encodeURI(csvContent);
-                            const link = document.createElement("a");
-                            link.setAttribute("href", encodedUri);
-                            link.setAttribute("download", "subscriptors_elsmeusescrits.csv");
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
-                            Descarregar llista (CSV)
-                        </button>
+                        <div>
+                            <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Llista de Subscriptors ({subscribers.length})</h2>
+                            <p style={{ margin: '0.5rem 0 0', fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: '500' }}>
+                                📢 A partir d'ara els nous subscriptors es gestionen a MailerLite.
+                            </p>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                            <a href="https://dashboard.mailerlite.com/" target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', background: '#00ad68', color: 'white', border: 'none', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                Anar a MailerLite
+                            </a>
+                            <button onClick={() => {
+                                const csvContent = "data:text/csv;charset=utf-8," + "Correu,Data,Pàgina d'origen\n" + subscribers.map(s => `${s.email},${s.subscribedAt?.toDate ? s.subscribedAt.toDate().toLocaleString('ca-ES') : 'N/A'},${s.source || 'N/A'}`).join("\n");
+                                const encodedUri = encodeURI(csvContent);
+                                const link = document.createElement("a");
+                                link.setAttribute("href", encodedUri);
+                                link.setAttribute("download", "subscriptors_elsmeusescrits.csv");
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }} className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+                                Descarregar històric (CSV)
+                            </button>
+                        </div>
                     </div>
                     <div style={{ width: '100%', overflowX: 'auto' }}>
                         {subscribers.length === 0 ? (

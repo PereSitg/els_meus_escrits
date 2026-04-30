@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { collection, doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../lib/firebase';
 
 export default function ReaderEngagement() {
   const [isVisible, setIsVisible] = useState(false);
@@ -63,15 +61,22 @@ export default function ReaderEngagement() {
 
     setStatus('loading');
     try {
-      const emailLower = email.toLowerCase().trim();
-      // Utilitzem l'email com a ID del document per garantir que no hi hagi duplicats
-      await setDoc(doc(db, 'subscribers', emailLower), {
-        email: emailLower,
-        updatedAt: serverTimestamp(), // Utilitzem updatedAt per saber si s'ha tornat a subscriure
-        source: window.location.pathname,
-        // subscribedAt només es posarà si és nou gràcies al merge o ho gestionem així:
-        // de moment guardem la darrera vegada que ho han demanat
-      }, { merge: true });
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.toLowerCase().trim(),
+          source: window.location.pathname,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error en la subscripció');
+      }
       
       setStatus('success');
       localStorage.setItem('newsletter_subscribed', 'true');
@@ -81,9 +86,9 @@ export default function ReaderEngagement() {
         setIsVisible(false);
       }, 3000);
     } catch (error) {
-      console.error('Error afegint subscriptor:', error);
+      console.error('Error subscrivint:', error);
       setStatus('error');
-      setErrorMessage('Hi ha hagut un error. Torna-ho a provar més tard.');
+      setErrorMessage(error.message || 'Hi ha hagut un error. Torna-ho a provar més tard.');
     }
   };
 
