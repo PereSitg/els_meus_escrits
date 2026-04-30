@@ -170,15 +170,27 @@ export default function PostDetail() {
         post.category !== 'Ecos de Sociedad' &&
         i18n.language !== 'ca';
 
-    // Processar el contingut en paràgrafs
-    const paragraphs = useMemo(() => {
-        const content = showTranslation ? translatedContent : post?.content;
-        if (!content) return [];
-        // Detectem paràgrafs tant si hi ha un com dos salts de línia per donar aire
-        return content
-            .split(/\n+/)
-            .map(p => p.trim())
-            .filter(p => p.length > 0);
+    // Processar el contingut en format HTML
+    const formattedContent = useMemo(() => {
+        let content = showTranslation ? translatedContent : post?.content;
+        if (!content) return '';
+        
+        // Convertir els blocs de text a paràgrafs <p> respectant l'HTML existent
+        const blocks = content.split(/\n{2,}/);
+        const processedBlocks = blocks.map(block => {
+            const trimmed = block.trim();
+            if (!trimmed) return '';
+            // Si sembla una etiqueta HTML de bloc, no l'emboliquem
+            if (/^<\/?(div|img|iframe|p|h[1-6]|ul|ol|li|table|blockquote|pre|figure)[> \n]/i.test(trimmed)) {
+                return trimmed;
+            }
+            // En cas contrari, tractem-ho com un paràgraf
+            // Convertim els salts de línia simples dins del paràgraf a <br>
+            const withBr = trimmed.replace(/\n/g, '<br />');
+            return `<p style="margin-bottom: 1.2rem; display: block;">${withBr}</p>`;
+        });
+        
+        return processedBlocks.join('\n');
     }, [post?.content, showTranslation, translatedContent]);
 
     if (loading) {
@@ -446,29 +458,22 @@ export default function PostDetail() {
                             fontWeight: '400',
                             letterSpacing: '0.02em'
                         }}
-                    >
-                        {paragraphs.map((para, i) => (
-                            <p key={i} style={{
-                                marginBottom: '1.2rem',
-                                display: 'block'
-                            }}>
-                                {para}
-                            </p>
-                        ))}
+                        dangerouslySetInnerHTML={{ __html: formattedContent }}
+                    />
 
-                        {post.publishedInEco && (
-                            <p style={{
-                                marginTop: '4rem',
-                                fontStyle: 'italic',
-                                opacity: 0.8,
-                                borderLeft: '2px solid var(--accent-primary)',
-                                paddingLeft: '1rem',
-                                fontSize: '1.2rem'
-                            }}>
-                                Publicat a L'Eco de Sitges
-                            </p>
-                        )}
-                    </motion.div>
+                    {post.publishedInEco && (
+                        <p style={{
+                            marginTop: '4rem',
+                            fontStyle: 'italic',
+                            opacity: 0.8,
+                            borderLeft: '2px solid var(--accent-primary)',
+                            paddingLeft: '1rem',
+                            fontSize: '1.2rem',
+                            color: 'rgba(255,255,255,0.95)'
+                        }}>
+                            Publicat a L'Eco de Sitges
+                        </p>
+                    )}
 
                     {/* Footer of article */}
                     <div style={{

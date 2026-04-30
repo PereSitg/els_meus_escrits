@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp, setDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
-import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2 } from 'lucide-react';
+import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2, Youtube, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
@@ -67,7 +67,7 @@ export default function PostEditor() {
             const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-            const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
+            const prompt = `Ets un corrector lingüístic expert en català. La teva tasca és corregir ortogràficament i gramaticalment el següent text, mantenint el mateix estil i format (paràgrafs, etc.). IMPORTANT: Respecta i mantingues inalterades EXACTAMENT totes les etiquetes HTML existents (com <img>, <iframe>, <div>, etc.). NO afegeixis cap introducció ni conclusió, retorna NOMÉS el text corregit.
 
             Text a corregir:
             ${content}`;
@@ -107,6 +107,77 @@ export default function PostEditor() {
 
     const fileInputRef = useRef(null);
     const imageInputRef = useRef(null);
+    const inlineImageInputRef = useRef(null);
+    const contentRef = useRef(null);
+
+    const insertAtCursor = (textToInsert) => {
+        const textarea = contentRef.current;
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const newContent = content.substring(0, start) + textToInsert + content.substring(end);
+        setContent(newContent);
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + textToInsert.length, start + textToInsert.length);
+        }, 0);
+    };
+
+    const handleInsertYoutube = () => {
+        const url = prompt("Introdueix l'enllaç del vídeo de YouTube:");
+        if (!url) return;
+        
+        let videoId = '';
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        if (match && match[2].length === 11) {
+            videoId = match[2];
+        } else {
+            alert("Enllaç de YouTube no vàlid.");
+            return;
+        }
+
+        const embedCode = `\n\n<div style="position: relative; width: 100%; padding-bottom: 56.25%; margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><iframe src="https://www.youtube.com/embed/${videoId}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe></div>\n\n`;
+        insertAtCursor(embedCode);
+    };
+
+    const handleInsertHTML = () => {
+        const htmlCode = `\n\n<div class="custom-html">\n  <!-- Escriu el teu codi HTML aquí -->\n  \n</div>\n\n`;
+        insertAtCursor(htmlCode);
+    };
+
+    const handleInlineImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+            alert("Falta configurar les claus de Cloudinary al fitxer .env");
+            return;
+        }
+
+        setUploadProgress('Pujant imatge...');
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+                { method: 'POST', body: formData }
+            );
+
+            if (!response.ok) throw new Error('Error en la pujada');
+            const data = await response.json();
+            
+            const imgCode = `\n\n<img src="${data.secure_url}" alt="Imatge" style="max-width: 100%; height: auto; border-radius: 12px; margin: 2rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />\n\n`;
+            insertAtCursor(imgCode);
+            setUploadProgress('Imatge inserida!');
+            setTimeout(() => setUploadProgress(null), 3000);
+        } catch (error) {
+            alert(`Error al pujar la imatge: ${error.message}`);
+            setUploadProgress(null);
+        }
+    };
 
     const categories = ['Projectes', 'Sitges', 'Ecos de Sociedad', 'Altres'];
 
@@ -712,13 +783,26 @@ export default function PostEditor() {
 
                 <div>
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Contingut de l'Article</label>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem', background: 'var(--bg-secondary)', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        <input type="file" ref={inlineImageInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleInlineImageUpload} />
+                        <button type="button" onClick={() => inlineImageInputRef.current.click()} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+                            <ImageIcon size={16} /> Inserir Imatge
+                        </button>
+                        <button type="button" onClick={handleInsertYoutube} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+                            <Youtube size={16} /> Inserir YouTube
+                        </button>
+                        <button type="button" onClick={handleInsertHTML} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
+                            <Code size={16} /> Inserir HTML
+                        </button>
+                    </div>
                     <textarea
+                        ref={contentRef}
                         rows="15"
                         required
                         value={content}
                         onChange={e => setContent(e.target.value)}
                         placeholder="Escriu aquí o carrega un document..."
-                        style={{ width: '100%', padding: '1rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem', lineHeight: '1.6' }}
+                        style={{ width: '100%', padding: '1rem', background: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', borderRadius: '0.5rem', lineHeight: '1.6', fontFamily: 'monospace' }}
                     ></textarea>
                 </div>
 

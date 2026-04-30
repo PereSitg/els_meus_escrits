@@ -24,7 +24,7 @@ export async function translateText(text, targetLang) {
             messages: [
                 {
                     role: "system",
-                    content: `Ets un traductor professional expert en català. La teva feina és traduir textos del català a ${targetLanguage} mantenint el to, l'estil i la ironia originals tant com sigui possible. Tradueix només el text, sense afegir comentaris ni explicacions.`
+                    content: `Ets un traductor professional expert en català. La teva feina és traduir textos del català a ${targetLanguage} mantenint el to, l'estil i la ironia originals tant com sigui possible. IMPORTANT: Respecta i mantingues inalterades totes les etiquetes HTML existents (com <img>, <iframe>, <b>, <p> etc). Tradueix només el text, sense afegir comentaris ni explicacions.`
                 },
                 {
                     role: "user",
