@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc, Timestamp, setDoc, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
-import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2, Youtube, Code } from 'lucide-react';
+import { Upload, FileText, Image as ImageIcon, Sparkles, Share2, AlertCircle, X, CheckCircle2, LogOut, ArrowLeft, Video, Trash2, Youtube, Code, Bold, Link as LinkIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
@@ -146,6 +146,56 @@ export default function PostEditor() {
         insertAtCursor(htmlCode);
     };
 
+    const handleInsertBold = () => {
+        const textarea = contentRef.current;
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selectedText = content.substring(start, end);
+        
+        if (!selectedText) {
+            alert("Selecciona primer el text que vols posar en negreta.");
+            return;
+        }
+
+        const boldText = `<strong>${selectedText}</strong>`;
+        const newContent = content.substring(0, start) + boldText + content.substring(end);
+        setContent(newContent);
+        
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + boldText.length, start + boldText.length);
+        }, 0);
+    };
+
+    const handleInsertLink = () => {
+        const textarea = contentRef.current;
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        let selectedText = content.substring(start, end);
+        
+        const url = prompt("Introdueix l'adreça web (URL):", "https://");
+        if (!url) return;
+
+        if (!selectedText) {
+            selectedText = prompt("Introdueix el text que es veurà per a l'enllaç:");
+            if (!selectedText) return;
+        }
+
+        const newTab = confirm("Vols que l'enllaç s'obri en una pestanya nova?");
+        const target = newTab ? ' target="_blank" rel="noopener noreferrer"' : '';
+        
+        const linkCode = `<a href="${url}"${target} style="color: var(--accent-primary); text-decoration: underline;">${selectedText}</a>`;
+        const newContent = content.substring(0, start) + linkCode + content.substring(end);
+        setContent(newContent);
+
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + linkCode.length, start + linkCode.length);
+        }, 0);
+    };
+
     const handleInlineImageUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -169,7 +219,14 @@ export default function PostEditor() {
             if (!response.ok) throw new Error('Error en la pujada');
             const data = await response.json();
             
-            const imgCode = `\n\n<img src="${data.secure_url}" alt="Imatge" style="max-width: 100%; height: auto; border-radius: 12px; margin: 2rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />\n\n`;
+            const caption = prompt("Vols afegir un peu de foto? (Deixa-ho buit si no)");
+            
+            let imgCode = `\n\n<img src="${data.secure_url}" alt="Imatge" style="max-width: 100%; height: auto; border-radius: 12px; margin: 2rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />\n\n`;
+            
+            if (caption) {
+                imgCode = `\n\n<figure style="margin: 2rem 0; text-align: center; width: 100%;">\n  <img src="${data.secure_url}" alt="${caption}" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />\n  <figcaption style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-secondary); font-style: italic; line-height: 1.4;">${caption}</figcaption>\n</figure>\n\n`;
+            }
+
             insertAtCursor(imgCode);
             setUploadProgress('Imatge inserida!');
             setTimeout(() => setUploadProgress(null), 3000);
@@ -793,6 +850,13 @@ export default function PostEditor() {
                         </button>
                         <button type="button" onClick={handleInsertHTML} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
                             <Code size={16} /> Inserir HTML
+                        </button>
+                        <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.1)', margin: '0 0.25rem', alignSelf: 'center' }}></div>
+                        <button type="button" onClick={handleInsertBold} title="Negreta" style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                            <Bold size={16} />
+                        </button>
+                        <button type="button" onClick={handleInsertLink} title="Inserir Enllaç" style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: 'white', padding: '0.5rem 0.75rem', borderRadius: '0.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                            <LinkIcon size={16} />
                         </button>
                     </div>
                     <textarea

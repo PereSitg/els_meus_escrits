@@ -525,6 +525,42 @@ a {
   color: var(--accent-primary) !important;
 }
 
+/* Article Body Enhancements */
+.article-body figure {
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.article-body figcaption {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 90%;
+  font-family: var(--font-body);
+}
+
+.article-body a {
+  color: var(--accent-primary) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+  transition: opacity 0.2s;
+}
+
+.article-body a:hover {
+  opacity: 0.8;
+}
+
+.article-body strong {
+  color: #fff;
+  font-weight: 700;
+}
+
 /* Utilities */
 @media (max-width: 768px) {
   .mobile-stack {
