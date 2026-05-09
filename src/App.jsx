@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
+import CookieConsent from './components/CookieConsent';
 
 // Pages
 import Home from './pages/Home';
@@ -37,6 +38,7 @@ function App() {
     <AuthProvider>
       <Router>
         <ScrollToTop />
+        <CookieConsent />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Layout />}>

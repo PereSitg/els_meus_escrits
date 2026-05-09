@@ -285,7 +285,14 @@ i18n
                         recipients_title: "Destinataris de les dades",
                         recipients_text: "Les dades s'emmagatzemen de forma segura a través de Firebase (Google Cloud) o el servei de correu utilitzat per la web, complint amb els estàndards de seguretat de la UE. No se cediran dades a tercers, excepte obligació legal.",
                         rights_title: "Els teus drets",
-                        rights_text: "Tens dret a accedir, rectificar o suprimir les teves dades personals en qualsevol moment. Per fer-ho, només cal que m'enviïs un correu electrònic."
+                        rights_text: "Tens dret a accedir, rectificar o suprimir les teves dades personals en qualezvol moment. Per fer-ho, només cal que m'enviïs un correu electrònic."
+                    },
+                    cookieBanner: {
+                        title: "Privacitat i Galetes",
+                        description: "Utilitzem galetes per millorar la teva experiència i analitzar el trànsit de la web. Pots acceptar-les totes, rebutjar-les o configurar les teves preferències.",
+                        acceptAll: "Acceptar totes",
+                        reject: "Rebutjar",
+                        configure: "Configurar"
                     }
                 }
             },
@@ -560,6 +567,13 @@ i18n
                         recipients_text: "Los datos se almacenan de forma segura a través de Firebase (Google Cloud) o el servicio de correo utilizado por la web, cumpliendo con los estándares de seguridad de la UE. No se cederán datos a terceros, excepto obligación legal.",
                         rights_title: "Tus derechos",
                         rights_text: "Tienes derecho a acceder, rectificar o suprimir tus datos personales en cualquier momento. Para hacerlo, solo tienes que enviarme un correo electrónico."
+                    },
+                    cookieBanner: {
+                        title: "Privacidad y Galletas",
+                        description: "Utilizamos cookies para mejorar tu experiencia y analizar el tráfico de la web. Puedes aceptarlas todas, rechazarlas o configurar tus preferencias.",
+                        acceptAll: "Aceptar todas",
+                        reject: "Rechazar",
+                        configure: "Configurar"
                     }
                 }
             },
@@ -834,6 +848,13 @@ i18n
                         recipients_text: "Data is stored securely through Firebase (Google Cloud) or the email service used by the website, complying with EU security standards. Data will not be transferred to third parties, except by legal obligation.",
                         rights_title: "Your rights",
                         rights_text: "You have the right to access, rectify or delete your personal data at any time. To do so, just send me an email."
+                    },
+                    cookieBanner: {
+                        title: "Privacy and Cookies",
+                        description: "We use cookies to improve your experience and analyze web traffic. You can accept all, reject them, or configure your preferences.",
+                        acceptAll: "Accept all",
+                        reject: "Reject",
+                        configure: "Configure"
                     }
                 }
             }
