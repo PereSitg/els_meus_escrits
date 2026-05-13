@@ -32,6 +32,7 @@ export default function Header() {
         { name: t('nav.dev_ia'), path: '/projects?tag=IA' },
         { name: t('nav.consultancy'), path: '/projects?tag=Consultoria' },
         { name: 'Més enllà d\'Orió', path: 'https://mesenlladorio-c8gr.vercel.app/', external: true },
+        { name: 'PBSitges', path: 'https://peresitg.github.io/PenyaBarcelonistaSitges/', external: true },
     ];
 
     const writingItems = [
