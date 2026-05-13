@@ -54,6 +54,18 @@ export const projectsData = [
         seoTitle: 'Més enllà d\'Orió',
         seoDescription: 'Blog sobre tecnologia i Intel·ligència Artificial.',
         isIndexed: true
+    },
+    {
+        id: 'pbsitges',
+        slug: 'pbsitges',
+        image: '/pbsitges_card.png',
+        tags: ['Web', 'Cultura', 'Esports'],
+        category: 'dev_ia',
+        translationKey: 'pbsitges',
+        externalLink: 'https://peresitg.github.io/PenyaBarcelonistaSitges/',
+        seoTitle: 'Penya Barcelonista Sitges',
+        seoDescription: 'Pàgina web oficial de la Penya Barcelonista de Sitges.',
+        isIndexed: true
     }
 ];
 

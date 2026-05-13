@@ -197,6 +197,10 @@ i18n
                             title: 'Més enllà d\'Orió',
                             desc: 'Vídeos, escrits sobre tecnologia i més coses random.'
                         },
+                        pbsitges: {
+                            title: 'PBSitges',
+                            desc: 'La botiga oficial de la Penya Barcelonista de Sitges. Un projecte on la tradició blaugrana es troba amb el comerç digital modern.'
+                        },
                         related_title: 'Altres Projectes'
                     },
 
@@ -479,6 +483,10 @@ i18n
                             title: 'Més enllà d\'Orió',
                             desc: 'Vídeos, escritos sobre tecnología y más cosas random.'
                         },
+                        pbsitges: {
+                            title: 'PBSitges',
+                            desc: 'La tienda oficial de la Penya Barcelonista de Sitges. Un proyecto donde la tradición azulgrana se une al comercio digital moderno.'
+                        },
                         related_title: 'Otros Proyectos'
                     },
                     footer: {
@@ -759,6 +767,10 @@ i18n
                         mes_enlla: {
                             title: 'Més enllà d\'Orió',
                             desc: 'Videos, writings about technology and more random stuff.'
+                        },
+                        pbsitges: {
+                            title: 'PBSitges',
+                            desc: 'The official store of Penya Barcelonista de Sitges. A project where Barça tradition meets modern digital commerce.'
                         },
                         related_title: 'Other Projects'
                     },
